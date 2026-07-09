@@ -25,6 +25,7 @@
 </script>
     <title>Топорайоны: играй за свой район!</title>
     <style>
+      
         :root {
             --accent: #161616f1;
             --transition: 350ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -75,7 +76,7 @@
 
         /* Карточка информации */
         .info-box {
-            position: absolute; top: 0; right: 0; width: 320px; height: 100vh;
+            position: absolute; top: 0; right: 0; width: 500px; height: 100vh; /* было width: 320px;*/
             background: #ffffff; z-index: 1000;
             box-shadow: -5px 0 40px rgba(0,0,0,0.06);
             border-left: 1px solid rgba(0,0,0,0.08);
@@ -441,6 +442,82 @@
             z-index: 999998;                       /* Чуть ниже самого облака */
 
         }
+
+    
+      @media (min-width: 769px) {
+          .sidebar {
+              width: 260px !important; /* Было ~300px, стало 280px */
+          }
+      }
+
+        /* Стили для сочной промо-карточки */
+        .promo-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 2px dashed #10b981;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .promo-title { font-size: 1.3rem; font-weight: 500; color: #000000; margin-bottom: 8px; }
+        .promo-code { font-size: 2.4rem; font-weight: 800; color: #10b981; letter-spacing: 2px; margin: 10px 0; }
+        .desk { font-size: 2.4rem;}
+        .copy-btn {
+            background: #959595; 
+            color: white; 
+            border: #10b981; 
+            padding: 12px 24px;
+            border-radius: 8px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: 0.3s; 
+            width: 100%;
+            display: block;       /* Чтобы кнопка растягивалась на всю ширину */
+            box-sizing: border-box; /* КРИТИЧЕСКИ ВАЖНО: включает padding в ширину */
+            text-align: center;   /* Для текста внутри */
+          
+        }
+        .copy-btn:hover { background: #025d40; }
+        .promo-disclaimer { font-size: 0.1rem; color: #94a3b8; margin-top: 12px; }
+
+        
+        /* Контейнер для текста и иконки */
+        .promo-code-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+            padding: 15px 10px;
+            background: #f8fafc; /* легкий фон для выделения кода */
+            border-radius: 12px;
+            border: 2px dashed #cbd5e1; /* Сделай штрих чуть заметнее, чем был */
+        }
+
+        /* Текст кода */
+        .promo-code-text {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #1f2937;
+            letter-spacing: 1px;
+        }
+
+        /* Иконка */
+        .copy-icon {
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+            fill: #64748b; /* серый цвет по умолчанию */
+            transition: all 0.2s ease;
+        }
+
+        .copy-icon:hover {
+            fill: #10b981; /* зеленый при наведении */
+            transform: scale(1.1);
+        }
+
+        
     </style>
     
     <script type="text/javascript">
@@ -3562,6 +3639,198 @@ const districtMap = {
     "petrogradsky": "13", "petrodvortsovy": "14", "primorsky": "15", "pushkinsky": "16",
     "frunzensky": "17", "centralny": "18", "lenoblast": "19"
 };
+
+
+const promoDatabase = [
+   
+    { 
+    partner: "Перекрёсток Доставка", 
+    code: "108E8TSRW", 
+    desc: "Скидка 600 ₽ при заказе от 1800 ₽ на два первых заказа в приложении Перекрёсток Доставка при наличии готовой еды в чеке", 
+    link: "https://perekrestok.prfl.me/youtube/efjk9o?erid=2RanykgnNQ3", 
+    disclosure: 'Реклама. ООО "ИКС 5 ДИДЖИТАЛ", ИНН 9722010808 erid: 2RanykgnNQ3' 
+    },
+
+    { 
+    partner: "Перекрёсток Доставка", 
+    code: "106RSNRU7", 
+    desc: "Скидка 30% на первый заказ от 3000 ₽ в приложении Перекрёсток Доставка", 
+    link: "https://perekrestok.prfl.me/youtube/efjk9o?erid=2RanykgnNQ3", 
+    disclosure: 'Реклама. ООО "ИКС 5 ДИДЖИТАЛ", ИНН 9722010808 erid: 2RanykgnNQ3' 
+    },
+
+    { 
+    partner: "Перекрёсток Доставка", 
+    code: "108ES8BX7", 
+    desc: "Скидка 25% при заказе от 1800 ₽ на первые два заказа в приложении Перекрёсток Доставка", 
+    link: "https://perekrestok.prfl.me/youtube/efjk9o?erid=2RanykgnNQ3", 
+    disclosure: 'Реклама. ООО "ИКС 5 ДИДЖИТАЛ", ИНН 9722010808 erid: 2RanykgnNQ3' 
+    },
+
+    { 
+    partner: "Перекрёсток Доставка", 
+    code: "109J95BB7", 
+    desc: "Скидка 355 ₽ от 1555 ₽ в приложении Перекрёсток Доставка для тех, кто не делал заказ более 180 дней", 
+    link: "https://perekrestok.prfl.me/youtube/efjk9o?erid=2RanykgnNQ3", 
+    disclosure: 'Реклама. ООО "ИКС 5 ДИДЖИТАЛ", ИНН 9722010808 erid: 2RanykgnNQ3' 
+    },
+
+    { 
+    partner: "ВкусВилл Доставка", 
+    code: "30VEF47L", 
+    desc: "Скидка 300 ₽ от 1500 ₽ на первую покупку", 
+    link: "https://vksvl.prfl.me/youtube/0m7gt6?erid=2RanykWR8PV", 
+    disclosure: 'Реклама. АО ВкусВилл, ОГРН 1217700253671. Подробности на сайте vkusvill.ru erid: 2RanykP1Bym' 
+    },
+
+    { 
+    partner: "ВкусВилл Доставка", 
+    code: "VSKX25L", 
+    desc: "Скидка 250 ₽ от 1250 ₽ на первую покупку", 
+    link: "https://vksvl.prfl.me/youtube/0m7gt6?erid=2RanykWR8PV", 
+    disclosure: 'Реклама. АО ВкусВилл, ОГРН 1217700253671. Подробности на сайте vkusvill.ru erid: 2RanykP1Bym' 
+    },
+
+    { 
+    partner: "ВкусВилл Доставка", 
+    code: "VSNDEF2", 
+    desc: "Скидка 200 ₽ от 1000 ₽ на первую покупку", 
+    link: "https://vksvl.prfl.me/youtube/0m7gt6?erid=2RanykWR8PV", 
+    disclosure: 'Реклама. АО ВкусВилл, ОГРН 1217700253671. Подробности на сайте vkusvill.ru erid: 2RanykP1Bym' 
+    },
+
+    { 
+    partner: "ВкусВилл Доставка", 
+    code: "35V2JRXX", 
+    desc: "Скидка 350 ₽ от 2500 ₽ на первую покупку", 
+    link: "https://vksvl.prfl.me/youtube/0m7gt6?erid=2RanykWR8PV", 
+    disclosure: 'Реклама. АО ВкусВилл, ОГРН 1217700253671. Подробности на сайте vkusvill.ru erid: 2RanykP1Bym' 
+    },
+
+    /*{ 
+    partner: "Ёбидоёби", 
+    code: "BL7261PF", 
+    desc: "Скидка 20% от 1800 ₽ на первый заказ (суши и роллы)", 
+    link: "https://yobidoyobi1.prfl.me/youtube/ejxkf6?erid=2RanynKgFPy", 
+    disclosure: 'Реклама. ООО "Вкусные технологии". ИНН 2465359759 erid: 2RanynKgFPy' 
+    },*/
+
+    { 
+    partner: "Т-Мобайл", 
+    code: "", 
+    desc: "Получить безлимит на всё 490 ₽ с переносом номера", 
+    link: "https://tinkoff.prfl.me/youtube/rwnym5?erid=2RanymDw7m5", 
+    disclosure: 'Реклама. ООО "Т-Моб", лицензия Роскомнадзора 154950. Подробнее на mobile.tbank.ru. erid: 2RanymDw7m5' 
+    },
+
+    { 
+    partner: "Т-Мобайл", 
+    code: "", 
+    desc: "Получить безлимит на всё 490 ₽", 
+    link: "https://tinkoff.prfl.me/youtube/9a3rza?erid=2RanymCT8Uj", 
+    disclosure: 'Реклама. ООО "Т-Моб", лицензия Роскомнадзора 154950. Подробнее на mobile.tbank.ru. erid: 2RanymCT8Uj' 
+    },
+
+    { 
+    partner: "Т-Мобайл", 
+    code: "", 
+    desc: "Оформить сим-карту с бесплатной подпиской Pro на 2 месяца", 
+    link: "https://tmobile.prfl.me/youtube/54jh8d?erid=2Ranym53C51", 
+    disclosure: 'Реклама. ООО "Т-Моб", лицензия Роскомнадзора 154950. Подробнее на mobile.tbank.ru. erid: 2Ranym53C51' 
+    },
+
+    { 
+    partner: "Т-Банк. Джуниор Дебетовая карта", 
+    code: "", 
+    desc: "Дебетовая карта Джуниор c начислением 500 баллов за первую покупку", 
+    link: "https://tnkff.prfl.me/youtube/94zym1?erid=2RanykmGM8f", 
+    disclosure: 'Реклама. АО «ТБанк», лицензия 2673. Подробнее на tbank.ru. erid: 2RanykmGM8f' 
+    },
+
+    { 
+    partner: "ФЛАУВАУ", 
+    code: "ПРИВЕТ",  
+    desc: "Скидка 1000 ₽ на первый заказ цветов от 3000 ₽ на сайте и в приложении", 
+    link: "https://fwow.prfl.me/youtube/w4bqtq?erid=2RanykzcEfm", 
+    disclosure: 'Реклама. Общество с ограниченной  ответственностью «ФЛАУВАУ», ИНН 9702020445. erid: 2RanykzcEfm' 
+    },
+
+    { 
+    partner: "ФЛАУВАУ", 
+    code: "FWPERFS2h8lc",  
+    desc: "Скидка 20% на первый заказ цветов на все категории от 3 000 ₽", 
+    link: "https://fwow.prfl.me/youtube/w4bqtq?erid=2RanykzcEfm", 
+    disclosure: 'Реклама. Общество с ограниченной  ответственностью «ФЛАУВАУ», ИНН 9702020445. erid: 2RanykzcEfm' 
+    },
+
+    { 
+    partner: "Яндекс Лавка", 
+    code: "50RAY865",  
+    desc: "Скидка 50% от 800 ₽ на первый заказ, максимальная скидка 600 ₽", 
+    link: "https://yalavka.prfl.me/youtube/a2v642?erid=2RanykjdHrB", 
+    disclosure: 'Реклама. ООО "Яндекс.Лавка", ИНН 9718101499. erid: 2RanykjdHrB' 
+    },
+    { 
+    partner: "Яндекс Лавка", 
+    code: "300PF969",  
+    desc: "Скидка 300 ₽ от 600 ₽ на первый заказ", 
+    link: "https://yalavka.prfl.me/youtube/a2v642?erid=2RanykjdHrB", 
+    disclosure: 'Реклама. ООО "Яндекс.Лавка", ИНН 9718101499. erid: 2RanykjdHrB' 
+    },
+    { 
+    partner: "Яндекс Лавка", 
+    code: "40AMD919",  
+    desc: "Скидка 40% от 800 ₽ на один заказ для тех, кто не пользовался сервисом более года, максимальная скидка 600 ₽", 
+    link: "https://yalavka.prfl.me/youtube/a2v642?erid=2RanykjdHrB", 
+    disclosure: 'Реклама. ООО "Яндекс.Лавка", ИНН 9718101499. erid: 2RanykjdHrB' 
+    },
+
+    { 
+    partner: "Магнит: акции и доставка", 
+    code: "FM51KUS94",  
+    desc: 'Скидка 51% на первый заказ от 1000 ₽ в разделе "Мигом"', 
+    link: "https://mgnt1.prfl.me/youtube/gaxaqx?erid=2Ranym7s75M", 
+    disclosure: 'Реклама. АО "Тандер", ИНН 2310031475. erid: 2Ranym7s75M' 
+    },
+    { 
+    partner: "Магнит: акции и доставка", 
+    code: "PE3HBEA3",  
+    desc: 'Скидка 36% от 1200 ₽ на первый заказ в приложении Магнит Доставка в разделе "Экспресс"', 
+    link: "https://mgnt1.prfl.me/youtube/gaxaqx?erid=2Ranym7s75M", 
+    disclosure: 'Реклама. АО "Тандер", ИНН 2310031475. erid: 2Ranym7s75M' 
+    },
+    { 
+    partner: "Магнит: акции и доставка", 
+    code: "21DSF8RA247",  
+    desc: 'Скидка 21% на один повторный заказ от 1700 ₽ в разделе "Мигом"', 
+    link: "https://mgnt1.prfl.me/youtube/gaxaqx?erid=2Ranym7s75M", 
+    disclosure: 'Реклама. АО "Тандер", ИНН 2310031475. erid: 2Ranym7s75M' 
+    },
+    { 
+    partner: "Магнит: акции и доставка", 
+    code: "25GF9GBFQ",  
+    desc: 'Скидка 31% в приложении Магнит, в разделе Гипермаркет', 
+    link: "https://mgnt1.prfl.me/youtube/gaxaqx?erid=2Ranym7s75M", 
+    disclosure: 'Реклама. АО "Тандер", ИНН 2310031475. erid: 2Ranym7s75M' 
+    },
+];
+
+function getRandomPromo() {
+    return promoDatabase[Math.floor(Math.random() * promoDatabase.length)];
+}
+
+// Функция копирования с визуальной отдачей
+function copyPromoToClipboard(code, iconElement) {
+    navigator.clipboard.writeText(code).then(() => {
+        const originalFill = iconElement.style.fill;
+        // Красим в зеленый цвет успеха
+        iconElement.style.fill = "#10b981"; 
+        
+        setTimeout(() => {
+            iconElement.style.fill = originalFill;
+        }, 2000);
+    });
+}
 
 
 
@@ -29249,6 +29518,10 @@ function setupNextButton(cleanId, progress) {
     if (!nextBtn) return;
     
     const newNextBtn = nextBtn.cloneNode(true);
+
+    // ДОБАВИТЬ ЭТУ СТРОКУ: принудительно снимаем блокировку с новой кнопки
+    newNextBtn.disabled = false;
+
     nextBtn.parentNode.replaceChild(newNextBtn, nextBtn);
     
     if (progress.count >= 5) {
@@ -29274,6 +29547,8 @@ function buildQuizForLocation(cleanId) {
     resScreen.style.display = 'none';
     resScreen.classList.remove('active');
     if (nextBtn) nextBtn.style.display = 'block';
+    // ДОБАВИТЬ ЭТУ СТРОКУ: разблокируем системную кнопку при старте новой локации
+        nextBtn.disabled = false;
 
     if (!quizDatabase[cleanId] || quizDatabase[cleanId].length === 0) {
         document.getElementById('side-quiz-title').textContent = ""; 
@@ -29287,14 +29562,67 @@ function buildQuizForLocation(cleanId) {
     }
 
     let completedQuestions = JSON.parse(localStorage.getItem('completedQuestions')) || [];
+
+
     if (completedQuestions.includes(cleanId)) {
+        // Инициализируем хранилище, если его еще нет
+        if (typeof window.locationPromos === 'undefined') { window.locationPromos = {}; }
+
+        // Если для этой локации еще не назначен промокод, назначаем его один раз
+        if (!window.locationPromos[cleanId]) {
+            window.locationPromos[cleanId] = getRandomPromo();
+        }
+
+        // Берем уже закрепленный промокод из хранилища
+        const promo = window.locationPromos[cleanId];
+        
         document.getElementById('side-quiz-title').innerHTML = "<div style='text-align:center; font-size: 1.2rem; margin-top: 10px;'>🎉 Локация пройдена!</div>";
+        
+        // Рендеринг карточки с данными
         optionsContainer.innerHTML = `
-            <div style="text-align: center; color: #10b981; padding: 20px; font-weight: 500; background: rgba(16, 185, 129, 0.1); border-radius: 8px; border: 1px solid rgba(16, 185, 129, 0.2); margin-top: 15px;">
-                Вы успешно ответили на все вопросы этой локации! Переходите к другим объектам на карте.
+            <div class="promo-card">
+                <div class="promo-title">Ваша скидка в ${promo.partner}:</div>
+                <div style="font-size: 0.85rem; color: #475569; margin: 8px 0;">${promo.desc}</div>
+
+                ${promo.code ? `
+            <div class="promo-code-container">
+                <span class="promo-code-text">${promo.code}</span>
+                <svg class="copy-icon" viewBox="0 0 24 24" onclick="copyPromoToClipboard('${promo.code}', this)">
+                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                </svg>
             </div>
+            ` : ''}
+                
+                <a href="${promo.link}" target="_blank" class="copy-btn" style="display: block; text-decoration: none; margin-bottom: 10px; background: #10b981;">
+                    Получить скидку
+                </a>
+                
+                <div class="promo-disclaimer" style="font-size: 0.7rem; color: #94a3b8; margin-top: 10px;">
+                    ${promo.disclosure}
+                </div>
+           </div>
+
+            <button id="final-close-btn" style="width: 100%; margin-top: 10px; padding: 12px; background: #3f3f46; color: #ffffff; border: none; border-radius: 8px; cursor: pointer;">
+                Вернуться к карте
+            </button>
         `;
+
+        
         if (nextBtn) nextBtn.style.display = 'none';
+        
+        // Вешаем логику закрытия панели на нашу новую кнопку
+        const finalCloseBtn = document.getElementById('final-close-btn');
+        if (finalCloseBtn) {
+            finalCloseBtn.onclick = () => {
+                // Закрываем панель квиза
+                const infoBox = document.getElementById('info-box');
+                if (infoBox) infoBox.style.display = 'none';
+                
+                // Очищаем карту от выделений, чтобы можно было выбрать новый район
+                const elements = document.querySelectorAll('svg [id]');
+                elements.forEach(el => el.classList.remove('dimmed', 'highlight'));
+            };
+        }
         return; 
     }
 
