@@ -50,7 +50,7 @@
             border: 1px solid rgba(0,0,0,0.05);
         }
 
-        .sidebar h3 { color: var(--accent); text-transform: uppercase; font-size: 11px; margin: 0 0 14px 0; letter-spacing: 1px; font-weight: 700; }
+        .sidebar h3 { color: var(--accent); text-transform: none; font-size: 14px; margin: 0 0 14px 0; letter-spacing: normal; font-weight: 600; }
 
         .filter-group { display: flex; flex-direction: column; gap: 10px; }
         .filter-item { display: flex; align-items: center; gap: 10px; font-size: 12.5px; color: #222; cursor: pointer; user-select: none; font-weight: 500; }
@@ -306,11 +306,11 @@
             position: fixed; top: 20px; right: 20px; z-index: 10000;
             padding: 12px 22px; background: #161616; color: white;
             border: none; border-radius: 50px; cursor: pointer;
-            font-size: 13px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;
+            font-size: 14px; font-weight: 600; text-transform: none; letter-spacing: normal;
             box-shadow: 0 4px 15px rgba(0,0,0,0.15); transition: transform 0.2s, background-color 0.2s;
             display: flex; align-items: center; gap: 12px;
         }
-        #leaderboard-trigger:hover { transform: scale(1.02); background: #222; }
+        #leaderboard-trigger:hover { transform: scale(1.02); background: #4b4b4b;; }
 
         .leaderboard-table { width: 100%; table-layout: fixed; border-collapse: collapse; }
         .col-rank  { width: 60px; text-align: left !important; }
@@ -334,10 +334,10 @@
         #district-switcher-wrapper {
             position: fixed; z-index: 9998; background: #161616; padding: 10px 17px; border-radius: 20px;
             border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; gap: 8px;
-            font-family: sans-serif; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            font-family: sans-serif;
         }
 
-        #header-district-select { background: #161616; color: white; border: none; outline: none; font-size: 1rem; cursor: pointer; appearance: none; padding-right: 15px; font-weight: 500; }
+        #header-district-select { background: #161616; color: white; border: none; outline: none; font-size: 14px; text-transform: none; cursor: pointer; appearance: none; padding-right: 15px; font-weight: 600; letter-spacing: normal;}
         .arrow { color: rgba(255,255,255,0.5); pointer-events: none; margin-left: -15px; font-size: 0.8rem; }
 
         /* --- ПК ВЕРСИЯ КОРРЕКТИРОВКА --- */
@@ -372,7 +372,7 @@
             /* 2. ЧИСТАЯ МОБИЛЬНАЯ ШАПКА */
             #mobile-controls {
                 display: flex !important;
-                position: fixed; top: 0; left: 0; right: 0; height: 55px;
+                position: fixed; top: 0; left: 0; right: 0; height: 72px;
                 background: #000000; align-items: center; padding: 0 15px;
                 z-index: 100000 !important; box-shadow: 0 2px 15px rgba(0,0,0,0.4);
                 box-sizing: border-box;
@@ -427,6 +427,31 @@
             #m-layer-slot .zoom-controls { border-top: 1px solid rgba(255,255,255,0.1) !important; margin-top: 15px !important; }
             #m-layer-slot .zoom-controls span { color: #aaa !important; }
             #m-layer-slot .zoom-slider::-webkit-slider-thumb { background: #ffffff !important; }
+
+
+
+
+            /* Настройка переехавшей кнопки доната внутри шторки */
+            #m-donate-slot #donate-btn-element {
+                background: #222222 !important; 
+                border: 1px solid rgba(255,255,255,0.1) !important;
+                color: #ffffff !important; 
+                padding: 14px !important; 
+                border-radius: 14px !important;
+                font-size: 13px !important; 
+                font-weight: bold !important; 
+                width: 100% !important;
+                justify-content: center !important; 
+                margin-bottom: 20px !important; 
+                display: flex !important;
+                box-sizing: border-box !important;
+                text-decoration: none !important;
+            }
+
+            #m-donate-slot #donate-btn-element:active {
+                background: #333333 !important;
+                transform: scale(0.98) !important;
+            }
         }
 
                 /* Слой для блюра */
@@ -450,10 +475,10 @@
           }
       }
 
-        /* Стили для сочной промо-карточки */
+      /* Стили для сочной промо-карточки */
         .promo-card {
             background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            border: 2px dashed #10b981;
+            border: 2px #10b981;
             border-radius: 16px;
             padding: 20px;
             margin: 20px 0;
@@ -517,6 +542,120 @@
             transform: scale(1.1);
         }
 
+
+       
+
+
+
+
+
+
+
+
+
+/* Базовый стиль для кнопок в хедере (сочетается с твоим селектором) */
+.header-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 44px; /* высота в точности как у твоего селектора */
+  padding: 0 20px;
+  background-color: #1c1c1e; /* фирменный темно-серый цвет плашек */
+  color: #ffffff;
+  text-decoration: none;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 100px; /* идеальная скругленная форма "pill" */
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* легкая тень для объема */
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+
+/* Эффект наведения — кнопка мягко подсвечивается */
+.header-btn:hover {
+  background-color: #2c2c2e;
+}
+
+/* Эффект нажатия (тактильный отклик) */
+.header-btn:active {
+  transform: scale(0.97);
+}
+
+/* Специфика для кнопки доната */
+.donate-btn {
+  /* Если захочешь сделать молнию золотистой, плашка останется темной */
+}
+.donate-btn span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+      /* Главный контейнер для всех элементов управления в правом верхнем углу */
+.header-controls {
+  position: absolute;
+  top: 20px; /* регулируй отступ от верхнего края экрана здесь */
+  right: 20px; /* регулируй отступ от правого края экрана здесь */
+  display: flex;
+  align-items: center;
+  gap: 12px; /* ровный отступ между всеми кнопками */
+  z-index: 1001; /* чтобы панель всегда была поверх карты */
+}
+
+/* СБРОС СТАРЫХ СТИЛЕЙ: заставляем выбор района и рейтинг слушаться Flexbox */
+.header-controls > * {
+  position: relative !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+  margin: 0 !important;
+}
+
+
+
+
+/* Десктопные стили для кнопки "Поддержать" */
+#donate-btn-element {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    
+    /* Высота в тон кнопке рейтинга и селектору (обычно это 40px или 42px) */
+    height: 40px; 
+    padding: 0 16px;
+    
+    /* Внешний вид (при необходимости скорректируй цвета под свой дизайн) */
+    background: #000000; 
+    border: none;
+    border-radius: 50px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    display: flex; align-items: center; gap: 12px;
+    
+    /* Анимация плавного перехода */
+    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.2s ease;
+}
+
+/* Эффект легкого увеличения при наведении */
+#donate-btn-element:hover {
+    transform: scale(1.02); /* увеличение на 5% */
+    background: #4b4b4b;    /* легкое осветление фона */
+}
+
+/* Эффект нажатия */
+#donate-btn-element:active {
+    transform: scale(0.98);
+}
+
         
     </style>
     
@@ -533,27 +672,36 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        function runMobileAdaptation() {
-            if (window.innerWidth <= 768) {
-                const district = document.getElementById('district-switcher-wrapper');
-                const rating = document.getElementById('leaderboard-trigger');
-                const sidebar = document.querySelector('.sidebar');
-                
-                const districtSlot = document.getElementById('m-district-slot');
-                const ratingSlot = document.getElementById('m-rating-slot');
-                const layerSlot = document.getElementById('m-layer-slot');
-                
-                // Физически переносим узлы DOM в подготовленные мобильные слоты
-                if (district && districtSlot) districtSlot.appendChild(district);
-                if (rating && ratingSlot) ratingSlot.appendChild(rating);
-                if (sidebar && layerSlot) layerSlot.appendChild(sidebar);
-                
-                console.log("📱 Элементы успешно перенесены в мобильные слоты настроек.");
-            }
+    function runMobileAdaptation() {
+        if (window.innerWidth <= 768) {
+            const district = document.getElementById('district-switcher-wrapper');
+            const rating = document.getElementById('leaderboard-trigger');
+            const donate = document.getElementById('donate-btn-element'); // Находим кнопку доната
+            const sidebar = document.querySelector('.sidebar');
+            
+            const districtSlot = document.getElementById('m-district-slot');
+            const ratingSlot = document.getElementById('m-rating-slot');
+            const donateSlot = document.getElementById('m-donate-slot'); // Находим мобильный слот для доната
+            const layerSlot = document.getElementById('m-layer-slot');
+            
+            // Физически переносим узлы DOM в подготовленные мобильные слоты
+            if (district && districtSlot) districtSlot.appendChild(district);
+            if (rating && ratingSlot) ratingSlot.appendChild(rating);
+            if (donate && donateSlot) donateSlot.appendChild(donate); // Переносим донат
+            if (sidebar && layerSlot) layerSlot.appendChild(sidebar);
+            
+            console.log("📱 Элементы успешно перенесены в мобильные слоты настроек.");
         }
-        // Запуск сразу по готовности DOM
-        runMobileAdaptation();
-    });
+    }
+    // Запуск сразу по готовности DOM
+    runMobileAdaptation();
+});
+
+
+
+
+
+    
 </script>
 </head>
 <body>
@@ -584,20 +732,33 @@
 
 <div id="m-settings">
     <div id="m-rating-slot"></div>
+    <div id="m-donate-slot"></div>
     <div id="m-layer-slot"></div>
 </div>
 
-    <div id="district-switcher-wrapper">
+   
+
+<div class="header-controls">
+  
+
+  <a href="https://www.tbank.ru/cf/91AVuXFbZpV" target="_blank" class="donate-btn" id="donate-btn-element">
+        <span>Поддержать ⚡</span>
+    </a>
+
+  <div id="district-switcher-wrapper">
     <select id="header-district-select">
         <option value="" disabled selected>Выберите район...</option>
     </select>
     <span class="arrow">▼</span>
 </div>
 
-<button id="leaderboard-trigger">
+
+  <button id="leaderboard-trigger">
     <span class="online-indicator"></span> 
     🏆 Рейтинг районов
 </button>
+
+</div>
 
 <div id="leaderboard-panel">
     <div class="panel-header">
@@ -3621,6 +3782,94 @@
 
 
     <script>
+      // Создаем объекты аудио. Укажите пути к вашим звуковым файлам (.mp3, .wav или .ogg)
+const successSound = new Audio('sounds/quiz-success.mp3'); 
+const failSound = new Audio('sounds/quiz-error.mp3');
+const triumphSound = new Audio('sounds/triumph.mp3');
+
+successSound.volume = 0.3;
+failSound.volume = 0.3;
+triumphSound.volume = 0.2;
+
+
+successSound.load();
+failSound.load();
+triumphSound.load();
+
+      const SOUND_URL = 'sounds/button-click.mp3';
+
+let audioCtx = null;
+let clickBuffer = null;
+let fallbackAudio = null;
+
+// 1. Пробуем инициализировать быстрый Web Audio API (нужен локальный сервер)
+async function initWebAudio() {
+    try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+        
+        const response = await fetch(SOUND_URL);
+        const arrayBuffer = await response.arrayBuffer();
+        
+        // Декодируем аудио в оперативную память
+        clickBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+        console.log("🔊 Web Audio API успешно инициализирован (звук без задержек).");
+    } catch (error) {
+        console.warn("⚠️ Web Audio API не поддерживается локально (file://). Включен резервный режим обычного Audio.");
+        setupFallback();
+    }
+}
+
+// 2. Резервный метод для работы без сервера (просто через двойной клик по index.html)
+function setupFallback() {
+    fallbackAudio = new Audio(SOUND_URL);
+    fallbackAudio.volume = 0.08;
+    fallbackAudio.preload = 'auto';
+}
+
+// 3. Функция мгновенного воспроизведения
+function playSound() {
+    // Если сработал Web Audio API
+    if (audioCtx && clickBuffer) {
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+        const soundSource = audioCtx.createBufferSource();
+        const gainNode = audioCtx.createGain();
+        
+        soundSource.buffer = clickBuffer;
+        gainNode.gain.value = 0.08; 
+        
+        soundSource.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        soundSource.start(0);
+    } 
+    // Если откатились на резервный вариант
+    else if (fallbackAudio) {
+        fallbackAudio.currentTime = 0;
+        fallbackAudio.play().catch(err => {
+            console.log("Воспроизведение заблокировано до первого взаимодействия:", err);
+        });
+    }
+}
+
+// Запуск при готовности страницы
+document.addEventListener('DOMContentLoaded', () => {
+    // Пытаемся загрузить звук в память
+    initWebAudio();
+
+    // ДЕЛЕГИРОВАНИЕ: вешаем один клик на всё окно.
+    // Код сработает, даже если элементы динамически переносились в мобильную шторку.
+    document.addEventListener('click', (event) => {
+        const target = event.target.closest('#district-switcher-wrapper, #leaderboard-trigger, #donate-btn-element, .sidebar');
+        
+        if (target) {
+            playSound();
+        }
+    });
+});
+
+
 // ==========================================
 // 1. ГЛОБАЛЬНЫЕ СЛОВАРНЫЕ ДАННЫЕ И НАСТРОЙКИ
 // ==========================================
@@ -3644,174 +3893,27 @@ const districtMap = {
 const promoDatabase = [
    
     { 
-    partner: "Перекрёсток Доставка", 
-    code: "108E8TSRW", 
-    desc: "Скидка 600 ₽ при заказе от 1800 ₽ на два первых заказа в приложении Перекрёсток Доставка при наличии готовой еды в чеке", 
-    link: "https://perekrestok.prfl.me/youtube/efjk9o?erid=2RanykgnNQ3", 
-    disclosure: 'Реклама. ООО "ИКС 5 ДИДЖИТАЛ", ИНН 9722010808 erid: 2RanykgnNQ3' 
+    partner: "Привет от автора!", 
+    desc: "Я пилю этот проект в одиночку на чистом энтузиазме. Твой донат — это буквально мои макароны на ужин и заряд энергии работать над картой дальше. Буду рад даже сотке!", 
+    link: "https://www.tbank.ru/cf/91AVuXFbZpV", 
     },
 
     { 
-    partner: "Перекрёсток Доставка", 
-    code: "106RSNRU7", 
-    desc: "Скидка 30% на первый заказ от 3000 ₽ в приложении Перекрёсток Доставка", 
-    link: "https://perekrestok.prfl.me/youtube/efjk9o?erid=2RanykgnNQ3", 
-    disclosure: 'Реклама. ООО "ИКС 5 ДИДЖИТАЛ", ИНН 9722010808 erid: 2RanykgnNQ3' 
+    partner: "Карте нужна подзарядка!", 
+    desc: "Чтобы сайт работал быстро, не падал и оставался бесплатным, мне нужно каждый месяц оплачивать сервера и хостинг. Любой донат поможет закрыть расходы и запустить новые фичи.", 
+    link: "https://www.tbank.ru/cf/91AVuXFbZpV", 
     },
 
     { 
-    partner: "Перекрёсток Доставка", 
-    code: "108ES8BX7", 
-    desc: "Скидка 25% при заказе от 1800 ₽ на первые два заказа в приложении Перекрёсток Доставка", 
-    link: "https://perekrestok.prfl.me/youtube/efjk9o?erid=2RanykgnNQ3", 
-    disclosure: 'Реклама. ООО "ИКС 5 ДИДЖИТАЛ", ИНН 9722010808 erid: 2RanykgnNQ3' 
+    partner: "Хочешь больше районов?", 
+    desc: "Я вручную отрисовываю каждую улицу и собираю историю. Поддержи проект донатом — это ускорит выход новых районов Питера и сделает карту еще круче!", 
+    link: "https://www.tbank.ru/cf/91AVuXFbZpV", 
     },
 
     { 
-    partner: "Перекрёсток Доставка", 
-    code: "109J95BB7", 
-    desc: "Скидка 355 ₽ от 1555 ₽ в приложении Перекрёсток Доставка для тех, кто не делал заказ более 180 дней", 
-    link: "https://perekrestok.prfl.me/youtube/efjk9o?erid=2RanykgnNQ3", 
-    disclosure: 'Реклама. ООО "ИКС 5 ДИДЖИТАЛ", ИНН 9722010808 erid: 2RanykgnNQ3' 
-    },
-
-    { 
-    partner: "ВкусВилл Доставка", 
-    code: "30VEF47L", 
-    desc: "Скидка 300 ₽ от 1500 ₽ на первую покупку", 
-    link: "https://vksvl.prfl.me/youtube/0m7gt6?erid=2RanykWR8PV", 
-    disclosure: 'Реклама. АО ВкусВилл, ОГРН 1217700253671. Подробности на сайте vkusvill.ru erid: 2RanykP1Bym' 
-    },
-
-    { 
-    partner: "ВкусВилл Доставка", 
-    code: "VSKX25L", 
-    desc: "Скидка 250 ₽ от 1250 ₽ на первую покупку", 
-    link: "https://vksvl.prfl.me/youtube/0m7gt6?erid=2RanykWR8PV", 
-    disclosure: 'Реклама. АО ВкусВилл, ОГРН 1217700253671. Подробности на сайте vkusvill.ru erid: 2RanykP1Bym' 
-    },
-
-    { 
-    partner: "ВкусВилл Доставка", 
-    code: "VSNDEF2", 
-    desc: "Скидка 200 ₽ от 1000 ₽ на первую покупку", 
-    link: "https://vksvl.prfl.me/youtube/0m7gt6?erid=2RanykWR8PV", 
-    disclosure: 'Реклама. АО ВкусВилл, ОГРН 1217700253671. Подробности на сайте vkusvill.ru erid: 2RanykP1Bym' 
-    },
-
-    { 
-    partner: "ВкусВилл Доставка", 
-    code: "35V2JRXX", 
-    desc: "Скидка 350 ₽ от 2500 ₽ на первую покупку", 
-    link: "https://vksvl.prfl.me/youtube/0m7gt6?erid=2RanykWR8PV", 
-    disclosure: 'Реклама. АО ВкусВилл, ОГРН 1217700253671. Подробности на сайте vkusvill.ru erid: 2RanykP1Bym' 
-    },
-
-    /*{ 
-    partner: "Ёбидоёби", 
-    code: "BL7261PF", 
-    desc: "Скидка 20% от 1800 ₽ на первый заказ (суши и роллы)", 
-    link: "https://yobidoyobi1.prfl.me/youtube/ejxkf6?erid=2RanynKgFPy", 
-    disclosure: 'Реклама. ООО "Вкусные технологии". ИНН 2465359759 erid: 2RanynKgFPy' 
-    },*/
-
-    { 
-    partner: "Т-Мобайл", 
-    code: "", 
-    desc: "Получить безлимит на всё 490 ₽ с переносом номера", 
-    link: "https://tinkoff.prfl.me/youtube/rwnym5?erid=2RanymDw7m5", 
-    disclosure: 'Реклама. ООО "Т-Моб", лицензия Роскомнадзора 154950. Подробнее на mobile.tbank.ru. erid: 2RanymDw7m5' 
-    },
-
-    { 
-    partner: "Т-Мобайл", 
-    code: "", 
-    desc: "Получить безлимит на всё 490 ₽", 
-    link: "https://tinkoff.prfl.me/youtube/9a3rza?erid=2RanymCT8Uj", 
-    disclosure: 'Реклама. ООО "Т-Моб", лицензия Роскомнадзора 154950. Подробнее на mobile.tbank.ru. erid: 2RanymCT8Uj' 
-    },
-
-    { 
-    partner: "Т-Мобайл", 
-    code: "", 
-    desc: "Оформить сим-карту с бесплатной подпиской Pro на 2 месяца", 
-    link: "https://tmobile.prfl.me/youtube/54jh8d?erid=2Ranym53C51", 
-    disclosure: 'Реклама. ООО "Т-Моб", лицензия Роскомнадзора 154950. Подробнее на mobile.tbank.ru. erid: 2Ranym53C51' 
-    },
-
-    { 
-    partner: "Т-Банк. Джуниор Дебетовая карта", 
-    code: "", 
-    desc: "Дебетовая карта Джуниор c начислением 500 баллов за первую покупку", 
-    link: "https://tnkff.prfl.me/youtube/94zym1?erid=2RanykmGM8f", 
-    disclosure: 'Реклама. АО «ТБанк», лицензия 2673. Подробнее на tbank.ru. erid: 2RanykmGM8f' 
-    },
-
-    { 
-    partner: "ФЛАУВАУ", 
-    code: "ПРИВЕТ",  
-    desc: "Скидка 1000 ₽ на первый заказ цветов от 3000 ₽ на сайте и в приложении", 
-    link: "https://fwow.prfl.me/youtube/w4bqtq?erid=2RanykzcEfm", 
-    disclosure: 'Реклама. Общество с ограниченной  ответственностью «ФЛАУВАУ», ИНН 9702020445. erid: 2RanykzcEfm' 
-    },
-
-    { 
-    partner: "ФЛАУВАУ", 
-    code: "FWPERFS2h8lc",  
-    desc: "Скидка 20% на первый заказ цветов на все категории от 3 000 ₽", 
-    link: "https://fwow.prfl.me/youtube/w4bqtq?erid=2RanykzcEfm", 
-    disclosure: 'Реклама. Общество с ограниченной  ответственностью «ФЛАУВАУ», ИНН 9702020445. erid: 2RanykzcEfm' 
-    },
-
-    { 
-    partner: "Яндекс Лавка", 
-    code: "50RAY865",  
-    desc: "Скидка 50% от 800 ₽ на первый заказ, максимальная скидка 600 ₽", 
-    link: "https://yalavka.prfl.me/youtube/a2v642?erid=2RanykjdHrB", 
-    disclosure: 'Реклама. ООО "Яндекс.Лавка", ИНН 9718101499. erid: 2RanykjdHrB' 
-    },
-    { 
-    partner: "Яндекс Лавка", 
-    code: "300PF969",  
-    desc: "Скидка 300 ₽ от 600 ₽ на первый заказ", 
-    link: "https://yalavka.prfl.me/youtube/a2v642?erid=2RanykjdHrB", 
-    disclosure: 'Реклама. ООО "Яндекс.Лавка", ИНН 9718101499. erid: 2RanykjdHrB' 
-    },
-    { 
-    partner: "Яндекс Лавка", 
-    code: "40AMD919",  
-    desc: "Скидка 40% от 800 ₽ на один заказ для тех, кто не пользовался сервисом более года, максимальная скидка 600 ₽", 
-    link: "https://yalavka.prfl.me/youtube/a2v642?erid=2RanykjdHrB", 
-    disclosure: 'Реклама. ООО "Яндекс.Лавка", ИНН 9718101499. erid: 2RanykjdHrB' 
-    },
-
-    { 
-    partner: "Магнит: акции и доставка", 
-    code: "FM51KUS94",  
-    desc: 'Скидка 51% на первый заказ от 1000 ₽ в разделе "Мигом"', 
-    link: "https://mgnt1.prfl.me/youtube/gaxaqx?erid=2Ranym7s75M", 
-    disclosure: 'Реклама. АО "Тандер", ИНН 2310031475. erid: 2Ranym7s75M' 
-    },
-    { 
-    partner: "Магнит: акции и доставка", 
-    code: "PE3HBEA3",  
-    desc: 'Скидка 36% от 1200 ₽ на первый заказ в приложении Магнит Доставка в разделе "Экспресс"', 
-    link: "https://mgnt1.prfl.me/youtube/gaxaqx?erid=2Ranym7s75M", 
-    disclosure: 'Реклама. АО "Тандер", ИНН 2310031475. erid: 2Ranym7s75M' 
-    },
-    { 
-    partner: "Магнит: акции и доставка", 
-    code: "21DSF8RA247",  
-    desc: 'Скидка 21% на один повторный заказ от 1700 ₽ в разделе "Мигом"', 
-    link: "https://mgnt1.prfl.me/youtube/gaxaqx?erid=2Ranym7s75M", 
-    disclosure: 'Реклама. АО "Тандер", ИНН 2310031475. erid: 2Ranym7s75M' 
-    },
-    { 
-    partner: "Магнит: акции и доставка", 
-    code: "25GF9GBFQ",  
-    desc: 'Скидка 31% в приложении Магнит, в разделе Гипермаркет', 
-    link: "https://mgnt1.prfl.me/youtube/gaxaqx?erid=2Ranym7s75M", 
-    disclosure: 'Реклама. АО "Тандер", ИНН 2310031475. erid: 2Ranym7s75M' 
+    partner: "Понравилось играть?", 
+    desc: "Тут нет рекламы, проект создается без инвесторов. Если тебе было интересно и ты хочешь сказать «спасибо» — поддержи карту любой комфортной суммой. Это лучшая мотивация.", 
+    link: "https://www.tbank.ru/cf/91AVuXFbZpV", 
     },
 ];
 
@@ -3831,6 +3933,7 @@ function copyPromoToClipboard(code, iconElement) {
         }, 2000);
     });
 }
+
 
 
 
@@ -29328,13 +29431,13 @@ const locationData = {
 "baykonurskaya": {
     title: "Байконурская улица",
     img: "image/baykonurskaya.jpg",
-    text: "Байконурская улица — улица, расположенная в Приморском районе. Названа в честь космодрома Байконур — первого, крупнейшего и самого знаменитого космодрома планеты, с которого был запущен первый в истории искусственный спутник Земли и совершен легендарный полет Юрия Гагарина. Улица открывает собой гигантский топонимический комплекс Приморского района, посвященный истории российской авиации, воздухоплавания и космонавтики, развившейся на месте бывшего Комендантского аэродрома."
+    text: "Байконурская улица — улица, расположенная в Приморском районе. Названа в честь космодрома Байконур — первого, крупнейшего и самого знаменитого космодрома планеты, с которого был запущен первый в истории искусственный спутник Земли и совершен легендарный полет Юрия Гагарина. Улица находится в топонимическом ансамбле Приморского района, посвященном истории российской авиации, воздухоплавания и космонавтики, развившейся на месте бывшего Комендантского аэродрома."
 },
 
 "bogatyrsky": {
     title: "Богатырский проспект",
     img: "image/bogatyrsky.jpg",
-    text: "Богатырский проспект — проспект, расположенный в Приморском районе. По одной из версий назван в честь первых русских летчиков начала XX века, которых в прессе и народе уважительно и восторженно именовали «воздушными богатырями» или по первым тяжелым русским самолётам, названным в честь богатырей (Илия Муромец, Русский Витязь). По другой версии назван в честь защитников Ленинграда в годы войны, которые «по-богатырски» защищали город от фашистских захватчиков. Является мощной широтной транспортной магистралью, проходящей через весь Приморский район."
+    text: "Богатырский проспект — проспект, расположенный в Приморском районе. По одной из версий назван в честь первых русских летчиков начала XX века, которых в прессе и народе уважительно и восторженно именовали «воздушными богатырями» или по первым тяжелым русским самолётам, названным в честь богатырей (Илья Муромец, Русский Витязь). По другой версии назван в честь защитников Ленинграда в годы войны, которые «по-богатырски» защищали город от фашистских захватчиков. Является мощной широтной транспортной магистралью, проходящей через весь Приморский район."
 },
 
 "gakkelevskaya": {
@@ -29454,7 +29557,7 @@ const locationData = {
 "polikarpova": {
     title: "Аллея Поликарпова",
     img: "image/polikarpova.jpg",
-    text: "Поликарпов Николай Николаевич (1892–1944) — великий советский авиаконструктор, доктор технических наук, «король истребителей». Создал знаменитый многоцелевой биплан По-2 (У-2) и первые серийные советские истребители И-15 и И-16, обеспечившие становление советской авиации. В его честь названа аллея Поликарпова, идущая от проспекта Испытателей. Похоронен на Новодевичьем кладбище в Москве."
+    text: "Поликарпов Николай Николаевич (1892–1944) — великий советский авиаконструктор, доктор технических наук, «король истребителей». Создал знаменитый многоцелевой биплан По-2 (У-2) и первые серийные советские истребители И-15 и И-16, обеспечившие становление советской авиации. В его честь названа аллея Поликарпова, идущая от Коломяжского проспекта. Похоронен на Новодевичьем кладбище в Москве."
 },
 
 "savushkina": {
@@ -29581,25 +29684,21 @@ function buildQuizForLocation(cleanId) {
         // Рендеринг карточки с данными
         optionsContainer.innerHTML = `
             <div class="promo-card">
-                <div class="promo-title">Ваша скидка в ${promo.partner}:</div>
+                <div class="promo-title">${promo.partner}</div>
                 <div style="font-size: 0.85rem; color: #475569; margin: 8px 0;">${promo.desc}</div>
 
                 ${promo.code ? `
             <div class="promo-code-container">
                 <span class="promo-code-text">${promo.code}</span>
-                <svg class="copy-icon" viewBox="0 0 24 24" onclick="copyPromoToClipboard('${promo.code}', this)">
-                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                </svg>
+                
             </div>
             ` : ''}
                 
-                <a href="${promo.link}" target="_blank" class="copy-btn" style="display: block; text-decoration: none; margin-bottom: 10px; background: #10b981;">
-                    Получить скидку
+                <a href="${promo.link}" target="_blank" class="copy-btn" style="display: block; text-decoration: none; margin-top: 20px; margin-bottom: 10px; background: #10b981;">
+                    Поддержать проект ⚡️
                 </a>
                 
-                <div class="promo-disclaimer" style="font-size: 0.7rem; color: #94a3b8; margin-top: 10px;">
-                    ${promo.disclosure}
-                </div>
+                
            </div>
 
             <button id="final-close-btn" style="width: 100%; margin-top: 10px; padding: 12px; background: #3f3f46; color: #ffffff; border: none; border-radius: 8px; cursor: pointer;">
@@ -29641,6 +29740,16 @@ function buildQuizForLocation(cleanId) {
 
             const isCorrect = ans.isCorrect;
             const correctAnswerObj = quizData.answers.find(a => a.isCorrect);
+
+            // === ДОБАВИТЬ ЭТОТ БЛОК ЗДЕСЬ ===
+            if (isCorrect) {
+                successSound.currentTime = 0;
+                successSound.play().catch(e => console.log('Аудио заблокировано:', e));
+            } else {
+                failSound.currentTime = 0;
+                failSound.play().catch(e => console.log('Аудио заблокировано:', e));
+            }
+            // ================================
 
             allBtns.forEach(b => {
                 if (b.textContent.trim() === correctAnswerObj.text.trim()) {
@@ -29717,6 +29826,12 @@ async function sendToSupabase(objectId, progress) {
         await fetchLeaderboard();
         
         const readableName = districtNames[districtIdToSave] || ("Район ID: " + districtIdToSave);
+
+        // === ДОБАВИТЬ ЭТОТ БЛОК ЗДЕСЬ ===
+        triumphSound.currentTime = 0;
+        triumphSound.play().catch(e => console.log('Аудио заблокировано:', e));
+        // ================================
+
         alert("Результат успешно записан! Ваш вклад отправлен в: " + readableName);
         
         buildQuizForLocation(objectId); 
@@ -29734,6 +29849,22 @@ async function sendToSupabase(objectId, progress) {
 // 4. ИНИЦИАЛИЗАЦИЯ И СЛУШАТЕЛИ DOM
 // ==========================================
 window.addEventListener('DOMContentLoaded', () => {
+
+  const unlockAudio = () => {
+    // Пытаемся воспроизвести и сразу остановить звук (это разблокирует аудио-контекст)
+    successSound.play().then(() => {
+        successSound.pause();
+        successSound.currentTime = 0;
+    }).catch(e => console.log("Аудио разблокировка не потребовалась или заблокирована"));
+    
+    // Удаляем слушатель, чтобы он не срабатывал каждый раз
+    document.removeEventListener('touchstart', unlockAudio);
+    document.removeEventListener('click', unlockAudio);
+};
+
+// Слушаем первое касание или клик пользователя
+document.addEventListener('touchstart', unlockAudio, { once: true });
+document.addEventListener('click', unlockAudio, { once: true });
 
 // Инициализация отцентрованного облака онбординга
     const onboardingCloud = document.getElementById('onboarding-cloud');
