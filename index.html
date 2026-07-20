@@ -808,6 +808,7 @@
                 <option value="frunzensky">Фрунзенский район</option>
                 <option value="centralny">Центральный район</option>
                 <option value="lenoblast">Ленинградская область</option>
+                <option value="moscow">Москва</option>
             </select>
         </div>
 
@@ -831,6 +832,7 @@
             <label class="filter-item"><input type="checkbox" id="check-streets" checked> <span>Улицы</span></label>
             <label class="filter-item"><input type="checkbox" id="check-metro" checked> <span>Станции метро</span></label>
             <label class="filter-item"><input type="checkbox" id="check-areas" checked> <span>Зеленые зоны и площади</span></label>
+            
         </div>
         <div class="zoom-controls">
             <input type="range" id="zoom-slider" class="zoom-slider" min="0.5" max="20" step="0.01" value="1.0">
@@ -3072,7 +3074,7 @@
   <polygon id="prospekt-ispitateley" class="cls-6" points="835.46865 612.93836 898.62646 627.951 920.42661 623.38308 920.18989 622.06796 898.83539 626.40431 835.607 611.69832 835.46865 612.93836"/>
   <polygon id="prospekt-korolyova" class="cls-6" points="788.50102 515.08014 836.87124 596.90709 880.68743 608.18121 880.4507 606.83979 837.91019 595.9865 789.65504 514.6856 788.50102 515.08014"/>
   <g id="prospekt-komendantskiy">
-    <polygon id="_Комендантский_проспект" data-name="Комендантский проспект" class="cls-6" points="724.517 429.48207 830.88583 611.13623 831.96813 610.50274 725.68465 428.70815 724.517 429.48207"/>
+    <polygon class="cls-6" points="724.517 429.48207 830.88583 611.13623 831.96813 610.50274 725.68465 428.70815 724.517 429.48207"/>
     <polygon class="cls-6" points="833.40481 615.01092 842.42868 630.08612 842.98103 629.69159 833.96374 614.65583 833.40481 615.01092"/>
   </g>
   <polygon id="area-skver-izotovskiy" class="cls-6" points="782.16212 547.03762 779.00583 553.58694 779.47927 554.53383 785.0817 557.53231 785.0817 558.24247 787.92236 559.50499 789.50051 555.3229 788.47472 554.61273 788.79034 552.0877 789.4216 551.37753 786.58094 548.69468 785.79186 549.87829 782.16212 547.03762"/>
@@ -3789,7 +3791,7 @@ const triumphSound = new Audio('sounds/triumph.mp3');
 
 successSound.volume = 0.3;
 failSound.volume = 0.3;
-triumphSound.volume = 0.2;
+triumphSound.volume = 0.05;
 
 
 successSound.load();
@@ -3886,7 +3888,7 @@ const districtMap = {
     "kirovsky": "5", "kolpinsky": "6", "krasnogvardeysky": "7", "krasnoselsky": "8",
     "kronshtadtsky": "9", "kurortny": "10", "moskovsky": "11", "nevsky": "12",
     "petrogradsky": "13", "petrodvortsovy": "14", "primorsky": "15", "pushkinsky": "16",
-    "frunzensky": "17", "centralny": "18", "lenoblast": "19"
+    "frunzensky": "17", "centralny": "18", "lenoblast": "19", "moscow": "20"
 };
 
 
@@ -20010,7 +20012,7 @@ const quizDatabase = {
         { "text": "В Санкт-Петербурге", "isCorrect": true },
         { "text": "В Сочи", "isCorrect": false }
       ],
-      "explanation": "Сад Прометей находится в Выборгском районе Санкт-Петербурга."
+      "explanation": "Сад Прометей находится в Калининском районе Санкт-Петербурга."
     },
     {
       "question": "Сад Прометей — это именной или тематический топоним?",
@@ -26420,9 +26422,9 @@ const quizDatabase = {
       "answers": [
         { "text": "«Парнас»", "isCorrect": false },
         { "text": "«Проспект Просвещения»", "isCorrect": false },
-        { "text": "«Звёздная»", "isCorrect": true }
+        { "text": "«Бухарестская»", "isCorrect": true }
       ],
-      "explanation": "«Комендантский проспект» и «Звёздная» находятся на Фрунзенско-Приморской линии."
+      "explanation": "«Комендантский проспект» и «Бухарестская» находятся на Фрунзенско-Приморской линии."
     },
     {
       "question": "Какая логическая связь объединяет станцию метро «Комендантский проспект» и Комендантский аэродром?",
@@ -29102,7 +29104,7 @@ const locationData = {
             "aytmatova": {
                 "title": "Сквер Чингиза Айтматова",
                 "img": "image/aytmatova.jpg",
-                "text": "Айтматов Чингиз Торекулович (1928–2008) – выдающийся советский и киргизский писатель, дипломат, Герой Социалистического Труда. Создал всемирно известные произведения «Джамиля», «Буранный полустанок», «Плаха» и «Белый пароход», ставшие классикой мировой литературы. В его честь назван сквер Чингиза Айтматова в Выборгском районе Санкт-Петербурга. Сквер расположен в районе, где многие топонимы посвящены писателям, поэтам и деятелям культуры, формируя единое гуманитарное пространство северной части города. Похоронен в мемориальном комплексе «Ата-Бейит» близ Бишкека."
+                "text": "Айтматов Чингиз Торекулович (1928–2008) – выдающийся советский и киргизский писатель, дипломат, Герой Социалистического Труда. Создал всемирно известные произведения «Джамиля», «Буранный полустанок», «Плаха» и «Белый пароход», ставшие классикой мировой литературы. В его честь назван сквер Чингиза Айтматова в Калининском районе Санкт-Петербурга. Сквер расположен в районе, где многие топонимы посвящены писателям, поэтам и деятелям культуры, формируя единое гуманитарное пространство северной части города. Похоронен в мемориальном комплексе «Ата-Бейит» близ Бишкека."
             },
             "bednogo": {
                 "title": "Улица Демьяна Бедного",
@@ -30206,7 +30208,7 @@ async function fetchLeaderboard() {
         "kirovsky": "5", "kolpinsky": "6", "krasnogvardeysky": "7", "krasnoselsky": "8",
         "kronshtadtsky": "9", "kurortny": "10", "moskovsky": "11", "nevsky": "12",
         "petrogradsky": "13", "petrodvortsovy": "14", "primorsky": "15", "pushkinsky": "16",
-        "frunzensky": "17", "centralny": "18", "lenoblast": "19"
+        "frunzensky": "17", "centralny": "18", "lenoblast": "19", "moscow": "20"
     };
 
     const districtScores = {};
