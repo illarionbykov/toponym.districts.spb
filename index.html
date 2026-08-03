@@ -452,6 +452,28 @@
                 background: #333333 !important;
                 transform: scale(0.98) !important;
             }
+
+            /* Настройка кнопки покупки постера внутри мобильной шторки */
+#m-poster-slot #poster-btn-element {
+    background: #222222 !important; 
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    color: #ffffff !important; 
+    padding: 14px !important; 
+    border-radius: 14px !important;
+    font-size: 13px !important; 
+    font-weight: bold !important; 
+    width: 100% !important;
+    justify-content: center !important; 
+    margin-bottom: 12px !important; 
+    display: flex !important;
+    box-sizing: border-box !important;
+    text-decoration: none !important;
+}
+
+#m-poster-slot #poster-btn-element:active {
+    background: #333333 !important;
+    transform: scale(0.98) !important;
+}
         }
 
                 /* Слой для блюра */
@@ -656,6 +678,76 @@
     transform: scale(0.98);
 }
 
+/* Десктопные стили для кнопки "Купить постер" */
+#poster-btn-element {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    height: 40px;
+    padding: 0 16px;
+    background: #161616;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.2s ease;
+}
+
+#poster-btn-element:hover {
+    transform: scale(1.02);
+    background: #333333;
+}
+
+#poster-btn-element:active {
+    transform: scale(0.98);
+}
+
+/* Базовый стиль кнопки */
+.poster-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+/* Состояние 1: Товар в наличии (Приморский район) */
+.poster-btn.available {
+    background-color: #00AAFF;
+    color: #FFFFFF;
+}
+.poster-btn.available .poster-badge {
+    background-color: #00E676;
+    color: #000000;
+}
+
+/* Состояние 2: Предзаказ (Остальные районы) */
+.poster-btn.preorder {
+    background-color: #24292E;
+    color: #FFFFFF;
+}
+.poster-btn.preorder .poster-badge {
+    background-color: #FFB300;
+    color: #000000;
+}
+
+/* Скидка / Бейдж */
+.poster-badge {
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
         
     </style>
     
@@ -671,29 +763,31 @@
 <noscript><div><img src="https://mc.yandex.ru/watch/109881922" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
+   document.addEventListener('DOMContentLoaded', () => {
     function runMobileAdaptation() {
         if (window.innerWidth <= 768) {
             const district = document.getElementById('district-switcher-wrapper');
             const rating = document.getElementById('leaderboard-trigger');
-            const donate = document.getElementById('donate-btn-element'); // Находим кнопку доната
+            const donate = document.getElementById('donate-btn-element');
+            const poster = document.getElementById('poster-btn-element'); // <-- Добавили
             const sidebar = document.querySelector('.sidebar');
             
             const districtSlot = document.getElementById('m-district-slot');
             const ratingSlot = document.getElementById('m-rating-slot');
-            const donateSlot = document.getElementById('m-donate-slot'); // Находим мобильный слот для доната
+            const donateSlot = document.getElementById('m-donate-slot');
+            const posterSlot = document.getElementById('m-poster-slot'); // <-- Добавили
             const layerSlot = document.getElementById('m-layer-slot');
             
             // Физически переносим узлы DOM в подготовленные мобильные слоты
             if (district && districtSlot) districtSlot.appendChild(district);
+            if (poster && posterSlot) posterSlot.appendChild(poster); // <-- Переносим постер
             if (rating && ratingSlot) ratingSlot.appendChild(rating);
-            if (donate && donateSlot) donateSlot.appendChild(donate); // Переносим донат
+            if (donate && donateSlot) donateSlot.appendChild(donate);
             if (sidebar && layerSlot) layerSlot.appendChild(sidebar);
             
             console.log("📱 Элементы успешно перенесены в мобильные слоты настроек.");
         }
     }
-    // Запуск сразу по готовности DOM
     runMobileAdaptation();
 });
 
@@ -703,6 +797,26 @@
 
     
 </script>
+
+
+
+<!-- КОД ЯНДЕКС МЕТРИКИ (Вставляется прямо перед </head>) -->
+    <script type="text/javascript" >
+       (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+       m[i].l=1*new Date();
+       for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+       k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+       (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+       // Замени 95123456 на твой реальный номер счетчика!
+       ym(109881922, "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true,
+            webvisor:true
+       });
+    </script>
+    <!-- КОНЕЦ КОДА МЕТРИКИ -->
 </head>
 <body>
 
@@ -731,6 +845,7 @@
 </div>
 
 <div id="m-settings">
+    <div id="m-poster-slot"></div>
     <div id="m-rating-slot"></div>
     <div id="m-donate-slot"></div>
     <div id="m-layer-slot"></div>
@@ -739,6 +854,13 @@
    
 
 <div class="header-controls">
+  
+  <!-- Динамическая кнопка заказа постера -->
+<a href="#" id="poster-btn-element" class="poster-btn">
+    <span id="poster-btn-badge" class="poster-badge">В наличии</span>
+    <span id="poster-btn-text">🛍️ Купить постер своего района</span>
+</a>
+
   
 
   <a href="https://www.tbank.ru/cf/91AVuXFbZpV" target="_blank" class="donate-btn" id="donate-btn-element">
@@ -3857,6 +3979,79 @@ function playSound() {
 
 // Запуск при готовности страницы
 document.addEventListener('DOMContentLoaded', () => {
+
+// -----------------------------------------------------------
+    // 1. НАСТРОЙКИ (Укажи свои данные!)
+    // -----------------------------------------------------------
+    const METRIKA_ID = 109881922; // <-- Вставили твой номер счетчика Метрики
+    const PRIMORSKY_AVITO_URL = 'https://www.avito.ru/sankt-peterburg/mebel_i_interer/karta_primorskogo_rayona_spb_poster_a2_v_tubuse_8140853985';
+    const TELEGRAM_USERNAME = 'illarionbykov'; // Без знака @
+
+    const districtSelect = document.getElementById('header-district-select');
+    const posterBtn = document.getElementById('poster-btn-element');
+    const posterBtnText = document.getElementById('poster-btn-text');
+    const posterBtnBadge = document.getElementById('poster-btn-badge');
+
+    // -----------------------------------------------------------
+    // 2. ОБНОВЛЕНИЕ ВНЕШНЕГО ВИДА КНОПКИ ПРИ СМЕНЕ РАЙОНА
+    // -----------------------------------------------------------
+    function updateButtonState() {
+        if (!districtSelect || !posterBtn) return;
+
+        const selectedVal = districtSelect.value;
+        const selectedText = districtSelect.options[districtSelect.selectedIndex].text;
+
+        if (selectedVal === 'primorsky' || selectedText.includes('Приморский')) {
+            posterBtn.className = 'poster-btn available';
+            if (posterBtnBadge) posterBtnBadge.textContent = 'В наличии';
+            if (posterBtnText) posterBtnText.textContent = 'Купить постер Приморского района';
+        } else {
+            posterBtn.className = 'poster-btn preorder';
+            if (posterBtnBadge) posterBtnBadge.textContent = 'Предзаказ';
+            if (posterBtnText) posterBtnText.textContent = `Хочу постер: ${selectedText}`;
+        }
+    }
+
+    if (districtSelect) {
+        districtSelect.addEventListener('change', updateButtonState);
+        updateButtonState();
+    }
+
+    // -----------------------------------------------------------
+    // 3. ОБРАБОТКА КЛИКА + ОТПРАВКА СОБЫТИЯ В МЕТРИКУ
+    // -----------------------------------------------------------
+    if (posterBtn) {
+        posterBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            const selectedVal = districtSelect ? districtSelect.value : '';
+            const selectedText = districtSelect ? districtSelect.options[districtSelect.selectedIndex].text : 'Петербурга';
+
+            if (selectedVal === 'primorsky' || selectedText.includes('Приморский')) {
+                // Клик по готовому лоту Приморского района
+                window.open(PRIMORSKY_AVITO_URL, '_blank');
+            } else {
+                // --- ВОТ ЗДЕСЬ ВСТАВЛЯЕТСЯ АНАЛИТИКА ---
+                // Проверяем, загрузилась ли Метрика на странице
+                if (typeof ym !== 'undefined') {
+                    // Отправляем цель "preorder_poster_click" и передаем название района в параметрах
+                    ym(METRIKA_ID, 'reachGoal', 'preorder_poster_click', {
+                        district: selectedText
+                    });
+                }
+                // ----------------------------------------
+
+                // Формируем ссылку и открываем Telegram
+                const textMessage = `Здравствуйте! Хочу заказать A2 постер района: ${selectedText}. Подскажите по срокам и цене?`;
+                const tgUrl = `https://t.me/${TELEGRAM_USERNAME}?text=${encodeURIComponent(textMessage)}`;
+                
+                window.open(tgUrl, '_blank');
+            }
+        });
+    }
+
+
+
     // Пытаемся загрузить звук в память
     initWebAudio();
 
