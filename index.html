@@ -287,7 +287,7 @@ body.hide-labels [id*="label-area-building-"] {
         }
 
         .rank-1 td, .rank-2 td, .rank-3 td, .rank-default td, .rank-low td { color: inherit !important; }
-        #leaderboard-body tr td { padding: 8px 4px; }
+        #leaderboard-body tr td { padding: 11px 4px; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -327,7 +327,7 @@ body.hide-labels [id*="label-area-building-"] {
             font-size: 11px; text-transform: uppercase; color: #777; letter-spacing: 0.5px; padding: 10px 8px; 
             position: sticky; top: 0; background: white; z-index: 10; border-bottom: 2px solid #ddd; text-align: left !important; 
         }
-        #leaderboard-container td { font-size: 13.5px; font-weight: 600; color: #333; padding: 12px 8px; border-bottom: 1px solid #eee; text-align: left; }
+        #leaderboard-container td { font-size: 13.5px; font-weight: 600; color: #333; padding: 14px 8px; border-bottom: 1px solid #eee; text-align: left; }
         #leaderboard-container tr:hover td { background: #f9f9f9; }
 
         /* Десктопная кнопка рейтинга */
@@ -347,6 +347,8 @@ body.hide-labels [id*="label-area-building-"] {
         .col-score { width: 36px; text-align: right !important; }
 
         .leaderboard-table thead th { font-size: 0.75em; color: #999; text-transform: uppercase; padding-bottom: 10px; border-bottom: 2px solid #eee; }
+        #player-leaderboard-body tr td { padding-top: 16px !important; padding-bottom: 16px !important; }
+        #player-leaderboard-body tr + tr td { border-top: 6px solid #fff; }
         .online-indicator { width: 8px; height: 8px; background-color: #2ecc71; border-radius: 50%; display: inline-block; animation: pulse-green 2s infinite; box-shadow: 0 0 0 rgba(46, 204, 113, 0.4); }
 
         @keyframes pulse-green {
@@ -372,7 +374,7 @@ body.hide-labels [id*="label-area-building-"] {
         /* --- ПК ВЕРСИЯ КОРРЕКТИРОВКА --- */
         @media (min-width: 769px) {
             #district-switcher-wrapper { top: 20px; right: 270px; }
-            #mobile-controls, #m-settings { display: none !important; } /* Полностью исключаем мобильные блоки на ПК */
+            #mobile-controls, #m-settings, #m-zoom-controls { display: none !important; } /* Мобильные элементы не работают на ПК */
         }
 
         /* ======================================================== */
@@ -382,6 +384,7 @@ body.hide-labels [id*="label-area-building-"] {
             /* 1. ПРИНУДИТЕЛЬНО ИСКАРНЯЕМ ДЕСКТОПНОЕ ПОЗИЦИОНИРОВАНИЕ ДЛЯ ПЕРЕНОСИМЫХ ЭЛЕМЕНТОВ */
             #district-switcher-wrapper, 
             #leaderboard-trigger, 
+            #profile-trigger, 
             .sidebar { 
                 position: static !important;
                 display: block !important;
@@ -401,13 +404,14 @@ body.hide-labels [id*="label-area-building-"] {
             /* 2. ЧИСТАЯ МОБИЛЬНАЯ ШАПКА */
             #mobile-controls {
                 display: flex !important;
-                position: fixed; top: 0; left: 0; right: 0; height: 72px;
+                position: fixed; top: 0; left: 0; right: 0; height: 79px;
                 background: #000000; align-items: center; padding: 0 15px;
                 z-index: 100000 !important; box-shadow: 0 2px 15px rgba(0,0,0,0.4);
                 box-sizing: border-box;
             }
 
-            #m-district-slot { flex: 1; display: flex; align-items: center; overflow: hidden; }
+            #m-district-slot { flex: 1; display: flex; align-items: center; height:100%; overflow: hidden; }
+            #m-district-slot #district-switcher-wrapper { align-items:center !important; }
             
             /* Кастомизация переехавшего селекта под темную мобильную шапку */
             #m-district-slot #district-switcher-wrapper { padding: 0 !important; gap: 4px !important; }
@@ -418,6 +422,7 @@ body.hide-labels [id*="label-area-building-"] {
             }
 
             /* Кнопка шестеренки */
+            #mobile-controls { align-items:center !important; }
             #mobile-controls button {
                 background: #161616; border: 1px solid rgba(255,255,255,0.1); color: white;
                 font-size: 18px; padding: 8px 12px; border-radius: 12px; cursor: pointer;
@@ -435,6 +440,14 @@ body.hide-labels [id*="label-area-building-"] {
                 max-height: calc(100vh - 65px); overflow-y: auto;
             }
             #m-settings.open { display: block !important; animation: fadeIn 0.25s ease-out forwards; }
+            body:has(#m-settings.open) #m-zoom-controls { display:none !important; }
+
+
+            #m-profile-slot #profile-trigger,
+            #m-rating-slot #leaderboard-trigger,
+            #m-donate-slot #donate-btn-element {
+                border: 1px solid rgba(255,255,255,0.1) !important;
+            }
 
             /* Настройка переехавшей кнопки рейтинга внутри шторки */
             #m-rating-slot #leaderboard-trigger {
@@ -802,11 +815,13 @@ path.highlight {
         if (window.innerWidth <= 768) {
             const district = document.getElementById('district-switcher-wrapper');
             const rating = document.getElementById('leaderboard-trigger');
+            const profile = document.getElementById('profile-trigger');
             const donate = document.getElementById('donate-btn-element');
             const poster = document.getElementById('poster-btn-element'); // <-- Добавили
             const sidebar = document.querySelector('.sidebar');
             
             const districtSlot = document.getElementById('m-district-slot');
+            const profileSlot = document.getElementById('m-profile-slot');
             const ratingSlot = document.getElementById('m-rating-slot');
             const donateSlot = document.getElementById('m-donate-slot');
             const posterSlot = document.getElementById('m-poster-slot'); // <-- Добавили
@@ -815,6 +830,7 @@ path.highlight {
             // Физически переносим узлы DOM в подготовленные мобильные слоты
             if (district && districtSlot) districtSlot.appendChild(district);
             if (poster && posterSlot) posterSlot.appendChild(poster); // <-- Переносим постер
+            if (profile && profileSlot) profileSlot.appendChild(profile);
             if (rating && ratingSlot) ratingSlot.appendChild(rating);
             if (donate && donateSlot) donateSlot.appendChild(donate);
             if (sidebar && layerSlot) layerSlot.appendChild(sidebar);
@@ -834,7 +850,122 @@ path.highlight {
 
 
 
-<!-- КОД ЯНДЕКС МЕТРИКИ (Вставляется прямо перед </head>) -->
+<style id="topo-final-fixes">
+.header-controls { position:fixed !important; top:20px !important; right:20px !important; z-index:10010 !important; }
+#leaderboard-panel, #profile-panel { position:fixed !important; top:0 !important; bottom:0 !important; height:100vh !important; z-index:1000000 !important; }
+#leaderboard-panel { right:-390px !important; }
+#leaderboard-panel.open { right:0 !important; }
+#profile-panel { right:-390px !important; }
+#profile-panel.open { right:0 !important; }
+#auth-modal { z-index:1000001 !important; }
+#leaderboard-panel .ranking-view { display:none !important; }
+#leaderboard-panel .ranking-view.active { display:block !important; }
+@media (max-width:768px){
+  #profile-panel { width:100vw !important; max-width:100vw !important; right:-100vw !important; }
+  #profile-panel.open { right:0 !important; }
+  #leaderboard-panel { width:100vw !important; max-width:100vw !important; right:-100vw !important; }
+  #leaderboard-panel.open { right:0 !important; }
+}
+</style>
+<style id="topo-account-styles">
+.auth-input{width:100%;box-sizing:border-box;padding:14px;border-radius:12px;border:2px solid #eee;background:#fff;font-size:14px;color:#222;outline:none;transition:border-color .2s ease,box-shadow .2s ease}
+.auth-input:focus{border-color:#111;box-shadow:0 0 0 3px rgba(0,0,0,.05)}
+.auth-hint{margin-top:6px;color:#8b8b8b;font-size:11px;line-height:1.4}
+.auth-submit-btn{width:100%;margin-top:6px}
+.auth-tabs,.leaderboard-tabs,.profile-tabs{display:flex;gap:6px;background:#f3f3f3;padding:4px;border-radius:12px;margin-bottom:20px}
+.auth-tab,.leaderboard-tab,.profile-tab{flex:1;border:0;background:transparent;padding:10px 8px;border-radius:9px;font-size:12px;font-weight:700;color:#777;cursor:pointer;transition:.2s}
+.auth-tab.active,.leaderboard-tab.active,.profile-tab.active{background:#111;color:#fff}
+.auth-secondary-btn{width:100%;margin-top:10px;padding:12px;border-radius:12px;border:1px solid #ddd;background:#fff;color:#222;font-weight:700;cursor:pointer}
+.auth-message{min-height:18px;margin-top:12px;font-size:12px;color:#555;line-height:1.45}.auth-message.error{color:#dc2626}.auth-message.success{color:#059669}
+.topo-auth-close{position:absolute;top:12px;right:16px;cursor:pointer;font-size:24px;color:#000;line-height:1}.topo-auth-card{padding-top:34px}
+#profile-panel{position:fixed;top:0;right:-390px;width:390px;max-width:90vw;height:100vh;background:#fff;z-index:1000000;box-shadow:-5px 0 25px rgba(0,0,0,.12);transition:right .3s ease;box-sizing:border-box;padding:24px;overflow-y:auto}
+#profile-panel.open{right:0}
+.profile-card{border:1px solid #eee;border-radius:16px;overflow:hidden;margin-bottom:16px}
+.profile-stat{display:flex;justify-content:space-between;gap:20px;padding:14px 15px;border-bottom:1px solid #eee;font-size:13px;line-height:1.4}.profile-stat:last-child{border-bottom:0}.profile-stat span{color:#777}.profile-stat strong{color:#111;text-align:right;word-break:break-word}
+.profile-action-btn{width:100%;border:0;border-radius:12px;padding:13px 14px;margin-top:10px;background:#111;color:#fff;font-size:13px;font-weight:700;cursor:pointer}.profile-action-btn:hover{background:#333}.profile-action-btn:disabled{cursor:default}
+.rewards-category-title{font-size:28px!important;line-height:1.1;font-weight:900;margin:26px 0 12px!important;}
+.reward-badge{display:inline-flex;align-items:center;justify-content:center;}
+.reward-badge svg{width:22px;height:22px;display:block;}
+.reward-progress-bar.progress-complete{background:#9BE15D!important;}
+.reward-progress-bar.progress-mid{background:#F4B942!important;}
+.reward-progress-bar.progress-red{background:#EF4444!important;}
+.reward-progress-bar.progress-orange{background:#F59E0B!important;}
+.reward-progress-bar.progress-yellow{background:#F4C542!important;}
+.public-profile-title{font-size:22px;font-weight:900;margin:0 0 14px;}
+.public-profile-back{margin-bottom:12px;}
+.player-profile-row{cursor:pointer;}
+.player-profile-row:hover{background:#f4f4f4;}
+
+.payment-status{margin-top:10px;min-height:18px;font-size:12px;color:#666;line-height:1.45}
+.rewards-placeholder{border:1px dashed #d1d5db;border-radius:16px;padding:45px 20px;text-align:center;color:#777;font-size:14px;background:#fafafa}
+.rewards-summary{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 14px;margin-bottom:14px;border:1px solid #e9e9e9;border-radius:14px;background:#fafafa;font-size:12px;color:#666}.rewards-summary strong{display:block;color:#111;font-size:18px;line-height:1.1}.rewards-category{margin-top:18px}.rewards-category:first-child{margin-top:0}.rewards-category-title{font-size:11px;text-transform:uppercase;letter-spacing:.08em;font-weight:800;color:#777;margin:0 0 9px}.reward-card{position:relative;border:1px solid #e8e8e8;border-radius:14px;padding:12px;margin-bottom:8px;background:#fff;display:flex;align-items:flex-start;gap:12px;box-sizing:border-box}.reward-card.unlocked{border-color:#111}.reward-card.locked{opacity:.68}.reward-icon-wrap{flex:0 0 62px;width:62px;height:62px;display:flex;align-items:center;justify-content:center}.reward-icon{width:62px;height:62px;display:block}.reward-card-body{min-width:0;flex:1;padding-right:24px}.reward-card-title{font-size:13px;font-weight:800;color:#111;margin:0 0 4px}.reward-card-desc{font-size:11px;line-height:1.4;color:#777;margin:0}.reward-card-progress{display:flex;justify-content:space-between;gap:10px;margin-top:9px;font-size:10px;color:#999}.reward-card-progress strong{color:#111}.reward-progress-track{height:5px;background:#eee;border-radius:999px;margin-top:7px;overflow:hidden}.reward-progress-bar{height:100%;background:#111;border-radius:999px;transition:width .2s ease}.reward-badge{position:absolute;right:8px;top:8px;display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;font-size:0}.reward-badge svg{width:22px;height:22px;display:block}.reward-card.locked .reward-card-title{padding-right:0}
+.leaderboard-status{min-height:18px;margin:0 0 8px;color:#888;font-size:11px}
+.ranking-view{display:none}.ranking-view.active{display:block}
+@media(max-width:768px){
+  #profile-trigger{position:static!important;width:100%!important;margin:0 0 20px 0!important;padding:14px!important;border-radius:14px!important;height:auto!important}
+  #m-profile-slot #profile-trigger{background:#222!important;color:#fff!important;display:flex!important;width:100%!important;justify-content:center!important;align-items:center!important}
+  #profile-panel{width:100vw;max-width:100vw;right:-100vw}
+  #profile-panel.open{right:0}
+}
+
+.profile-hero{display:flex;align-items:center;gap:16px;margin-bottom:18px;padding:4px 2px 10px;}
+.profile-hero-avatar-wrap{position:relative;flex:0 0 92px;text-align:center;}
+.profile-avatar-large,.profile-avatar-placeholder{width:92px;height:92px;border-radius:50%;object-fit:cover;display:block;border:2px solid #eee;box-sizing:border-box;background:#f3f3f3;}
+.profile-avatar-placeholder{display:flex;align-items:center;justify-content:center;font-size:38px;color:#999;}
+.profile-avatar-change{border:0;background:transparent;color:#777;cursor:pointer;margin-top:7px;padding:2px;display:inline-flex;align-items:center;justify-content:center;border-radius:7px;line-height:0;}
+.profile-avatar-change svg{width:19px;height:19px;display:block;}
+.profile-avatar-change:hover{color:#111;background:#f1f1f1;}
+.profile-hero-name-wrap{min-width:0;flex:1;text-align:right;align-self:flex-start;padding-top:7px;}
+.profile-name-edit-row{display:flex;align-items:center;justify-content:flex-end;gap:7px;}
+.profile-hero-name{font-size:25px;font-weight:900;line-height:1.1;color:#111;word-break:break-word;}
+.profile-hero-district{margin-top:7px;color:#777;font-size:12px;line-height:1.35;}
+.profile-inline-edit-icon{width:16px;height:16px;display:block;flex:0 0 16px;cursor:pointer;color:#888;transition:color .15s,transform .15s;}
+.profile-inline-edit-icon:hover{color:#111;transform:scale(1.08);}
+.profile-name-editor{display:none;gap:7px;align-items:center;justify-content:flex-end;margin-top:8px;}
+.profile-name-editor.open{display:flex;}
+.profile-name-editor input{width:100%;max-width:220px;box-sizing:border-box;padding:8px 10px;border:1px solid #ddd;border-radius:9px;font-size:12px;font-weight:600;outline:none;background:#fff;}
+.profile-name-editor input:focus{border-color:#111;}
+.profile-name-save{border:0;background:#111;color:#fff;border-radius:9px;padding:8px 11px;font-size:11px;font-weight:800;cursor:pointer;white-space:nowrap;}
+.profile-about-block{border:1px solid #eee;border-radius:16px;padding:13px 14px;margin-bottom:16px;background:#fafafa;}
+.profile-about-header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px;}
+.profile-about-header-label{font-size:12px;font-weight:800;color:#111;}
+.profile-about-display{min-height:20px;font-size:12px;line-height:1.5;color:#444;white-space:pre-wrap;word-break:break-word;}
+.profile-about-empty{color:#999;}
+.profile-about-editor{display:none;}
+.profile-about-editor.open{display:block;}
+#profile-about{width:100%;box-sizing:border-box;resize:vertical;min-height:84px;border:1px solid #ddd;border-radius:10px;background:#fff;padding:10px;font:inherit;font-size:12px;line-height:1.45;color:#222;outline:none;}
+#profile-about:focus{border-color:#111;}
+.profile-about-footer{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:7px;}
+.profile-about-footer span{font-size:10px;color:#888;}
+#profile-about-save{border:0;background:#111;color:#fff;border-radius:9px;padding:8px 12px;font-size:11px;font-weight:800;cursor:pointer;}
+#profile-about-save:disabled{opacity:.6;cursor:default;}
+.profile-inline-status{min-height:14px;margin-top:6px;font-size:10px;color:#666;}
+.profile-public-about{margin:0 0 14px;border:1px solid #eee;border-radius:12px;padding:11px 12px;background:#fafafa;color:#444;font-size:12px;line-height:1.5;}
+.profile-public-about strong{display:block;color:#111;font-size:11px;margin-bottom:4px;}
+.player-avatar-small{width:30px;height:30px;border-radius:50%;object-fit:cover;display:inline-flex;vertical-align:middle;margin-right:9px;border:1px solid #e3e3e3;background:#eee;}
+.player-avatar-fallback{width:30px;height:30px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;margin-right:9px;background:#eee;color:#999;font-size:14px;border:1px solid #e3e3e3;}
+.player-name-line{display:flex;align-items:center;min-width:0;}
+.player-name-copy{min-width:0;}
+.profile-public-header{display:flex;align-items:center;gap:14px;margin-bottom:15px;}
+.profile-public-avatar{width:92px;height:92px;border-radius:50%;object-fit:cover;border:2px solid #eee;background:#f3f3f3;}
+.profile-public-avatar-fallback{width:92px;height:92px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#eee;color:#999;font-size:34px;border:2px solid #eee;}
+.avatar-crop-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);z-index:1000003;align-items:center;justify-content:center;}
+.avatar-crop-overlay.open{display:flex;}
+.avatar-crop-modal{width:390px;max-width:92vw;background:#fff;border-radius:20px;padding:22px;box-sizing:border-box;box-shadow:0 20px 60px rgba(0,0,0,.2);} 
+.avatar-crop-title{margin:0 0 14px;font-size:18px;font-weight:900;color:#111;}
+.avatar-crop-stage{position:relative;width:280px;height:280px;margin:0 auto 15px;overflow:hidden;border-radius:50%;background:#f2f2f2;border:2px solid #111;touch-action:none;}
+.avatar-crop-image{position:absolute;left:0;top:0;transform-origin:center center;user-select:none;-webkit-user-drag:none;max-width:none;z-index:1;visibility:hidden;}
+.avatar-crop-shade{position:absolute;inset:0;border-radius:50%;box-shadow:0 0 0 9999px rgba(255,255,255,.72);pointer-events:none;z-index:2;}
+.avatar-crop-hint{text-align:center;font-size:11px;color:#777;margin:0 0 12px;}
+.avatar-crop-controls{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.avatar-crop-controls span{font-size:11px;color:#777;min-width:22px;}
+.avatar-crop-zoom{flex:1;}
+.avatar-crop-actions{display:flex;gap:8px;}
+.avatar-crop-actions button{flex:1;border:0;border-radius:10px;padding:10px 12px;font-size:12px;font-weight:800;cursor:pointer;}
+.avatar-crop-cancel{background:#eee;color:#222;}
+.avatar-crop-save{background:#111;color:#fff;}
+
+</style>
     <script type="text/javascript" >
        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
        m[i].l=1*new Date();
@@ -850,7 +981,88 @@ path.highlight {
             webvisor:true
        });
     </script>
-    <!-- КОНЕЦ КОДА МЕТРИКИ -->
+
+
+
+<style id="topo-profile-final-v7">
+/* Иерархия заголовков наград */
+#profile-rewards-view .rewards-category-title{
+  font-size:18px!important;
+  line-height:1.1!important;
+  font-weight:900!important;
+  letter-spacing:.04em!important;
+  margin:22px 0 10px!important;
+}
+/* Выполненная награда: четкая черная рамка */
+#profile-rewards-view .reward-card.reward-done{
+  border:2px solid #000!important;
+  box-shadow:none!important;
+}
+/* Галочка: крупнее и тем же зеленым, что прогресс */
+#profile-rewards-view .reward-badge{
+  width:30px!important;
+  height:30px!important;
+  right:9px!important;
+  top:9px!important;
+}
+#profile-rewards-view .reward-badge svg{
+  width:30px!important;
+  height:30px!important;
+}
+#profile-rewards-view .reward-progress-bar.progress-complete{
+  background:#72D33C!important;
+}
+/* Карандаш под аватаром: белый круг, немного заходит на фото снизу-слева */
+.profile-hero-avatar-wrap{position:relative;flex:0 0 92px;text-align:center;}
+.profile-avatar-change{
+  position:absolute!important;
+  left:-7px!important;
+  bottom:-6px!important;
+  z-index:4!important;
+  width:30px!important;
+  height:30px!important;
+  margin:0!important;
+  padding:0!important;
+  border:1px solid #d8d8d8!important;
+  border-radius:50%!important;
+  background:#fff!important;
+  color:#111!important;
+  box-shadow:0 2px 7px rgba(0,0,0,.14)!important;
+}
+.profile-avatar-change svg{width:16px!important;height:16px!important;}
+.profile-avatar-change:hover{background:#fff!important;color:#000!important;}
+/* Кнопка возврата: компактная, слева, прозрачная */
+#profile-panel .public-profile-back{
+  display:block;
+  width:50%!important;
+  max-width:195px!important;
+  margin:0 0 14px 0!important;
+  padding:8px 10px!important;
+  box-sizing:border-box!important;
+  border:1px solid #000!important;
+  border-radius:9px!important;
+  background:transparent!important;
+  color:#111!important;
+  font-size:11px!important;
+  font-weight:700!important;
+  line-height:1.2!important;
+  text-align:center!important;
+}
+#profile-panel .public-profile-back:hover{background:#f7f7f7!important;}
+/* Превью кадрирования: центр полностью прозрачен и фото видно сразу */
+.avatar-crop-stage{background:#f2f2f2!important;}
+.avatar-crop-image{visibility:visible!important;z-index:1!important;}
+.avatar-crop-shade{
+  position:absolute!important;
+  inset:0!important;
+  border-radius:50%!important;
+  box-shadow:inset 0 0 0 2px #111!important;
+  background:transparent!important;
+  pointer-events:none!important;
+  z-index:2!important;
+}
+</style>
+
 </head>
 <body>
 
@@ -875,11 +1087,16 @@ path.highlight {
 
 <div id="mobile-controls">
     <div id="m-district-slot"></div>
-    <button onclick="document.getElementById('m-settings').classList.toggle('open')">⚙️</button>
+    <button id="m-settings-trigger" onclick="document.getElementById('m-settings').classList.toggle('open')" aria-label="Настройки">⚙️</button>
+</div>
+<div id="m-zoom-controls" aria-label="Масштаб карты">
+    <button id="m-zoom-in" type="button" aria-label="Увеличить">+</button>
+    <button id="m-zoom-out" type="button" aria-label="Уменьшить">−</button>
 </div>
 
 <div id="m-settings">
     <div id="m-poster-slot"></div>
+    <div id="m-profile-slot"></div>
     <div id="m-rating-slot"></div>
     <div id="m-donate-slot"></div>
     <div id="m-layer-slot"></div>
@@ -909,6 +1126,7 @@ path.highlight {
     <span class="arrow">▼</span>
 </div>
 
+  <button id="profile-trigger" class="header-btn">Личный профиль</button>
 
   <button id="leaderboard-trigger">
     <span class="online-indicator"></span> 
@@ -920,67 +1138,165 @@ path.highlight {
 <div id="leaderboard-panel">
     <div class="panel-header">
         <h3>Кто лучше знает Питер?</h3>
-        <button id="close-panel">✕</button>
+        <button id="close-panel" aria-label="Закрыть">✕</button>
     </div>
-    <div id="leaderboard-container">
+    <div class="leaderboard-tabs" role="tablist">
+        <button class="leaderboard-tab active" id="district-ranking-tab" data-ranking="districts" role="tab">Рейтинг районов</button>
+        <button class="leaderboard-tab" id="player-ranking-tab" data-ranking="players" role="tab">Личный зачёт</button>
+    </div>
+    <div id="leaderboard-status" class="leaderboard-status">Загрузка рейтинга…</div>
+    <div id="district-leaderboard-container" class="ranking-view active">
         <table class="leaderboard-table">
-    <thead>
-        <tr>
-            <th class="col-rank">МЕСТО</th>
-            <th class="col-name">РАЙОН</th>
-            <th class="col-score">БАЛЛЫ</th>
-        </tr>
-    </thead>
-    <tbody id="leaderboard-body">
-    </tbody>
-</table>
+            <thead><tr><th class="col-rank">МЕСТО</th><th class="col-name">РАЙОН</th><th class="col-score">БАЛЛЫ</th></tr></thead>
+            <tbody id="leaderboard-body"></tbody>
+        </table>
     </div>
-</div>   
+    <div id="player-leaderboard-container" class="ranking-view">
+        <table class="leaderboard-table">
+            <thead><tr><th class="col-rank">МЕСТО</th><th class="col-name">ИГРОК</th><th class="col-score">БАЛЛЫ</th></tr></thead>
+            <tbody id="player-leaderboard-body"></tbody>
+        </table>
+    </div>
+</div>
 
-<div class="quiz-overlay active" id="auth-modal">
-    <div class="quiz-modal-card auth-card">
+<div id="profile-panel" class="side-panel">
+    <div class="panel-header">
+        <h3>Личный профиль</h3>
+        <button id="close-profile-panel" aria-label="Закрыть">✕</button>
+    </div>
+    <div class="profile-tabs">
+        <button class="profile-tab active" id="profile-main-tab">Профиль</button>
+        <button class="profile-tab" id="profile-rewards-tab">Награды</button>
+    </div>
+    <button class="profile-action-btn public-profile-back" id="public-profile-back" style="display:none;" type="button">← Вернуться к рейтингу</button>
+    <div id="profile-main-view" class="profile-view active">
+        <div class="profile-hero">
+            <div class="profile-hero-avatar-wrap">
+                <img id="profile-avatar" class="profile-avatar-large" src="" alt="Аватар" />
+                <div id="profile-avatar-placeholder" class="profile-avatar-placeholder">👤</div>
+                <input id="profile-avatar-input" type="file" accept="image/*" style="display:none;" />
+                <button id="profile-avatar-change" class="profile-avatar-change" type="button" aria-label="Изменить фото" title="Изменить фото"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17.25V20h2.75L17.81 8.94l-2.75-2.75L4 17.25Zm15.71-9.96a1 1 0 0 0 0-1.41l-1.59-1.59a1 1 0 0 0-1.41 0l-1.27 1.27 2.75 2.75 1.52-1.02Z" fill="currentColor"/></svg></button>
+            </div>
+            <div class="profile-hero-name-wrap">
+                <div class="profile-name-edit-row">
+                    <div class="profile-hero-name" id="profile-username">—</div>
+                    <svg id="profile-username-edit" class="profile-inline-edit-icon" viewBox="0 0 24 24" aria-label="Изменить имя" role="button"><path d="M4 17.25V20h2.75L17.81 8.94l-2.75-2.75L4 17.25Zm15.71-9.96a1 1 0 0 0 0-1.41l-1.59-1.59a1 1 0 0 0-1.41 0l-1.27 1.27 2.75 2.75 1.52-1.02Z" fill="currentColor"/></svg>
+                </div>
+                <div class="profile-name-editor" id="profile-name-editor">
+                    <input id="profile-username-input" type="text" maxlength="32" autocomplete="nickname" />
+                    <button class="profile-name-save" id="profile-username-save" type="button">Сохранить</button>
+                </div>
+                <div class="profile-hero-district" id="profile-district">—</div>
+            </div>
+        </div>
+        <div class="profile-about-block">
+            <div class="profile-about-header">
+                <div class="profile-about-header-label">О себе</div>
+                <svg id="profile-about-edit" class="profile-inline-edit-icon" viewBox="0 0 24 24" aria-label="Редактировать раздел О себе" role="button"><path d="M4 17.25V20h2.75L17.81 8.94l-2.75-2.75L4 17.25Zm15.71-9.96a1 1 0 0 0 0-1.41l-1.59-1.59a1 1 0 0 0-1.41 0l-1.27 1.27 2.75 2.75 1.52-1.02 0Z" fill="currentColor"/></svg>
+            </div>
+            <div id="profile-about-display" class="profile-about-display profile-about-empty">Не заполнено.</div>
+            <div id="profile-about-editor" class="profile-about-editor">
+                <textarea id="profile-about" maxlength="200" rows="4" placeholder="Расскажи немного о себе…"></textarea>
+                <div class="profile-about-footer"><span id="profile-about-counter">0 / 200</span><button id="profile-about-save" type="button">Сохранить</button></div>
+                <div id="profile-about-status" class="profile-inline-status"></div>
+            </div>
+        </div>
+        <div class="profile-card">
+            <div class="profile-stat"><span>Баллы</span><strong id="profile-points">0</strong></div>
+            <div class="profile-stat"><span>Игр сыграно</span><strong id="profile-games-played">0</strong></div>
+            <div class="profile-stat"><span>Правильных ответов</span><strong id="profile-correct-answers">0</strong></div>
+            <div class="profile-stat"><span>Процент правильных ответов</span><strong id="profile-correct-percent">0%</strong></div>
+            <div class="profile-stat"><span>Место в рейтинге</span><strong id="profile-rank">—</strong></div>
+            <div class="profile-stat"><span>Дата регистрации</span><strong id="profile-created-at">—</strong></div>
+            <div class="profile-stat" id="profile-id-stat"><span>ID</span><strong id="profile-id">—</strong></div>
+        </div>
+        <button class="profile-action-btn profile-payment-btn" id="profile-payment-btn">Участвовать в Личном зачёте — 199 ₽</button>
+        <div id="profile-payment-status" class="payment-status"></div>
+        <button class="profile-action-btn" id="profile-logout-btn">Выйти из аккаунта</button>
+    </div>
+    <div id="profile-rewards-view" class="profile-view" style="display:none;">
+        <div id="public-profile-title" class="public-profile-title" style="display:none;"></div>
+        <div id="rewards-container"></div>
+    </div>
+</div>
+<div id="avatar-crop-overlay" class="avatar-crop-overlay" aria-hidden="true">
+    <div class="avatar-crop-modal">
+        <h3 class="avatar-crop-title">Обрежь фотографию</h3>
+        <div id="avatar-crop-stage" class="avatar-crop-stage">
+            <img id="avatar-crop-image" class="avatar-crop-image" src="" alt="Предпросмотр" style="visibility:hidden;">
+            <div class="avatar-crop-shade"></div>
+        </div>
+        <p class="avatar-crop-hint">Перетаскивай фото внутри круга и меняй масштаб ползунком.</p>
+        <div class="avatar-crop-controls"><span>−</span><input id="avatar-crop-zoom" class="avatar-crop-zoom" type="range" min="1" max="3" step="0.01" value="1"><span>+</span></div>
+        <div class="avatar-crop-actions"><button id="avatar-crop-cancel" class="avatar-crop-cancel" type="button">Отмена</button><button id="avatar-crop-save" class="avatar-crop-save" type="button">Сохранить фото</button></div>
+    </div>
+</div>
+<div class="quiz-overlay" id="auth-modal">
+    <div class="quiz-modal-card auth-card topo-auth-card">
+        <div class="topo-auth-close" id="auth-close-btn" aria-label="Закрыть">×</div>
         <h2 class="quiz-geo-title">ТопоРайоны</h2>
-        <p class="quiz-geo-subtitle">Выбери свой район, чтобы внести вклад в общую статистику и открыть интерактивную карту!</p>
-        
-        <div class="auth-form-group">
-            <label class="auth-label">Ваш район * (Обязательно)</label>
-            <select id="auth-district" class="auth-select" required>
-                <option value="" disabled selected>Выберите район...</option>
-                <option value="admiralteysky">Адмиралтейский район</option>
-                <option value="vasileostrovsky">Василеостровский район</option>
-                <option value="vyborgsky">Выборгский район</option>
-                <option value="kalininsky">Калининский район</option>
-                <option value="kirovsky">Кировский район</option>
-                <option value="kolpinsky">Колпинский район</option>
-                <option value="krasnogvardeysky">Красногвардейский район</option>
-                <option value="krasnoselsky">Красносельский район</option>
-                <option value="kronshtadtsky">Кронштадтский район</option>
-                <option value="kurortny">Курортный район</option>
-                <option value="moskovsky">Московский район</option>
-                <option value="nevsky">Невский район</option>
-                <option value="petrogradsky">Петроградский район</option>
-                <option value="petrodvortsovy">Петродворцовый район</option>
-                <option value="primorsky">Приморский район</option>
-                <option value="pushkinsky">Пушкинский район</option>
-                <option value="frunzensky">Фрунзенский район</option>
-                <option value="centralny">Центральный район</option>
-                <option value="murino_lo">Мурино (Лен. область)</option>
-                <option value="kudrovo_lo">Кудрово (Лен. область)</option>
-                <option value="moscow">Москва</option>
-            </select>
+        <p class="quiz-geo-subtitle" id="auth-subtitle">Аккаунт не обязателен: карту и квизы можно проходить бесплатно.</p>
+
+        <div class="auth-tabs" role="tablist">
+            <button type="button" class="auth-tab active" id="auth-login-tab">Войти</button>
+            <button type="button" class="auth-tab" id="auth-register-tab">Регистрация</button>
         </div>
 
-        <!--<div class="auth-form-group">
-            <label class="auth-label">Муниципальное образование (Необязательно)</label>
-            <select id="auth-mo" class="auth-select">
-                <option value="" selected>Выберите МО...</option>
-                <option value="mo1">МО Литейный округ</option>
-                <option value="mo2">МО Смольнинское</option>
-                <option value="mo3">МО Посадский</option>
-            </select>
-        </div>-->
+        <form id="auth-form" autocomplete="on">
+            <div class="auth-form-group" id="username-group" style="display:none;">
+                <label class="auth-label" for="auth-username">Имя или никнейм</label>
+                <input id="auth-username" class="auth-input" type="text"
+                       placeholder="Александр Петров или darkprince"
+                       maxlength="32" autocomplete="nickname">
+                <div class="auth-hint">Кириллица или латиница, 2–32 символа.</div>
+            </div>
 
-        <button class="quiz-btn-primary" id="auth-submit-btn" disabled>Войти на карту</button>
+            <div class="auth-form-group" id="auth-district-group" style="display:none;">
+                <label class="auth-label" for="auth-district">Ваш район</label>
+                <select id="auth-district" class="auth-select">
+                    <option value="" disabled selected>Выберите район...</option>
+                    <option value="admiralteysky">Адмиралтейский район</option>
+                    <option value="vasileostrovsky">Василеостровский район</option>
+                    <option value="vyborgsky">Выборгский район</option>
+                    <option value="kalininsky">Калининский район</option>
+                    <option value="kirovsky">Кировский район</option>
+                    <option value="kolpinsky">Колпинский район</option>
+                    <option value="krasnogvardeysky">Красногвардейский район</option>
+                    <option value="krasnoselsky">Красносельский район</option>
+                    <option value="kronshtadtsky">Кронштадтский район</option>
+                    <option value="kurortny">Курортный район</option>
+                    <option value="moskovsky">Московский район</option>
+                    <option value="nevsky">Невский район</option>
+                    <option value="petrogradsky">Петроградский район</option>
+                    <option value="petrodvortsovy">Петродворцовый район</option>
+                    <option value="primorsky">Приморский район</option>
+                    <option value="pushkinsky">Пушкинский район</option>
+                    <option value="frunzensky">Фрунзенский район</option>
+                    <option value="centralny">Центральный район</option>
+                    <option value="murino_lo">Мурино (Лен. область)</option>
+                    <option value="kudrovo_lo">Кудрово (Лен. область)</option>
+                    <option value="moscow">Москва</option>
+                </select>
+            </div>
+
+            <div class="auth-form-group">
+                <label class="auth-label" for="auth-email">Электронная почта</label>
+                <input id="auth-email" class="auth-input" type="email"
+                       placeholder="you@example.com" required autocomplete="email">
+            </div>
+
+            <div class="auth-form-group">
+                <label class="auth-label" for="auth-password">Пароль</label>
+                <input id="auth-password" class="auth-input" type="password"
+                       placeholder="Минимум 6 символов" minlength="6"
+                       required autocomplete="current-password">
+            </div>
+
+            <button class="quiz-btn-primary auth-submit-btn" id="auth-submit-btn" type="submit">Войти</button>
+        </form>
+
+        <button class="auth-secondary-btn" id="auth-logout-btn" type="button" style="display:none;">Выйти из аккаунта</button>
+        <div class="auth-message" id="auth-message" role="status"></div>
     </div>
 </div>
 
@@ -993,7 +1309,7 @@ path.highlight {
             
         </div>
         <div class="zoom-controls">
-            <input type="range" id="zoom-slider" class="zoom-slider" min="0.5" max="20" step="0.01" value="1.0">
+            <input type="range" id="zoom-slider" class="zoom-slider" min="0.5" max="40" step="0.01" value="1.0">
             <span id="zoom-val">100%</span>
         </div>
     </div>
@@ -2814,7 +3130,7 @@ path.highlight {
     <path class="cls-17" d="M1286.32,532.73h29.62c.83,0,1.51.5,1.51,1.13v3.48s-.01.03-.01.05h0v3.6s-2.62-2.52-2.62-2.52h-28.51c-.83,0-1.51-.5-1.51-1.13v-3.48c0-.62.68-1.13,1.51-1.13Z"/>
     <text class="cls-39" transform="translate(1287.13 536.4)"><tspan class="cls-99" x="0" y="0">у</tspan><tspan x="1.34" y="0">л. Фёдора Абрамо</tspan><tspan class="cls-127" x="25.4" y="0">в</tspan><tspan x="26.85" y="0">а</tspan></text>
   </g>
-  <g id="label-area-skver-aleksandra-belova" 
+  <g id="label-street-dudina-2" data-name="label-street-dudina">
     <path class="cls-17" d="M1356.29,590.07l-29.09.03c-.81.03-1.1,1.06-1.08,1.83,0,.02-4.06,1.05-4.06,1.07l4.07.92c0,.62.43,1.87,1,1.87h29.15c.58,0,1.04-.5,1.04-1.13v-3.48c0-.62-.47-1.13-1.04-1.13Z"/>
     <text class="cls-39" transform="translate(1328.67 593.67)"><tspan class="cls-99" x="0" y="0">у</tspan><tspan x="1.34" y="0">л. Ми</tspan><tspan class="cls-131" x="8.43" y="0">х</tspan><tspan class="cls-55" x="9.81" y="0">аила </tspan><tspan class="cls-142" x="16.9" y="0">Д</tspan><tspan class="cls-124" x="18.86" y="0">у</tspan><tspan x="20.17" y="0">дина</tspan></text>
   </g>
@@ -4638,7 +4954,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ДЕЛЕГИРОВАНИЕ: вешаем один клик на всё окно.
     // Код сработает, даже если элементы динамически переносились в мобильную шторку.
     document.addEventListener('click', (event) => {
-        const target = event.target.closest('#district-switcher-wrapper, #leaderboard-trigger, #donate-btn-element, .sidebar');
+        const target = event.target.closest('#district-switcher-wrapper, #leaderboard-trigger, #profile-trigger, #donate-btn-element, .sidebar');
         
         if (target) {
             playSound();
@@ -108671,7 +108987,12 @@ function setupNextButton(cleanId, progress) {
     }
 }
 
-function buildQuizForLocation(cleanId) {
+async function buildQuizForLocation(cleanId) {
+    if (window.topoAuthReady) {
+        try { await window.topoAuthReady; } catch (e) { console.warn("Auth init:", e); }
+    }
+    // Квиз всегда бесплатен. Аккаунт и оплата нужны только для личного зачёта.
+    if (window.topoCurrentUser) await checkPaidAccess();
     window.currentLocationId = cleanId;
     const progress = getProgress(cleanId);
 
@@ -108699,7 +109020,7 @@ function buildQuizForLocation(cleanId) {
         return; 
     }
 
-    let completedQuestions = JSON.parse(localStorage.getItem('completedQuestions')) || [];
+    let completedQuestions = Array.from(getCompletedObjectIds());
 
 
     if (completedQuestions.includes(cleanId)) {
@@ -108834,45 +109155,79 @@ function buildQuizForLocation(cleanId) {
 async function sendToSupabase(objectId, progress) {
     const nextBtn = document.getElementById('side-quiz-next-btn');
     if (nextBtn) {
-        nextBtn.textContent = "Отправка...";
+        nextBtn.textContent = "Сохранение...";
         nextBtn.disabled = true;
     }
 
-    const savedRawName = localStorage.getItem('savedUserDistrict') || "unknown";
-    const districtIdToSave = districtMap[savedRawName] || savedRawName;
-
     try {
-        const { error } = await window.supabaseClient
-            .from('user_scores')
-            .insert([{ 
-                district_main: districtIdToSave, 
-                district_id: objectId, 
-                score: progress.score 
-            }]);
-        
-        if (error) throw error;
-        
-        let completedQuestions = JSON.parse(localStorage.getItem('completedQuestions')) || [];
-        if (!completedQuestions.includes(objectId)) {
-            completedQuestions.push(objectId);
-            localStorage.setItem('completedQuestions', JSON.stringify(completedQuestions));
+        if (window.topoAuthReady) await window.topoAuthReady;
+        const user = window.topoCurrentUser;
+
+        if (!user || !window.currentProfile) {
+            openAuthModal("Сессия закончилась. Войди в аккаунт ещё раз.");
+            return;
         }
 
+        const districtIdToSave = Number(window.currentProfile.district_id || districtMap[window.userSelectedDistrict]);
+        const correctAnswers = Number(progress.score) || 0;
+
+        // 1. Сохраняем результат в существующую таблицу user_scores.
+        const { error: scoreError } = await window.supabaseClient
+            .from('user_scores')
+            .insert([{
+                district_main: String(districtIdToSave),
+                district_id: objectId,
+                score: correctAnswers
+            }]);
+
+        if (scoreError) throw scoreError;
+
+        // 2. Обновляем личную статистику пользователя.
+        const oldPoints = Number(window.currentProfile.points) || 0;
+        const oldGames = Number(window.currentProfile.games_played) || 0;
+        const oldCorrect = Number(window.currentProfile.correct_answers) || 0;
+
+        const updatedProfile = {
+            ...window.currentProfile,
+            points: oldPoints + correctAnswers,
+            games_played: oldGames + 1,
+            correct_answers: oldCorrect + correctAnswers
+        };
+
+        const { data: savedProfile, error: profileError } = await window.supabaseClient
+            .from('profiles')
+            .update({
+                points: updatedProfile.points,
+                games_played: updatedProfile.games_played,
+                correct_answers: updatedProfile.correct_answers
+            })
+            .eq('id', user.id)
+            .select()
+            .single();
+
+        if (profileError) throw profileError;
+
+        window.currentProfile = savedProfile || updatedProfile;
+        renderProfile(window.currentProfile);
         await fetchLeaderboard();
-        
-        const readableName = districtNames[districtIdToSave] || ("Район ID: " + districtIdToSave);
 
-        // === ДОБАВИТЬ ЭТОТ БЛОК ЗДЕСЬ ===
-        triumphSound.currentTime = 0;
-        triumphSound.play().catch(e => console.log('Аудио заблокировано:', e));
-        // ================================
+        let completedQuestions = Array.from(getCompletedObjectIds());
+        if (!completedQuestions.includes(objectId)) { completedQuestions.push(objectId); }
+        persistCompletedObjectIds(new Set(completedQuestions));
+        await syncCompletedToProfile();
 
-        alert("Результат успешно записан! Ваш вклад отправлен в: " + readableName);
-        
-        buildQuizForLocation(objectId); 
+        try {
+            triumphSound.currentTime = 0;
+            triumphSound.play().catch(() => {});
+        } catch (_) {}
+
+        const readableName = districtNames[String(districtIdToSave)] || ("Район ID: " + districtIdToSave);
+        alert("Результат сохранён. " + correctAnswers + "/5 — ваш вклад отправлен в " + readableName + ".");
+        buildQuizForLocation(objectId);
+
     } catch (err) {
-        console.error("Ошибка при отправке:", err);
-        alert("Ошибка: " + err.message);
+        console.error("Ошибка при сохранении результата:", err);
+        alert("Не удалось сохранить результат: " + (err.message || "неизвестная ошибка"));
         if (nextBtn) {
             nextBtn.disabled = false;
             nextBtn.textContent = "Попробовать снова";
@@ -108883,8 +109238,7 @@ async function sendToSupabase(objectId, progress) {
 // ==========================================
 // 4. ИНИЦИАЛИЗАЦИЯ И СЛУШАТЕЛИ DOM
 // ==========================================
-window.addEventListener('DOMContentLoaded', () => {
-
+/* Main script runs after the page DOM is present. */
   const unlockAudio = () => {
     // Пытаемся воспроизвести и сразу остановить звук (это разблокирует аудио-контекст)
     successSound.play().then(() => {
@@ -108937,160 +109291,1126 @@ document.addEventListener('click', unlockAudio, { once: true });
         console.error("Supabase не запустился:", error.message);
     }
 
-    // === ЛОГИКА АВТОРИЗАЦИИ И ПАМЯТИ РАЙОНА ===
-    const authDistrict = document.getElementById("auth-district");
-    const authSubmitBtn = document.getElementById("auth-submit-btn");
-    const authModal = document.getElementById("auth-modal");
-    const headerSelect = document.getElementById("header-district-select");
+    // === ЛОГИКА АККАУНТА, АВТОРИЗАЦИИ, РЕЙТИНГОВ И ОПЛАТЫ ===
+const TOPO_PAYMENT_CONFIG = {
+    price: 199,
+    // Supabase Edge Function, которая создаёт индивидуальный счёт ЮKassa
+    // для текущего авторизованного пользователя.
+    createInvoiceFunction: "create-invoice",
+    createInvoiceEndpoint: "https://fcsdnvpmdvguxrwxrrus.supabase.co/functions/v1/create-invoice"
+};
 
-    if (headerSelect && authDistrict) {
-        headerSelect.innerHTML = authDistrict.innerHTML;
+window.topoCurrentUser = null;
+window.currentProfile = null;
+window.topoAuthReady = null;
+window.topoPaidAccess = false;
+
+const authModal = document.getElementById("auth-modal");
+const authForm = document.getElementById("auth-form");
+const authEmail = document.getElementById("auth-email");
+const authPassword = document.getElementById("auth-password");
+const authUsername = document.getElementById("auth-username");
+const authDistrict = document.getElementById("auth-district");
+const authSubmitBtn = document.getElementById("auth-submit-btn");
+const authMessage = document.getElementById("auth-message");
+const authSubtitle = document.getElementById("auth-subtitle");
+const usernameGroup = document.getElementById("username-group");
+const authDistrictGroup = document.getElementById("auth-district-group");
+const loginTab = document.getElementById("auth-login-tab");
+const registerTab = document.getElementById("auth-register-tab");
+const authCloseBtn = document.getElementById("auth-close-btn");
+const authLogoutBtn = document.getElementById("auth-logout-btn");
+let authMode = "login";
+
+function setAuthMessage(message, type = "") {
+    if (!authMessage) return;
+    authMessage.textContent = message || "";
+    authMessage.className = "auth-message" + (type ? " " + type : "");
+}
+
+function setAuthMode(mode) {
+    authMode = mode === "register" ? "register" : "login";
+    const isRegister = authMode === "register";
+    loginTab?.classList.toggle("active", !isRegister);
+    registerTab?.classList.toggle("active", isRegister);
+    if (usernameGroup) usernameGroup.style.display = isRegister ? "block" : "none";
+    if (authDistrictGroup) authDistrictGroup.style.display = isRegister ? "block" : "none";
+    if (authSubmitBtn) authSubmitBtn.textContent = isRegister ? "Создать аккаунт" : "Войти";
+    if (authSubtitle) authSubtitle.textContent = isRegister
+        ? "Создай аккаунт, выбери свой район и начинай набирать очки."
+        : "Войди в аккаунт, чтобы открыть личный профиль.";
+    if (authPassword) authPassword.autocomplete = isRegister ? "new-password" : "current-password";
+    setAuthMessage("");
+}
+
+function openAuthModal(message = "", mode = authMode) {
+    if (!authModal) return;
+    setAuthMode(mode);
+    authModal.classList.add("active");
+    authModal.style.display = "flex";
+    if (message) setAuthMessage(message);
+    setTimeout(() => authEmail?.focus(), 50);
+}
+
+function closeAuthModal() {
+    authModal?.classList.remove("active");
+    if (authModal) authModal.style.display = "none";
+}
+
+function validUsername(value) {
+    const normalized = String(value || "").trim();
+    // Разрешаем русские имена/фамилии и английские никнеймы. Цифры, пробел, _, -, . допустимы.
+    return /^[A-Za-zА-Яа-яЁё0-9][A-Za-zА-Яа-яЁё0-9 _.-]{1,31}$/.test(normalized);
+}
+
+function mapDistrictToNumber(value) {
+    const raw = String(value || "");
+    return Number(districtMap[raw] || raw || 0);
+}
+
+function districtLabelById(id) {
+    return districtNames[String(id)] || "Район не выбран";
+}
+
+function districtKeyByNumber(id) {
+    const found = Object.entries(districtMap).find(([, n]) => Number(n) === Number(id));
+    return found ? found[0] : "";
+}
+
+function formatDateRu(value) {
+    if (!value) return "—";
+    const d = new Date(value);
+    return Number.isNaN(d.getTime()) ? "—" : d.toLocaleDateString("ru-RU", {day:"2-digit",month:"2-digit",year:"numeric"});
+}
+
+function escapeHtml(value) {
+    return String(value ?? "")
+        .replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;").replaceAll("'", "&#039;");
+}
+
+async function ensureProfile(user, registrationData = null) {
+    const client = window.supabaseClient;
+    if (!client || !user) return null;
+
+    const { data: existing, error: selectError } = await client
+        .from("profiles")
+        .select("id, username, district_id, points, created_at, games_played, correct_answers, completed_objects, avatar_url, about")
+        .eq("id", user.id)
+        .maybeSingle();
+    if (selectError) throw selectError;
+    if (existing) return existing;
+
+    const username = String(registrationData?.username || user.user_metadata?.username || ("Игрок_" + user.id.slice(0,6))).trim();
+    const district_id = Number(registrationData?.district_id || user.user_metadata?.district_id || 0);
+    const { data, error } = await client.from("profiles").insert([{
+        id:user.id, username, district_id, points:0, games_played:0, correct_answers:0, completed_objects:[], avatar_url:null, about:''
+    }]).select().single();
+    if (error) throw error;
+    return data;
+}
+
+async function loadProfile(user, registrationData = null) {
+    const profile = await ensureProfile(user, registrationData);
+    window.currentProfile = profile;
+    if (!profile) return null;
+
+    const districtKey = districtKeyByNumber(profile.district_id);
+    if (districtKey) {
+        window.userSelectedDistrict = districtKey;
+        localStorage.setItem("savedUserDistrict", districtKey);
+        const hs = document.getElementById("header-district-select");
+        if (hs) hs.value = districtKey;
+    }
+    renderProfile(profile);
+    await loadCompletedProgressForUser(user.id, profile);
+    initRewardsUI();
+    renderRewards();
+    await checkPaidAccess();
+    return profile;
+}
+
+/* ==========================================
+   ДОСТИЖЕНИЯ / НАГРАДЫ
+   Прогресс хранится отдельно для каждого аккаунта
+   и синхронизируется с profiles.completed_objects.
+   ========================================== */
+const TOPO_ACHIEVEMENTS = {
+    quantitative: [
+        { id:"q5", title:"Вышел на улицу", count:5, desc:"Пройти квиз по 5 любым объектам" },
+        { id:"q10", title:"Улица за улицей", count:10, desc:"Пройти квиз по 10 любым объектам" },
+        { id:"q25", title:"Вошёл во вкус улиц", count:25, desc:"Пройти квиз по 25 любым объектам" },
+        { id:"q50", title:"Знаток улиц", count:50, desc:"Пройти квиз по 50 любым объектам" },
+        { id:"q75", title:"Уличный профи", count:75, desc:"Пройти квиз по 75 любым объектам" },
+        { id:"q100", title:"Уличный краевед", count:100, desc:"Пройти квиз по 100 любым объектам" },
+        { id:"q200", title:"Кандидат уличных наук", count:200, desc:"Пройти квиз по 200 любым объектам" },
+        { id:"q300", title:"Доктор уличных наук", count:300, desc:"Пройти квиз по 300 любым объектам" },
+        { id:"q400", title:"Ректор уличного университета", count:400, desc:"Пройти квиз по 400 любым объектам" },
+        { id:"q500", title:"Министр улиц", count:500, desc:"Пройти квиз по 500 любым объектам" }
+    ],
+    metro: [
+        { id:"metro2", title:"Вошёл в метро", count:2, desc:"Пройти квизы по 2 любым объектам метро" },
+        { id:"metro5", title:"Метровед", count:5, desc:"Пройти квизы по 5 любым объектам метро" },
+        { id:"metro10", title:"Метростроитель", count:10, desc:"Пройти квизы по 10 любым объектам метро" },
+        { id:"metro20", title:"Глава метро", count:20, desc:"Пройти квизы по 20 любым объектам метро" }
+    ],
+    research: [
+        { id:"murino_all", title:"Исследователь Графов Мурино", count:6, desc:"Пройти квизы по всем 6 объектам в Мурино", objects:["shуvalova","ekaterininskaya","grafskaya","petrovsky","vorontsovsky","romanovskaya"] },
+        { id:"kudrovo_all", title:"Исследователь Столиц Кудрово", count:8, desc:"Пройти квизы по всем 8 объектам в Кудрово", objects:["evropeysky","italyansky","kudrovo_prazhskaya","venskaya","vensky","alpiyskaya","angliyskaya","stolichnaya"] },
+        { id:"udelya_all", title:"Исследователь Уделки", count:14, desc:"Пройти квизы по всем 14 объектам тёмно-зелёной группы старинных малых городов Российской империи", objects:["kostromskoy","yaroslavsky","myshkinskaya","olonetskaya","mezenskaya","enotaevskaya","eletskaya","kalyazinskaya","zaslavskaya","kolskaya","kubanskaya","lomovskaya","nezhinskaya","skver_enotaevsky"] },
+        { id:"sport_all", title:"Исследователь Спорта", count:22, desc:"Пройти квизы по всем 22 объектам тёмно-оранжевой спортивной группы", objects:["aleksandra-belova","dinamo","dinamovskaya","grebnaya","street_sportivnaya","viktora-nabutova","ryukhina","velosipednaya","tennisnaya","futbolnaya","zenita","gazprom-arena","metro_zenit","grebnogo-kanala","most_grebnoy","yahtennaya","most_yahtenny","zhd_yahtennaya","lyzhny","turistskaya","begovaya","metro_begovaya"] }
+    ]
+};
+
+function getProgressStorageKey(userId){ return userId ? `completedQuestions:${userId}` : 'completedQuestions:guest'; }
+
+function getCompletedObjectIds(userId = window.topoCurrentUser?.id){
+    try {
+        const raw = JSON.parse(localStorage.getItem(getProgressStorageKey(userId)) || '[]');
+        return new Set(Array.isArray(raw) ? raw.map(String) : []);
+    } catch(_) { return new Set(); }
+}
+
+function persistCompletedObjectIds(set, userId = window.topoCurrentUser?.id){
+    try { localStorage.setItem(getProgressStorageKey(userId), JSON.stringify(Array.from(set))); } catch(_) {}
+}
+
+async function syncCompletedToProfile(){
+    const user = window.topoCurrentUser;
+    if (!user || !window.supabaseClient || !window.currentProfile) return;
+    const completed = Array.from(getCompletedObjectIds(user.id));
+    try {
+        const { data, error } = await window.supabaseClient.from('profiles')
+            .update({ completed_objects: completed })
+            .eq('id', user.id).select().single();
+        if (error) throw error;
+        window.currentProfile = data;
+    } catch(e) { console.error('Синхронизация прогресса:', e); }
+}
+
+async function loadCompletedProgressForUser(userId, profile){
+    const dbObjects = Array.isArray(profile?.completed_objects) ? profile.completed_objects.map(String) : [];
+    const localKey = getProgressStorageKey(userId);
+    let localObjects = [];
+    try { localObjects = JSON.parse(localStorage.getItem(localKey) || '[]'); } catch(_) {}
+
+    // Однократно переносим старый общий прогресс в первый аккаунт, чтобы уже пройденное не пропало.
+    // После этого каждый аккаунт использует только свой ключ completedQuestions:<user_id>.
+    if (!dbObjects.length && !localObjects.length) {
+        try {
+            const legacy = JSON.parse(localStorage.getItem('completedQuestions') || '[]');
+            if (Array.isArray(legacy) && legacy.length) {
+                localObjects = legacy.map(String);
+                localStorage.removeItem('completedQuestions');
+            }
+        } catch(_) {}
     }
 
-    if (authDistrict && authSubmitBtn) {
-        authDistrict.addEventListener("change", () => {
-            authSubmitBtn.disabled = false;
-            authSubmitBtn.style.background = "#10b981"; 
-            authSubmitBtn.style.color = "#ffffff";
-            authSubmitBtn.style.cursor = "pointer";
-            authSubmitBtn.style.opacity = "1";
-        });
+    const merged = new Set([...(Array.isArray(dbObjects) ? dbObjects : []), ...(Array.isArray(localObjects) ? localObjects.map(String) : [])]);
+    persistCompletedObjectIds(merged, userId);
+    if (!Array.isArray(profile?.completed_objects) || merged.size !== dbObjects.length) {
+        await syncCompletedToProfile();
     }
+    return merged;
+}
 
-    const savedDistrict = localStorage.getItem('savedUserDistrict');
-    if (savedDistrict) {
-        if (authModal) authModal.style.display = 'none';
-        window.userSelectedDistrict = savedDistrict;
-        if (headerSelect) headerSelect.value = savedDistrict;
+function getMetroObjectIds(){
+    try {
+        return Object.keys(locationData || {}).filter(key => String(locationData[key]?.title || '').toLowerCase().startsWith('станция метро'));
+    } catch(_) { return []; }
+}
+
+function achievementProgress(item, completed){
+    if (Array.isArray(item.objects)) {
+        const done = item.objects.reduce((n,id) => n + (completed.has(String(id)) ? 1 : 0), 0);
+        return { done, total:item.objects.length, unlocked:done === item.objects.length };
     }
+    const done = item.category === 'metro' ? getMetroObjectIds().filter(id => completed.has(String(id))).length : completed.size;
+    return { done, total:item.count, unlocked:done >= item.count };
+}
 
-    const handleDistrictChange = (chosenValue) => {
-        if (chosenValue && chosenValue.trim() !== "") {
-            localStorage.setItem('savedUserDistrict', chosenValue);
-            window.userSelectedDistrict = chosenValue;
-            
-            if (headerSelect) headerSelect.value = chosenValue;
-            const mobileSelect = document.getElementById('m-header-district-select');
-            if (mobileSelect) mobileSelect.value = chosenValue;
-        }
+function rewardCheckSvg(){
+    return `<svg viewBox="0 0 24 24" aria-label="Получено" role="img"><path d="M5 12.5 9.2 17 19 7" fill="none" stroke="#72D33C" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+}
+
+function rewardIconSvg(category, index, unlocked){
+    const i=Math.max(0, Number(index)||0);
+    const muted=unlocked ? '' : ' opacity="0.30"';
+    const uid=(category||'r')+'-'+i+'-'+(unlocked?'u':'l');
+    const palettes={
+      quantitative:[
+        ['#FFF08A','#E4B21F','#FFFBE0','#8A5B00'],['#FFC06A','#E86A24','#FFE8C7','#8E3B0A'],['#78D8FF','#158CC1','#DDF7FF','#07557A'],['#8D9BFF','#4A55D8','#E5E8FF','#252D89'],['#77E39C','#259E58','#E1FFE9','#0B6131'],['#FF80C4','#D72C82','#FFE0EE','#84205A'],['#BD86FF','#7835CE','#F0DFFF','#4A1A89'],['#FFD15C','#E68A00','#FFF0BD','#8A4B00'],['#59E6D8','#15978E','#D8FFFB','#075D55'],['#FF7180','#D3263B','#FFD9DD','#811320']
+      ],
+      metro:[
+        ['#FFB45D','#E66D12','#FFE4C6','#853D06'],['#53CEFF','#1C91C6','#D7F6FF','#0A5779'],['#75DF8A','#249F4C','#E0FFE4','#125B2D'],['#D18BFF','#7A32D0','#F0DFFF','#4A1A81']
+      ],
+      research:[
+        ['#69AEFF','#2866C4','#DCEBFF','#173F7B'],['#D98EFF','#8137C7','#F2E1FF','#4B1C77'],['#FFC263','#E27A00','#FFF0C7','#824900'],['#68E5C6','#159B7D','#D9FFF3','#0B5B4B']
+      ]
     };
-
-    if (authSubmitBtn && authDistrict) {
-        authSubmitBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            if (authDistrict.value && authDistrict.value.trim() !== "") {
-                handleDistrictChange(authDistrict.value);
-                if (authModal) authModal.style.display = "none";
-            } else {
-                alert("Пожалуйста, выберите район из списка!");
-            }
-        });
+    const palette=palettes[category]||palettes.quantitative;
+    const [c1,c2,c3,edge]=palette[Math.min(i,palette.length-1)];
+    const uidBase=uid.replace(/[^a-zA-Z0-9_-]/g,'_');
+    const defs=`<defs><linearGradient id="medal-${uidBase}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${c3}"/><stop offset=".25" stop-color="${c1}"/><stop offset=".72" stop-color="${c2}"/><stop offset="1" stop-color="${edge}"/></linearGradient><linearGradient id="metal-${uidBase}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".96"/><stop offset=".18" stop-color="#fff" stop-opacity=".28"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".16"/></linearGradient><filter id="ds-${uidBase}" x="-35%" y="-35%" width="170%" height="170%"><feDropShadow dx="0" dy="2.2" stdDeviation="2.1" flood-opacity=".25"/></filter></defs>`;
+    const medalRing=`<circle cx="40" cy="40" r="30.5" fill="none" stroke="#fff" stroke-opacity=".38" stroke-width="1.5"/><circle cx="40" cy="40" r="26" fill="none" stroke="url(#metal-${uidBase})" stroke-width="4" opacity=".75"/><path d="M18 28C25 17 43 13 58 22" fill="none" stroke="#fff" stroke-opacity=".62" stroke-width="4" stroke-linecap="round"/>`;
+    const ribbon=(color)=>`<path d="M31 8h18l-4 18h-5l-9-18Z" fill="${color}" stroke="${edge}" stroke-width="1.5"/><path d="M31 8h18l-4 18-5-5-5 5-4-18Z" fill="#fff" fill-opacity=".16"/>`;
+    let art='';
+    if(category==='quantitative'){
+      const arts=[
+        `${ribbon(c2)}<circle cx="40" cy="48" r="22" fill="url(#medal-${uidBase})" stroke="${edge}" stroke-width="2.2"/><text x="40" y="54" text-anchor="middle" font-family="Arial,sans-serif" font-size="19" font-weight="900" fill="#fff">5</text>`,
+        `${ribbon(c2)}<circle cx="40" cy="47" r="23" fill="url(#medal-${uidBase})" stroke="${edge}" stroke-width="2.2"/><circle cx="40" cy="47" r="16" fill="none" stroke="#fff" stroke-opacity=".65" stroke-width="2"/><text x="40" y="53" text-anchor="middle" font-family="Arial,sans-serif" font-size="17" font-weight="900" fill="#fff">10</text>`,
+        `<path d="M30 8h20l-3 19-7 8-7-8Z" fill="${c2}" stroke="${edge}" stroke-width="1.7"/><circle cx="40" cy="49" r="23" fill="url(#medal-${uidBase})" stroke="${edge}" stroke-width="2.3"/><path d="M28 49a12 12 0 0 0 24 0" fill="none" stroke="#fff" stroke-width="2"/><text x="40" y="55" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" font-weight="900" fill="#fff">25</text>`,
+        `<path d="M27 8h26l-7 20h-6l-6-10-7 10Z" fill="${c2}" stroke="${edge}" stroke-width="1.7"/><circle cx="40" cy="49" r="23" fill="url(#medal-${uidBase})" stroke="${edge}" stroke-width="2.4"/><path d="M29 43h22M32 49h16M35 55h10" stroke="#fff" stroke-width="2" stroke-linecap="round"/><text x="40" y="39" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="900" fill="#fff">50</text>`,
+        `${ribbon(c2)}<path d="M21 47c0-10 8-18 19-18s19 8 19 18c0 11-9 20-19 20s-19-9-19-20Z" fill="url(#medal-${uidBase})" stroke="${edge}" stroke-width="2.6"/><path d="M29 48c4-7 18-7 22 0-4 7-18 7-22 0Z" fill="#fff" fill-opacity=".2"/><text x="40" y="54" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="900" fill="#fff">75</text>`,
+        `<path d="M25 8h30l-7 20h-6l-4-7-4 7h-6Z" fill="${c2}" stroke="${edge}" stroke-width="1.8"/><path d="M18 50c0-12 10-22 22-22s22 10 22 22-10 22-22 22-22-10-22-22Z" fill="url(#medal-${uidBase})" stroke="${edge}" stroke-width="2.7"/><path d="M28 44c6-8 18-8 24 0M28 54c6 8 18 8 24 0" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/><text x="40" y="53" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="900" fill="#fff">100</text>`,
+        `<path d="M22 8h36l-8 19h-6l-4-8-4 8h-6Z" fill="${c2}" stroke="${edge}" stroke-width="1.9"/><path d="M16 49c0-13 11-24 24-24s24 11 24 24-11 24-24 24S16 62 16 49Z" fill="url(#medal-${uidBase})" stroke="${edge}" stroke-width="2.8"/><path d="M40 31l4 10 10 1-8 7 3 10-9-5-9 5 3-10-8-7 10-1Z" fill="#fff" fill-opacity=".55"/><text x="40" y="54" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="900" fill="${edge}">200</text>`,
+        `<path d="M19 8h42l-10 21H49l-9-9-9 9h-2Z" fill="${c2}" stroke="${edge}" stroke-width="2"/><path d="M14 49c0-14 12-26 26-26s26 12 26 26-12 26-26 26S14 63 14 49Z" fill="url(#medal-${uidBase})" stroke="${edge}" stroke-width="3"/><path d="m40 29 5 11 12 1-9 8 3 12-11-6-11 6 3-12-9-8 12-1Z" fill="#fff" fill-opacity=".55"/><circle cx="40" cy="49" r="8" fill="#fff" fill-opacity=".18"/><text x="40" y="53" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="900" fill="${edge}">300</text>`,
+        `<path d="M16 8h48l-12 23h-8L40 17 36 31h-8Z" fill="${c2}" stroke="${edge}" stroke-width="2.1"/><path d="M10 50c0-16 13-29 30-29s30 13 30 29-13 29-30 29S10 66 10 50Z" fill="url(#medal-${uidBase})" stroke="${edge}" stroke-width="3.1"/><path d="M40 27l6 13 14 2-10 10 2 14-12-7-12 7 2-14-10-10 14-2Z" fill="#fff" fill-opacity=".58"/><circle cx="40" cy="51" r="10" fill="#fff" fill-opacity=".18"/><text x="40" y="55" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="900" fill="${edge}">400</text>`,
+        `<path d="M13 7h54l-13 25h-8l-6-16-6 16h-8Z" fill="${c2}" stroke="${edge}" stroke-width="2.2"/><path d="M7 50c0-18 15-33 33-33s33 15 33 33-15 33-33 33S7 68 7 50Z" fill="url(#medal-${uidBase})" stroke="${edge}" stroke-width="3.3"/><path d="m40 23 7 15 16 2-12 11 3 16-14-8-14 8 3-16-12-11 16-2Z" fill="#fff" fill-opacity=".6"/><circle cx="40" cy="51" r="12" fill="#fff" fill-opacity=".18"/><text x="40" y="55" text-anchor="middle" font-family="Arial,sans-serif" font-size="10.5" font-weight="900" fill="${edge}">500</text>`
+      ];
+      art=arts[Math.min(i,arts.length-1)];
+      return `<svg class="reward-icon" viewBox="0 0 80 80" role="img" aria-hidden="true"${muted}>${defs}<g filter="url(#ds-${uidBase})">${art}</g>${medalRing}</svg>`;
     }
-
-    if (headerSelect) {
-        headerSelect.addEventListener('change', (e) => handleDistrictChange(e.target.value));
+    if(category==='metro'){
+      const arts=[
+        `<circle cx="40" cy="45" r="23" fill="url(#medal-${uidBase})" stroke="${edge}" stroke-width="2.4"/><path d="M27 48V35a13 13 0 0 1 26 0v13M24 52h32" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/><circle cx="33" cy="41" r="3.5" fill="#fff"/><circle cx="47" cy="41" r="3.5" fill="#fff"/>`,
+        `<path d="M29 12h22l-4 14h-7l-7-7-4 7Z" fill="${c2}" stroke="${edge}" stroke-width="1.7"/><circle cx="40" cy="48" r="24" fill="url(#medal-${uidBase})" stroke="${edge}" stroke-width="2.6"/><path d="M24 55h32M28 49V36a12 12 0 0 1 24 0v13" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/><circle cx="33" cy="40" r="3" fill="#fff"/><circle cx="47" cy="40" r="3" fill="#fff"/>`,
+        `<path d="M19 44h15V28a6 6 0 0 1 12 0v16h15v11H19Z" fill="url(#medal-${uidBase})" stroke="${edge}" stroke-width="2.4"/><circle cx="28" cy="58" r="7" fill="#fff" fill-opacity=".9"/><circle cx="52" cy="58" r="7" fill="#fff" fill-opacity=".9"/><path d="M40 28V16M34 16h12" stroke="#fff" stroke-width="3" stroke-linecap="round"/>`,
+        `<path d="M13 48h54v8H13z" fill="#fff" fill-opacity=".85"/><path d="M20 48V31a20 20 0 0 1 40 0v17" fill="url(#medal-${uidBase})" stroke="${edge}" stroke-width="2.7"/><circle cx="32" cy="40" r="4" fill="#fff"/><circle cx="48" cy="40" r="4" fill="#fff"/><path d="M27 60h26" stroke="#fff" stroke-width="4" stroke-linecap="round"/><path d="M35 18h10" stroke="#fff" stroke-width="3" stroke-linecap="round"/>`
+      ];
+      art=arts[Math.min(i,arts.length-1)];
+      return `<svg class="reward-icon" viewBox="0 0 80 80" role="img" aria-hidden="true"${muted}>${defs}<g filter="url(#ds-${uidBase})">${art}</g>${medalRing}</svg>`;
     }
-
-    // === ТОЧЕЧНАЯ МОБИЛЬНАЯ ОПТИМИЗАЦИЯ (ВЫПРАВЛЕНИЕ UI И СТИЛЕЙ) ===
-    if (window.innerWidth <= 768) {
-        // Динамическая инъекция стилей для мобильной шторки и селектора (Desktop полностью изолирован)
-        const styleOverride = document.createElement('style');
-        styleOverride.textContent = `
-            @media (max-width: 768px) {
-            
-                /* Кастомный премиальный селектор района - без дублей и дешевого вида */
-                #m-header-district-select {
-                    width: 100% !important;
-                    background: #18181b !important;
-                    color: #ffffff !important;
-                    border: 1px solid #3f3f46 !important;
-                    border-radius: 12px !important;
-                    padding: 10px 36px 10px 14px !important;
-                    font-size: 1rem !important;
-                    font-weight: 500 !important;
-                    appearance: none !important;
-                    -webkit-appearance: none !important;
-                    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>") !important;
-                    background-repeat: no-repeat !important;
-                    background-position: right 12px center !important;
-                    background-size: 14px !important;
-                    box-shadow: 0 4px 15px rgba(0,0,0,0.4) !important;
-                }
-                
-                /* Сжимаем черную панель управления слоями */
-                #m-layer-control-panel {
-                    padding: 10px 12px !important;
-                    background: rgba(24, 24, 27, 0.96) !important;
-                    border-radius: 14px !important;
-                    box-shadow: 0 4px 20px rgba(0,0,0,0.5) !important;
-                }
-                
-                /* Помещаем чекбоксы Улицы и Метро на одну горизонтальную ось */
-                #m-layer-control-panel div, 
-                #m-layer-control-panel form {
-                    display: flex !important;
-                    flex-wrap: wrap !important;
-                    gap: 6px 10px !important;
-                }
-                
-                #m-layer-control-panel label {
-                    margin: 0 !important;
-                    padding: 4px 0 !important;
-                    font-size: 0.85rem !important;
-                    display: inline-flex !important;
-                    align-items: center !important;
-                }
-                
-                /* Первые два чекбокса делят строку пополам */
-                #m-layer-control-panel label:nth-of-type(1),
-                #m-layer-control-panel label:nth-of-type(2) {
-                    flex: 1 1 45% !important;
-                }
-                
-                /* Третий чекбокс (Зеленые зоны) падает вниз на всю ширину */
-                #m-layer-control-panel label:nth-of-type(3) {
-                    flex: 1 1 100% !important;
-                    margin-top: 2px !important;
-                }
-                
-                /* Компактный ползунок */
-                #m-layer-control-panel input[type="range"] {
-                    margin-top: 4px !important;
-                }
-            }
-        `;
-        document.head.appendChild(styleOverride);
-
-        const copyElementToMobile = (sourceIdOrClass, targetSlotId, newId) => {
-            const source = document.getElementById(sourceIdOrClass) || document.querySelector('.' + sourceIdOrClass);
-            const target = document.getElementById(targetSlotId);
-            if (source && target) {
-                target.innerHTML = ''; // Полностью зачищаем слот от старого мусора и дубликатов
-                const clone = source.cloneNode(true);
-                if (newId) clone.id = newId;
-                
-                clone.style.position = 'static';
-                clone.style.display = 'block';
-                clone.style.top = 'auto';
-                clone.style.right = 'auto';
-                clone.style.margin = '4px 0';
-                target.appendChild(clone);
-                return clone;
-            }
-            return null;
-        };
-
-        // Переносим только нужный селектор и вешаем обработчик
-        const mobileSelect = copyElementToMobile('header-district-select', 'm-district-slot', 'm-header-district-select');
-        if (mobileSelect) {
-            mobileSelect.addEventListener('change', (e) => handleDistrictChange(e.target.value));
-            if (window.userSelectedDistrict) mobileSelect.value = window.userSelectedDistrict;
+    const arts=[
+      `<circle cx="40" cy="46" r="23" fill="url(#medal-${uidBase})" stroke="${edge}" stroke-width="2.5"/><path d="M29 33h22v22H29z" fill="#fff" fill-opacity=".16"/><path d="M33 37h14M33 44h10M33 50h14" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/><path d="M27 28l-7 9M53 28l7 9" stroke="#fff" stroke-width="3" stroke-linecap="round"/>`,
+      `<path d="M22 47a18 18 0 1 1 36 0" fill="none" stroke="url(#medal-${uidBase})" stroke-width="10" stroke-linecap="round"/><circle cx="40" cy="47" r="20" fill="none" stroke="${edge}" stroke-width="2.4"/><path d="m40 31 4 10 11 1-8 7 2 10-9-5-9 5 2-10-8-7 11-1Z" fill="#fff" fill-opacity=".55"/>`,
+      `<path d="M23 27h34l-4 25-13 11-13-11Z" fill="url(#medal-${uidBase})" stroke="${edge}" stroke-width="2.7"/><circle cx="40" cy="38" r="9" fill="#fff" fill-opacity=".18"/><path d="M40 31v14M33 38h14" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><path d="M31 22h18" stroke="#fff" stroke-width="4" stroke-linecap="round"/>`,
+      `<path d="M18 30h44v26H18z" fill="url(#medal-${uidBase})" stroke="${edge}" stroke-width="2.8"/><path d="m18 38 10-8 8 8 8-8 18 8" fill="none" stroke="#fff" stroke-width="2.8" stroke-linejoin="round"/><path d="M28 43h24M28 50h17" stroke="#fff" stroke-width="3" stroke-linecap="round"/><path d="M30 19h20" stroke="#fff" stroke-width="4" stroke-linecap="round"/>`
+    ];
+    art=arts[Math.min(i,arts.length-1)];
+    return `<svg class="reward-icon" viewBox="0 0 80 80" role="img" aria-hidden="true"${muted}>${defs}<g filter="url(#ds-${uidBase})">${art}</g>${medalRing}</svg>`;
+}
+function renderRewards(completedOverride=null, titlePrefix=null){
+    const root = document.getElementById('rewards-container');
+    if (!root) return;
+    const completed = completedOverride || getCompletedObjectIds();
+    const metroIds = getMetroObjectIds();
+    const streetCount = completed.size;
+    const metroCount = metroIds.filter(id => completed.has(String(id))).length;
+    const categories = [
+        ['Количественные', TOPO_ACHIEVEMENTS.quantitative.map(x => ({...x, category:'quantitative'}))],
+        ['Метро', TOPO_ACHIEVEMENTS.metro.map(x => ({...x, category:'metro'}))],
+        ['Исследование', TOPO_ACHIEVEMENTS.research.map(x => ({...x, category:'research'}))]
+    ];
+    let unlockedAchievements = 0;
+    let html = `<div class="rewards-summary"><div><strong>${completed.size}</strong>объектов пройдено</div><div><strong>0</strong>наград получено</div></div>`;
+    for (const [categoryTitle, items] of categories) {
+        html += `<section class="rewards-category"><h4 class="rewards-category-title">${categoryTitle}</h4>`;
+        for (const item of items) {
+            const progress = item.category === 'quantitative'
+                ? {done:streetCount,total:item.count,unlocked:streetCount >= item.count}
+                : item.category === 'metro'
+                    ? {done:metroCount,total:item.count,unlocked:metroCount >= item.count}
+                    : achievementProgress(item, completed);
+            if (progress.unlocked) unlockedAchievements++;
+            const pct = progress.total ? Math.max(0, Math.min(100, (progress.done / progress.total) * 100)) : 0;
+            let progressClass = '';
+            if (pct >= 100) progressClass = 'progress-complete';
+            else if (pct >= 50) progressClass = 'progress-yellow';
+            else if (pct >= 25) progressClass = 'progress-orange';
+            else if (pct > 0) progressClass = 'progress-red';
+            const stateClass = pct >= 100 ? 'reward-done' : (pct > 0 ? 'reward-started' : 'reward-empty');
+            const icon = rewardIconSvg(item.category, items.indexOf(item), progress.unlocked);
+            html += `<article class="reward-card ${stateClass}">${progress.unlocked ? `<span class="reward-badge">${rewardCheckSvg()}</span>` : ''}<div class="reward-icon-wrap">${icon}</div><div class="reward-card-body"><h5 class="reward-card-title">${escapeHtml(item.title)}</h5><p class="reward-card-desc">${escapeHtml(item.desc)}</p><div class="reward-card-progress"><span>Прогресс</span><strong>${Math.min(progress.done,progress.total)} / ${progress.total} · ${Math.round(pct)}%</strong></div><div class="reward-progress-track"><div class="reward-progress-bar ${progressClass}" style="width:${pct}%"></div></div></div></article>`;
         }
-        
-        copyElementToMobile('rating-button-class', 'm-rating-slot', 'm-rating-button'); 
-        copyElementToMobile('layer-control-panel', 'm-layer-slot', 'm-layer-control-panel');
+        html += `</section>`;
+    }
+    html = html.replace('<strong>0</strong>наград получено', `<strong>${unlockedAchievements}</strong>наград получено`);
+    root.innerHTML = html;
+    if (titlePrefix) {
+        const title = document.getElementById('public-profile-title');
+        if (title) title.textContent = titlePrefix;
+    }
+}
+
+function initRewardsUI(){
+    const mainTab = document.getElementById('profile-main-tab');
+    const rewardsTab = document.getElementById('profile-rewards-tab');
+    const mainView = document.getElementById('profile-main-view');
+    const rewardsView = document.getElementById('profile-rewards-view');
+    if (!mainTab || !rewardsTab || !mainView || !rewardsView || rewardsTab.dataset.bound) return;
+    rewardsTab.dataset.bound = '1';
+    const activate = (mode) => {
+        const rewards = mode === 'rewards';
+        mainTab.classList.toggle('active', !rewards);
+        rewardsTab.classList.toggle('active', rewards);
+        mainView.style.display = rewards ? 'none' : '';
+        rewardsView.style.display = rewards ? '' : 'none';
+        if (rewards) renderRewards(window.publicProfileMode ? (window.publicProfileCompleted || new Set()) : null);
+    };
+    mainTab.addEventListener('click', () => activate('main'));
+    rewardsTab.addEventListener('click', () => activate('rewards'));
+}
+
+function renderProfile(profile, options = {}) {
+    const publicMode = !!window.publicProfileMode;
+    const isOwner = !!window.topoCurrentUser && profile?.id === window.topoCurrentUser.id && !publicMode;
+    const games = Number(profile?.games_played) || 0;
+    const correct = Number(profile?.correct_answers) || 0;
+    const percent = games > 0 ? Math.round((correct / (games * 5)) * 100) : 0;
+    const avatar = String(profile?.avatar_url || '').trim();
+
+    const avatarEl = document.getElementById('profile-avatar');
+    const avatarFallback = document.getElementById('profile-avatar-placeholder');
+    if (avatarEl) {
+        avatarEl.src = avatar || '';
+        avatarEl.style.display = avatar ? 'block' : 'none';
+    }
+    if (avatarFallback) avatarFallback.style.display = avatar ? 'none' : 'flex';
+    const avatarChange = document.getElementById('profile-avatar-change');
+    if (avatarChange) avatarChange.style.display = isOwner ? 'inline-block' : 'none';
+
+    const fieldMap = {
+        'profile-id': profile?.id || '—',
+        'profile-username': profile?.username || '—',
+        'profile-district': profile ? districtLabelById(profile.district_id) : '—',
+        'profile-points': Number(profile?.points) || 0,
+        'profile-created-at': formatDateRu(profile?.created_at),
+        'profile-games-played': games,
+        'profile-correct-answers': correct,
+        'profile-correct-percent': `${percent}%`
+    };
+    Object.entries(fieldMap).forEach(([id, val]) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = val;
+    });
+
+    const idStat = document.getElementById('profile-id-stat');
+    if (idStat) idStat.style.display = publicMode ? 'none' : '';
+
+    const usernameEdit = document.getElementById('profile-username-edit');
+    if (usernameEdit) usernameEdit.style.display = isOwner ? 'block' : 'none';
+    const nameEditor = document.getElementById('profile-name-editor');
+    const nameInput = document.getElementById('profile-username-input');
+    if (nameInput && document.activeElement !== nameInput) nameInput.value = String(profile?.username || '');
+    if (nameEditor && !isOwner) nameEditor.classList.remove('open');
+
+    const about = String(profile?.about || '').slice(0,200);
+    const aboutDisplay = document.getElementById('profile-about-display');
+    if (aboutDisplay) {
+        aboutDisplay.textContent = about || 'Не заполнено.';
+        aboutDisplay.classList.toggle('profile-about-empty', !about);
+        aboutDisplay.style.display = 'block';
+    }
+    const aboutEdit = document.getElementById('profile-about-edit');
+    if (aboutEdit) aboutEdit.style.display = isOwner ? 'block' : 'none';
+    const aboutEditor = document.getElementById('profile-about-editor');
+    const aboutEl = document.getElementById('profile-about');
+    const aboutCounter = document.getElementById('profile-about-counter');
+    if (aboutEl) {
+        aboutEl.value = about;
+        aboutEl.readOnly = !isOwner;
+    }
+    if (aboutCounter) aboutCounter.textContent = `${about.length} / 200`;
+    if (aboutEditor && !isOwner) aboutEditor.classList.remove('open');
+
+    const paymentBtn = document.getElementById('profile-payment-btn');
+    const status = document.getElementById('profile-payment-status');
+    if (paymentBtn) paymentBtn.style.display = isOwner ? 'block' : 'none';
+    if (status) status.style.display = isOwner ? 'block' : 'none';
+    if (paymentBtn && isOwner) {
+        paymentBtn.disabled = false;
+        paymentBtn.style.opacity = '1';
+        paymentBtn.style.cursor = 'pointer';
+        paymentBtn.textContent = window.topoPaidAccess ? 'Вы участвуете в Личном зачёте!' : 'Участвовать в Личном зачёте — 199 ₽';
+        if (window.topoPaidAccess) { paymentBtn.disabled = true; paymentBtn.style.opacity = '.55'; paymentBtn.style.cursor = 'default'; }
+    }
+    if (status && isOwner) status.textContent = window.topoPaidAccess
+        ? 'Ты участвуешь в личном зачёте. Новые очки идут и тебе, и твоему району.'
+        : 'Карту и квизы можно проходить бесплатно. После оплаты ты появишься в личном зачёте, а новые очки будут начисляться и тебе, и району.';
+    const logout = document.getElementById('profile-logout-btn');
+    if (logout) logout.style.display = isOwner ? 'block' : 'none';
+
+    const rankEl = document.getElementById('profile-rank');
+    if (rankEl) {
+        const rank = Number(options.rank || 0);
+        const rankVisible = publicMode || (isOwner && !!window.topoPaidAccess);
+        rankEl.textContent = rankVisible && rank > 0 ? `${rank}` : '—';
+        rankEl.parentElement.style.display = rankVisible ? 'flex' : 'none';
     }
 
+    initRewardsUI();
+    if (!publicMode) renderRewards();
+}
+
+async function getPlayerRank(profileId){
+    if (!window.supabaseClient || !profileId) return 0;
+    try {
+        const { data, error } = await window.supabaseClient.rpc('get_paid_leaderboard', { limit_count: 1000 });
+        if (error) throw error;
+        const list = Array.isArray(data) ? data : [];
+        const i = list.findIndex(p => String(p.id) === String(profileId));
+        return i >= 0 ? i + 1 : 0;
+    } catch (e) {
+        console.warn('Место в рейтинге:', e);
+        return 0;
+    }
+}
+
+async function checkPaidAccess() {
+    if (!window.topoCurrentUser || !window.supabaseClient) {
+        window.topoPaidAccess = false;
+        return false;
+    }
+    try {
+        const { data, error } = await window.supabaseClient
+            .from("paid_access").select("active, expires_at").eq("user_id", window.topoCurrentUser.id).maybeSingle();
+        if (error) throw error;
+        const active = !!data?.active;
+        const notExpired = !data?.expires_at || new Date(data.expires_at).getTime() > Date.now();
+        window.topoPaidAccess = active && notExpired;
+    } catch (e) {
+        // Если paid_access ещё не создана, пользователь остаётся бесплатным игроком.
+        window.topoPaidAccess = false;
+        console.warn("paid_access недоступна:", e.message);
+    }
+    renderProfile(window.currentProfile);
+    return window.topoPaidAccess;
+}
+
+async function createPayment() {
+    const user = window.topoCurrentUser;
+    if (!user) {
+        openAuthModal("Сначала войди в аккаунт.", "login");
+        return;
+    }
+
+    const status = document.getElementById("profile-payment-status");
+    const btn = document.getElementById("profile-payment-btn");
+
+    try {
+        if (await checkPaidAccess()) return;
+        if (status) status.textContent = "Создаём счёт на 199 ₽…";
+        if (btn) { btn.disabled = true; btn.textContent = "Подготавливаем оплату…"; }
+
+        let result = null;
+
+        // Основной путь: Supabase сам добавит токен текущего пользователя.
+        if (window.supabaseClient?.functions?.invoke) {
+            const { data, error } = await window.supabaseClient.functions.invoke(
+                TOPO_PAYMENT_CONFIG.createInvoiceFunction,
+                { body: { price: TOPO_PAYMENT_CONFIG.price } }
+            );
+            if (error) throw error;
+            result = data;
+        }
+
+        // Резервный путь — прямой POST в ту же Edge Function.
+        if (!result?.payment_url && TOPO_PAYMENT_CONFIG.createInvoiceEndpoint) {
+            const { data: sessionData } = await window.supabaseClient.auth.getSession();
+            const token = sessionData?.session?.access_token;
+            if (!token) throw new Error("Сессия истекла. Войди в аккаунт ещё раз.");
+
+            const response = await fetch(TOPO_PAYMENT_CONFIG.createInvoiceEndpoint, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + token
+                },
+                body: JSON.stringify({ price: TOPO_PAYMENT_CONFIG.price })
+            });
+
+            const raw = await response.text();
+            try { result = JSON.parse(raw); } catch { result = null; }
+            if (!response.ok) {
+                throw new Error(result?.error || "ЮKassa не создала счёт.");
+            }
+        }
+
+        if (result?.payment_url) {
+            if (status) status.textContent = "Счёт создан. Переходим к оплате…";
+            window.location.href = result.payment_url;
+            return;
+        }
+
+        throw new Error("Не получена ссылка на счёт ЮKassa.");
+    } catch (e) {
+        console.error("Ошибка создания счёта:", e);
+        if (status) status.textContent = e?.message || "Не удалось создать счёт.";
+        if (btn) {
+            btn.disabled = false;
+            btn.textContent = "Открыть полный доступ к игре — 199 ₽";
+        }
+    }
+}
+
+async function handleAuthSubmit(e) {
+    e.preventDefault();
+    if (!window.supabaseClient) return setAuthMessage("Supabase не инициализирован.", "error");
+    const email = String(authEmail?.value || "").trim();
+    const password = String(authPassword?.value || "");
+    if (!email || !password) return setAuthMessage("Заполни почту и пароль.", "error");
+    authSubmitBtn.disabled = true;
+    authSubmitBtn.textContent = "Подождите…";
+
+    try {
+        if (authMode === "register") {
+            const username = String(authUsername?.value || "").trim();
+            const districtKey = String(authDistrict?.value || "");
+            const district_id = mapDistrictToNumber(districtKey);
+            if (!validUsername(username)) throw new Error("Имя или никнейм: 2–32 символа, кириллица/латиница, цифры, пробел, точка, дефис или _.");
+            if (!district_id) throw new Error("Выбери район.");
+
+            const { data: taken, error: takenError } = await window.supabaseClient.from("profiles")
+                .select("id").ilike("username", username).limit(1);
+            if (takenError) throw takenError;
+            if (taken?.length) throw new Error("Такое имя или никнейм уже занят.");
+
+            const { data, error } = await window.supabaseClient.auth.signUp({
+                email, password,
+                options: {
+                    emailRedirectTo: "https://toporayony.ru/",
+                    data: { username, district_id }
+                }
+            });
+            if (error) throw error;
+
+            if (data.session && data.user) {
+                window.topoCurrentUser = data.user;
+                await loadProfile(data.user, {username, district_id});
+                closeAuthModal();
+            } else {
+                setAuthMessage("Аккаунт создан. Подтверди почту, перейдя по письму от ТопоРайонов. После подтверждения сайт откроется автоматически.", "success");
+                setAuthMode("login");
+            }
+        } else {
+            const { data, error } = await window.supabaseClient.auth.signInWithPassword({email, password});
+            if (error) throw error;
+            window.topoCurrentUser = data.user;
+            await loadProfile(data.user);
+            closeAuthModal();
+        }
+    } catch (err) {
+        setAuthMessage(err?.code === "23505" ? "Такое имя или никнейм уже занят." : (err.message || "Ошибка авторизации."), "error");
+    } finally {
+        authSubmitBtn.disabled = false;
+        authSubmitBtn.textContent = authMode === "register" ? "Создать аккаунт" : "Войти";
+    }
+}
+
+async function signOutTopo() {
+    try {
+        if (window.supabaseClient) await window.supabaseClient.auth.signOut();
+    } catch (e) { console.error("Выход:", e); }
+    window.topoCurrentUser = null;
+    window.currentProfile = null;
+    window.topoPaidAccess = false;
+    closeProfilePanel();
+    closeAuthModal();
+    renderProfile(null);
+}
+
+async function syncDistrictFromProfile(chosenValue) {
+    const district_id = mapDistrictToNumber(chosenValue);
+    window.userSelectedDistrict = chosenValue;
+    localStorage.setItem("savedUserDistrict", chosenValue);
+    if (!window.topoCurrentUser || !district_id) return;
+    const { data, error } = await window.supabaseClient.from("profiles")
+        .update({district_id}).eq("id", window.topoCurrentUser.id).select().single();
+    if (error) { console.error("Сохранение района:", error); return; }
+    window.currentProfile = data;
+    renderProfile(data);
+}
+
+async function initializeTopoAuth() {
+    if (!window.supabaseClient) throw new Error("Supabase клиент не найден.");
+    const { data: { session } } = await window.supabaseClient.auth.getSession();
+    if (session?.user) {
+        window.topoCurrentUser = session.user;
+        try { await loadProfile(session.user); closeAuthModal(); } catch (e) { console.error("Профиль:", e); }
+    } else {
+        // Никакого обязательного аккаунта: карта и бесплатные квизы доступны гостю.
+        window.topoCurrentUser = null;
+        closeAuthModal();
+    }
+
+    window.supabaseClient.auth.onAuthStateChange(async (_event, session) => {
+        if (session?.user) {
+            window.topoCurrentUser = session.user;
+            try { await loadProfile(session.user); closeAuthModal(); } catch (e) { console.error("Профиль после входа:", e); }
+        } else {
+            window.topoCurrentUser = null;
+            window.currentProfile = null;
+            window.topoPaidAccess = false;
+            closeProfilePanel();
+            closeAuthModal();
+        }
+    });
+}
+
+
+// После подтверждения email Supabase возвращает пользователя на этот сайт вместе с сессией.
+(function handleAuthReturn(){
+    const hash = window.location.hash || "";
+    const search = window.location.search || "";
+    if (/(access_token|refresh_token|error|code)=/.test(hash + "&" + search)) {
+        setTimeout(() => {
+            if (window.topoCurrentUser) closeAuthModal();
+        }, 300);
+    }
+})();
+window.topoAuthReady = (async () => initializeTopoAuth())().catch(e => {
+    console.error("Auth init:", e);
+    return null;
+});
+
+function switchRanking(mode) {
+    const isPlayers = mode === "players";
+    document.getElementById("district-leaderboard-container")?.classList.toggle("active", !isPlayers);
+    document.getElementById("player-leaderboard-container")?.classList.toggle("active", isPlayers);
+    document.getElementById("district-ranking-tab")?.classList.toggle("active", !isPlayers);
+    document.getElementById("player-ranking-tab")?.classList.toggle("active", isPlayers);
+}
+
+async function fetchLeaderboard() {
+    const client = window.supabaseClient;
+    const status = document.getElementById("leaderboard-status");
+    if (!client) return;
+    if (status) status.textContent = "Загрузка рейтинга…";
+
+    // Рейтинг районов: очки всех игроков и гостей.
+    try {
+        const { data, error } = await client.from("user_scores").select("district_main, score");
+        if (error) throw error;
+        const totals = {};
+        (data || []).forEach(row => {
+            const raw = String(row.district_main ?? "");
+            const id = String(districtMap[raw] || raw);
+            const score = Number(row.score) || 0;
+            totals[id] = (totals[id] || 0) + score;
+        });
+        const list = Object.entries(districtNames)
+            .map(([id,name]) => ({id,name,score:totals[id] || 0}))
+            .sort((a,b)=>b.score-a.score || a.name.localeCompare(b.name,"ru"));
+        const body = document.getElementById("leaderboard-body");
+        if (body) body.innerHTML = list.map((d,i)=>{
+            const place=i+1;
+            const rc=place===1?"rank-1":place===2?"rank-2":place===3?"rank-3":place>=list.length-2?"rank-low":"rank-default";
+            return `<tr class="${rc}"><td>${place}</td><td>${escapeHtml(d.name.replace(" район",""))}</td><td style="text-align:right">${d.score}</td></tr>`;
+        }).join("");
+    } catch (e) {
+        console.error("Рейтинг районов:", e);
+        const body=document.getElementById("leaderboard-body");
+        if(body) body.innerHTML='<tr><td colspan="3" style="padding:20px 8px;color:#c00">Не удалось загрузить рейтинг районов.</td></tr>';
+    }
+
+    // Личный зачёт: намеренно через безопасную RPC-функцию Supabase.
+    // Она возвращает только уже оплаченных игроков и не раскрывает email/UUID/неоплаченных пользователей.
+    try {
+        const { data: players, error } = await client.rpc("get_paid_leaderboard", { limit_count: 100 });
+        if (error) throw error;
+        const body = document.getElementById("player-leaderboard-body");
+        if (body) {
+            const safePlayers = Array.isArray(players) ? players : [];
+            body.innerHTML = safePlayers.length
+                ? safePlayers.map((p,i)=>{
+                    const place=i+1;
+                    const rc=place===1?"rank-1":place===2?"rank-2":place===3?"rank-3":"rank-default";
+                    const district=districtLabelById(p.district_id).replace(" район","");
+                    const avatarHtml = p.avatar_url ? `<img class="player-avatar-small" src="${escapeHtml(p.avatar_url)}" alt="Аватар">` : `<span class="player-avatar-fallback">👤</span>`;
+                    return `<tr class="${rc} player-profile-row" data-player-id="${escapeHtml(p.id || '')}"><td>${place}</td><td><div class="player-name-line">${avatarHtml}<span class="player-name-copy"><span>${escapeHtml(p.username || "Игрок")}</span><div style="font-size:10px;color:#999;margin-top:2px;font-weight:400">${escapeHtml(district)}</div></span></div></td><td style="text-align:right">${Number(p.points)||0}</td></tr>`;
+                }).join("")
+                : '<tr><td colspan="3" style="padding:20px 8px;color:#777">Личный зачёт пока пуст. После первой оплаты здесь появится первый игрок.</td></tr>';
+        }
+    } catch (e) {
+        console.error("Личный зачёт:", e);
+        const body=document.getElementById("player-leaderboard-body");
+        if(body) body.innerHTML='<tr><td colspan="3" style="padding:20px 8px;color:#777">Личный зачёт пока пуст. После первой оплаты здесь появится первый игрок.</td></tr>';
+    }
+    if (status) status.textContent = "Обновлено только что";
+}
+
+function closeProfilePanel(){
+    const panel=document.getElementById("profile-panel");
+    if(panel) panel.classList.remove("open");
+    const back=document.getElementById("public-profile-back"); if(back) back.style.display='none';
+    window.publicProfileMode=false;
+    window.publicProfileCompleted=null;
+}
+
+async function openProfilePanel(){
+    document.getElementById('profile-panel')?.classList.remove('public-profile-mode');
+    window.publicProfileMode = false;
+    window.publicProfileCompleted = null;
+    const user = window.topoCurrentUser;
+    if (!user) {
+        openAuthModal("Чтобы открыть личный профиль, войди или зарегистрируйся.", "login");
+        return;
+    }
+    document.getElementById("leaderboard-panel")?.classList.remove("open");
+    document.getElementById("profile-panel")?.classList.add("open");
+    const title=document.getElementById('public-profile-title'); if(title) title.style.display='none';
+    const back=document.getElementById('public-profile-back'); if(back) back.style.display='none';
+    const payment=document.getElementById('profile-payment-btn'); if(payment) payment.style.display='block';
+    const status=document.getElementById('profile-payment-status'); if(status) status.style.display='block';
+    const logout=document.getElementById('profile-logout-btn'); if(logout) logout.style.display='block';
+    const idEl=document.getElementById('profile-id-stat'); if(idEl) idEl.style.display='flex';
+    const dateEl=document.getElementById('profile-created-at')?.parentElement; if(dateEl) dateEl.style.display='flex';
+    const editName=document.getElementById('profile-username-edit'); if(editName) editName.style.display='inline-flex';
+    const editAbout=document.getElementById('profile-about-edit'); if(editAbout) editAbout.style.display='inline-flex';
+    const avatarChange=document.getElementById('profile-avatar-change'); if(avatarChange) avatarChange.style.display='block';
+    document.getElementById('profile-name-editor')?.classList.remove('open');
+    document.getElementById('profile-about-editor')?.classList.remove('open');
+    document.getElementById('profile-main-tab')?.classList.add('active');
+    document.getElementById('profile-rewards-tab')?.classList.remove('active');
+    document.getElementById('profile-main-view').style.display='block';
+    document.getElementById('profile-rewards-view').style.display='none';
+    await checkPaidAccess();
+    const rank = window.topoPaidAccess ? await getPlayerRank(user.id) : 0;
+    renderProfile(window.currentProfile, {rank});
+}
+
+async function openPublicProfile(userId, username, districtId, points){
+    if (!window.supabaseClient || !userId) return;
+    const { data: publicRows, error } = await window.supabaseClient.rpc('get_public_profile', { profile_id: userId });
+    const data = Array.isArray(publicRows) ? publicRows[0] : publicRows;
+    if (error || !data) { console.error('Публичный профиль:', error); return; }
+    const completed = new Set(Array.isArray(data.completed_objects) ? data.completed_objects.map(String) : []);
+    window.publicProfileCompleted = completed;
+    const rank = await getPlayerRank(userId);
+    window.publicProfileMode = true;
+    document.getElementById('profile-panel')?.classList.add('public-profile-mode');
+    document.getElementById('leaderboard-panel')?.classList.remove('open');
+    document.getElementById('profile-panel')?.classList.add('open');
+    const back=document.getElementById('public-profile-back'); if(back) back.style.display='block';
+    document.getElementById('profile-main-tab')?.classList.add('active');
+    document.getElementById('profile-rewards-tab')?.classList.remove('active');
+    document.getElementById('profile-main-view').style.display='block';
+    document.getElementById('profile-rewards-view').style.display='none';
+
+    renderProfile(data, {rank});
+
+    const payment=document.getElementById('profile-payment-btn'); if(payment) payment.style.display='none';
+    const status=document.getElementById('profile-payment-status'); if(status) status.style.display='none';
+    const logout=document.getElementById('profile-logout-btn'); if(logout) logout.style.display='none';
+    const editName=document.getElementById('profile-username-edit'); if(editName) editName.style.display='none';
+    const editAbout=document.getElementById('profile-about-edit'); if(editAbout) editAbout.style.display='none';
+    const avatarChange=document.getElementById('profile-avatar-change'); if(avatarChange) avatarChange.style.display='none';
+    const nameEditor=document.getElementById('profile-name-editor'); if(nameEditor) nameEditor.classList.remove('open');
+    const aboutEditor=document.getElementById('profile-about-editor'); if(aboutEditor) aboutEditor.classList.remove('open');
+    renderRewards(completed);
+}
+
+function closePublicProfile(){
+    window.publicProfileMode = false;
+    document.getElementById('profile-panel')?.classList.remove('public-profile-mode');
+window.publicProfileCompleted = null;
+    const title=document.getElementById('public-profile-title'); if(title) title.style.display='none';
+    const back=document.getElementById('public-profile-back'); if(back) back.style.display='none';
+    const payment=document.getElementById('profile-payment-btn'); if(payment) payment.style.display='block';
+    const status=document.getElementById('profile-payment-status'); if(status) status.style.display='block';
+    const logout=document.getElementById('profile-logout-btn'); if(logout) logout.style.display='block';
+    const idEl=document.getElementById('profile-id-stat'); if(idEl) idEl.style.display='flex';
+    const dateEl=document.getElementById('profile-created-at')?.parentElement; if(dateEl) dateEl.style.display='flex';
+    const editName=document.getElementById('profile-username-edit'); if(editName) editName.style.display='inline-flex';
+    const editAbout=document.getElementById('profile-about-edit'); if(editAbout) editAbout.style.display='inline-flex';
+    const avatarChange=document.getElementById('profile-avatar-change'); if(avatarChange) avatarChange.style.display='block';
+    document.getElementById('profile-main-tab')?.classList.add('active');
+    document.getElementById('profile-rewards-tab')?.classList.remove('active');
+    document.getElementById('profile-main-view').style.display='block';
+    document.getElementById('profile-rewards-view').style.display='none';
+    if(window.currentProfile) renderProfile(window.currentProfile);
+}
+
+function updateAboutCounter(){
+    const el=document.getElementById('profile-about'); const counter=document.getElementById('profile-about-counter');
+    if(counter && el) counter.textContent = `${Math.min(200, String(el.value || '').length)} / 200`;
+}
+
+function toggleAboutEditor(open){
+    const editor=document.getElementById('profile-about-editor');
+    const display=document.getElementById('profile-about-display');
+    if(!editor || !display || !window.topoCurrentUser || window.publicProfileMode) return;
+    editor.classList.toggle('open', !!open);
+    display.style.display = open ? 'none' : 'block';
+    if(open) document.getElementById('profile-about')?.focus();
+}
+
+document.getElementById('profile-about')?.addEventListener('input', updateAboutCounter);
+document.getElementById('profile-about-save')?.addEventListener('click', async () => {
+    const user=window.topoCurrentUser; const el=document.getElementById('profile-about'); const btn=document.getElementById('profile-about-save'); const status=document.getElementById('profile-about-status');
+    if(!user || !el || !window.supabaseClient || window.publicProfileMode) return;
+    const value=String(el.value || '').slice(0,200);
+    if(btn) btn.disabled=true; if(status) status.textContent='Сохраняем…';
+    try{
+        const {data,error}=await window.supabaseClient.from('profiles').update({about:value}).eq('id',user.id).select().single();
+        if(error) throw error;
+        window.currentProfile=data;
+        renderProfile(data);
+        if(status) status.textContent='Сохранено.';
+        toggleAboutEditor(false);
+    }catch(e){ console.error('О себе:',e); if(status) status.textContent='Не удалось сохранить: '+(e.message||'ошибка'); }
+    finally{ if(btn) btn.disabled=false; }
+});
+
+document.getElementById('profile-about-edit')?.addEventListener('click', ()=>toggleAboutEditor(true));
+
+document.getElementById('profile-username-edit')?.addEventListener('click', ()=>{
+    if(window.publicProfileMode || !window.topoCurrentUser) return;
+    const editor=document.getElementById('profile-name-editor');
+    const input=document.getElementById('profile-username-input');
+    if(!editor || !input) return;
+    input.value=String(window.currentProfile?.username || '');
+    editor.classList.toggle('open');
+    if(editor.classList.contains('open')) { input.focus(); input.select(); }
+});
+
+document.getElementById('profile-username-save')?.addEventListener('click', async ()=>{
+    const user=window.topoCurrentUser; const input=document.getElementById('profile-username-input'); const btn=document.getElementById('profile-username-save');
+    if(!user || !input || !window.supabaseClient || window.publicProfileMode) return;
+    const value=String(input.value || '').trim();
+    if(!validUsername(value)){ alert('Имя или никнейм: 2–32 символа, кириллица/латиница, цифры, пробел, точка, дефис или _.'); return; }
+    if(value === String(window.currentProfile?.username || '')){
+        document.getElementById('profile-name-editor')?.classList.remove('open');
+        return;
+    }
+    if(btn) btn.disabled=true;
+    try{
+        const {data:taken,error:takenError}=await window.supabaseClient.from('profiles').select('id').ilike('username',value).neq('id',user.id).limit(1);
+        if(takenError) throw takenError;
+        if(taken?.length) throw new Error('Такое имя или никнейм уже занят.');
+        const {data,error}=await window.supabaseClient.from('profiles').update({username:value}).eq('id',user.id).select().single();
+        if(error) throw error;
+        window.currentProfile=data;
+        renderProfile(data);
+        document.getElementById('profile-name-editor')?.classList.remove('open');
+        await fetchLeaderboard();
+    }catch(e){ alert(e.message || 'Не удалось изменить имя.'); }
+    finally{ if(btn) btn.disabled=false; }
+});
+
+// === Кадрирование аватара ===
+const avatarCropState = { image:null, objectUrl:'', baseScale:1, zoom:1, x:0, y:0, dragging:false, startX:0, startY:0, originX:0, originY:0 };
+function renderAvatarCrop(){
+    const img=document.getElementById('avatar-crop-image');
+    const stage=document.getElementById('avatar-crop-stage');
+    if(!img || !stage || !avatarCropState.image) return;
+    const sw=stage.clientWidth, sh=stage.clientHeight;
+    const naturalW=avatarCropState.image.naturalWidth || avatarCropState.image.width;
+    const naturalH=avatarCropState.image.naturalHeight || avatarCropState.image.height;
+    const fit=Math.max(sw/naturalW, sh/naturalH);
+    avatarCropState.baseScale=fit;
+    const scale=fit*avatarCropState.zoom;
+    img.style.width=`${naturalW*scale}px`;
+    img.style.height=`${naturalH*scale}px`;
+    img.style.left='50%';
+    img.style.top='50%';
+    img.style.transform=`translate(calc(-50% + ${avatarCropState.x}px), calc(-50% + ${avatarCropState.y}px))`;
+}
+function openAvatarCrop(file){
+    if(!file || !file.type.startsWith('image/')) return;
+    if(file.size>10*1024*1024){ alert('Файл слишком большой. Максимум 10 МБ.'); return; }
+    const url=URL.createObjectURL(file);
+    const image=new Image();
+    image.onload=()=>{
+        avatarCropState.image=image; avatarCropState.objectUrl=url; avatarCropState.zoom=1; avatarCropState.x=0; avatarCropState.y=0;
+        const cropImg=document.getElementById('avatar-crop-image');
+        if(cropImg){ cropImg.src=url; cropImg.style.visibility='visible'; }
+        const zoom=document.getElementById('avatar-crop-zoom'); if(zoom) zoom.value='1';
+        const overlay=document.getElementById('avatar-crop-overlay'); if(overlay){ overlay.classList.add('open'); overlay.setAttribute('aria-hidden','false'); }
+        renderAvatarCrop();
+    };
+    image.onerror=()=>{ URL.revokeObjectURL(url); alert('Не удалось открыть изображение.'); };
+    image.src=url;
+}
+function closeAvatarCrop(){
+    const overlay=document.getElementById('avatar-crop-overlay');
+    if(overlay){ overlay.classList.remove('open'); overlay.setAttribute('aria-hidden','true'); }
+    const img=document.getElementById('avatar-crop-image'); if(img){ img.removeAttribute('src'); img.style.visibility='hidden'; }
+    if(avatarCropState.objectUrl){ URL.revokeObjectURL(avatarCropState.objectUrl); avatarCropState.objectUrl=''; }
+    avatarCropState.image=null;
+}
+
+document.getElementById('profile-avatar-change')?.addEventListener('click', ()=>document.getElementById('profile-avatar-input')?.click());
+document.getElementById('profile-avatar-input')?.addEventListener('change', e=>{
+    const file=e.target.files?.[0];
+    if(file) openAvatarCrop(file);
+    e.target.value='';
+});
+document.getElementById('avatar-crop-zoom')?.addEventListener('input', e=>{ avatarCropState.zoom=Number(e.target.value)||1; renderAvatarCrop(); });
+const cropStage=document.getElementById('avatar-crop-stage');
+if(cropStage){
+    const start=(clientX,clientY)=>{ avatarCropState.dragging=true; avatarCropState.startX=clientX; avatarCropState.startY=clientY; avatarCropState.originX=avatarCropState.x; avatarCropState.originY=avatarCropState.y; };
+    const move=(clientX,clientY)=>{ if(!avatarCropState.dragging) return; avatarCropState.x=avatarCropState.originX+(clientX-avatarCropState.startX); avatarCropState.y=avatarCropState.originY+(clientY-avatarCropState.startY); renderAvatarCrop(); };
+    const stop=()=>{ avatarCropState.dragging=false; };
+    cropStage.addEventListener('mousedown',e=>start(e.clientX,e.clientY));
+    window.addEventListener('mousemove',e=>move(e.clientX,e.clientY));
+    window.addEventListener('mouseup',stop);
+    cropStage.addEventListener('touchstart',e=>{const t=e.touches[0]; if(t) start(t.clientX,t.clientY);},{passive:false});
+    window.addEventListener('touchmove',e=>{const t=e.touches[0]; if(t && avatarCropState.dragging){e.preventDefault(); move(t.clientX,t.clientY);}}, {passive:false});
+    window.addEventListener('touchend',stop);
+}
+document.getElementById('avatar-crop-cancel')?.addEventListener('click', closeAvatarCrop);
+document.getElementById('avatar-crop-save')?.addEventListener('click', async ()=>{
+    const user=window.topoCurrentUser; const image=avatarCropState.image; const stage=document.getElementById('avatar-crop-stage'); const btn=document.getElementById('avatar-crop-save');
+    const status=document.getElementById('profile-about-status');
+    if(!user || !image || !stage || !window.supabaseClient) return;
+    if(btn) btn.disabled=true;
+    try{
+        if(status) status.textContent='Обрабатываем фото…';
+        const out=document.createElement('canvas'); out.width=512; out.height=512; const ctx=out.getContext('2d');
+        ctx.clearRect(0,0,512,512);
+        const sourceW=image.naturalWidth, sourceH=image.naturalHeight;
+        const fit=Math.max(stage.clientWidth/sourceW, stage.clientHeight/sourceH);
+        const scale=fit*(avatarCropState.zoom||1);
+        const drawW=sourceW*scale, drawH=sourceH*scale;
+        const left=(stage.clientWidth-drawW)/2+avatarCropState.x;
+        const top=(stage.clientHeight-drawH)/2+avatarCropState.y;
+        ctx.drawImage(image,left*(512/stage.clientWidth),top*(512/stage.clientHeight),drawW*(512/stage.clientWidth),drawH*(512/stage.clientHeight));
+        const blob=await new Promise(r=>out.toBlob(r,'image/webp',0.9));
+        if(!blob) throw new Error('Не удалось обработать изображение.');
+        const path=`${user.id}.webp`;
+        const {error:uploadError}=await window.supabaseClient.storage.from('avatars').upload(path,blob,{contentType:'image/webp',upsert:true,cacheControl:'3600'});
+        if(uploadError) throw uploadError;
+        const {data:urlData}=window.supabaseClient.storage.from('avatars').getPublicUrl(path);
+        const avatarUrl=(urlData?.publicUrl||'')+`?v=${Date.now()}`;
+        const {data,error}=await window.supabaseClient.from('profiles').update({avatar_url:avatarUrl}).eq('id',user.id).select().single();
+        if(error) throw error;
+        window.currentProfile=data; renderProfile(data); await fetchLeaderboard(); closeAvatarCrop();
+        if(status) status.textContent='Фото сохранено.';
+    }catch(err){ console.error('Аватар:',err); if(status) status.textContent='Не удалось сохранить фото: '+(err.message||'ошибка'); }
+    finally{ if(btn) btn.disabled=false; }
+});
+
+// Делегированная кнопка оплаты: работает независимо от повторных рендеров.
+document.getElementById("close-profile-panel")?.addEventListener("click", e => { e.preventDefault(); e.stopPropagation(); closeProfilePanel(); });
+
+document.addEventListener("click", e => {
+    const playerRow = e.target.closest(".player-profile-row[data-player-id]");
+    if (playerRow) {
+        e.preventDefault();
+        openPublicProfile(playerRow.dataset.playerId);
+        return;
+    }
+    if (e.target.closest("#public-profile-back")) {
+        e.preventDefault();
+        e.stopPropagation();
+        window.publicProfileMode=false;
+        window.publicProfileCompleted=null;
+        document.getElementById("profile-panel")?.classList.remove("open");
+        document.getElementById("public-profile-back")?.style.setProperty("display","none");
+        document.getElementById("leaderboard-panel")?.classList.add("open");
+        switchRanking("players");
+        fetchLeaderboard();
+        return;
+    }
+    if (e.target.closest("#profile-payment-btn")) { e.preventDefault(); createPayment(); }
+    if (e.target.closest("#profile-logout-btn")) { e.preventDefault(); signOutTopo(); }
+    if (e.target.closest("#profile-trigger")) { e.preventDefault(); openProfilePanel(); }
+    if (e.target.closest("#close-profile-panel")) { e.preventDefault(); closeProfilePanel(); }
+});
+
+loginTab?.addEventListener("click", () => setAuthMode("login"));
+registerTab?.addEventListener("click", () => setAuthMode("register"));
+authForm?.addEventListener("submit", handleAuthSubmit);
+authCloseBtn?.addEventListener("click", closeAuthModal);
+authLogoutBtn?.addEventListener("click", signOutTopo);
+
+const headerSelect = document.getElementById("header-district-select");
+if (headerSelect && authDistrict && headerSelect.options.length <= 1) {
+    headerSelect.innerHTML = authDistrict.innerHTML;
+}
+if (headerSelect) headerSelect.addEventListener("change", e => syncDistrictFromProfile(e.target.value));
+
+document.getElementById("district-ranking-tab")?.addEventListener("click", () => switchRanking("districts"));
+document.getElementById("player-ranking-tab")?.addEventListener("click", () => switchRanking("players"));
+document.getElementById("leaderboard-trigger")?.addEventListener("click", () => {
+    switchRanking("districts");
+    document.getElementById("leaderboard-panel")?.classList.add("open");
+    fetchLeaderboard();
+});
+document.getElementById("close-panel")?.addEventListener("click", () => document.getElementById("leaderboard-panel")?.classList.remove("open"));
+
+document.addEventListener("click", e => {
+    const outside = !e.target.closest("#leaderboard-panel") && !e.target.closest("#leaderboard-trigger") && !e.target.closest("#profile-panel") && !e.target.closest("#profile-trigger");
+    if (outside) {
+        // Не закрываем сами панели снаружи — карта остаётся свободной.
+    }
+});
+
+window.addEventListener("load", () => {
+    fetchLeaderboard();
+    setAuthMode("login");
+});
+window.addEventListener("focus", async () => {
+    if (window.topoCurrentUser) {
+        await checkPaidAccess();
+        await fetchLeaderboard();
+    }
+});
+
+
+// === КНОПКА РАЗВЕРТЫВАНИЯ ОПИСАНИЯ ===
+document.addEventListener('click', function (e) {
+    if (e.target && (e.target.id === 'toggle-text-btn' || e.target.classList.contains('read-more-btn'))) {
+        const descriptionElem = document.getElementById('info-text');
+        if (!descriptionElem) return;
+
+        const toggleBtn = e.target;
+        const isExpanded = descriptionElem.classList.contains('expanded');
+        
+        if (isExpanded) {
+            descriptionElem.classList.remove('expanded');
+            toggleBtn.textContent = 'Читать полностью';
+            descriptionElem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } else {
+            descriptionElem.classList.add('expanded');
+            toggleBtn.textContent = 'Свернуть';
+        }
+    }
+});
+
+
+// Подсветка полигонов при клике
+// document.addEventListener('DOMContentLoaded', function () {
+    // Выбираем все полигоны внутри SVG (можно ограничить #kalininsky polygon)
+   // const polygons = document.querySelectorAll('polygon, path');
+
+   // polygons.forEach(el => {
+      //  el.addEventListener('click', function (e) {
+       //     // Убираем подсветку со всех элементов
+       //     polygons.forEach(p => p.classList.remove('highlight'));
+            // Подсвечиваем текущий
+       //     this.classList.add('highlight');
+       //     // Не останавливаем всплытие, чтобы не сломать открытие информации о районе
+       // });
+   // });
+
+    // Опционально: снять подсветку при клике вне полигонов (на фон SVG)
+   // document.querySelector('.map-container svg').addEventListener('click', function (e) {
+     //   if (e.target === this) {
+     //       polygons.forEach(p => p.classList.remove('highlight'));
+     //   }
+   // });
+// }); 
+
+
+/* === ФИНАЛЬНЫЕ UI-ФИКСЫ === */
+(function(){
+    const ensure = () => {
+        const profile = document.getElementById('profile-panel');
+        const leaderboard = document.getElementById('leaderboard-panel');
+        if (profile) { profile.style.top='0'; profile.style.bottom='0'; profile.style.height='100vh'; }
+        if (leaderboard) { leaderboard.style.top='0'; leaderboard.style.bottom='0'; leaderboard.style.height='100vh'; }
+    };
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ensure, {once:true}); else ensure();
+})();
+</script>
+
+
+<!-- КАРТА: логика перенесена 1:1 с золотого мастера -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
     // Движок карты Panzoom
     const mapElement = document.getElementById('TP_Districts');
     const zoomSlider = document.getElementById('zoom-slider');
@@ -109103,11 +110423,12 @@ document.addEventListener('click', unlockAudio, { once: true });
     if (mapElement && zoomSlider && zoomValText) {
     // Добавляем pinchFactor для ускорения отклика на мобилках
     panzoomInstance = Panzoom(mapElement, { 
-        maxScale: 20.0, 
+        maxScale: 35.0, 
         minScale: 0.5, 
         canvas: true,
-        pinchFactor: 20 // Чем выше число, тем быстрее карта реагирует на пальцы (дефолт: 1)
+        pinchFactor: 80
     });
+    window.panzoomInstance = panzoomInstance;
   
     panzoomInstance.zoom(1.8, { animate: false });
     
@@ -109240,153 +110561,331 @@ document.addEventListener('click', unlockAudio, { once: true });
         setupFilter('check-areas', 'hide-areas');
     }
     initLayers();
-
-    const panel = document.getElementById('leaderboard-panel');
-    const trigger = document.getElementById('leaderboard-trigger');
-    const closeBtn = document.getElementById('close-panel');
-
-    if (trigger && panel) {
-        trigger.addEventListener('click', () => {
-            panel.classList.add('open');
-            fetchLeaderboard();
-        });
-    }
-    if (closeBtn && panel) {
-        closeBtn.addEventListener('click', () => panel.classList.remove('open'));
-    }
 });
+</script>
 
-// ==========================================
-// 5. ФУНКЦИЯ ЛИДЕРБОРДА
-// ==========================================
-async function fetchLeaderboard() {
-    if (!window.supabaseClient) return;
 
-    const { data, error } = await window.supabaseClient
-        .from('user_scores')
-        .select('district_main, score');
+<style id="topo-profile-final-v8">
+/* Профиль: имя и район слева, рядом с аватаром, с равным воздухом сверху и снизу */
+#profile-panel .profile-hero{
+  align-items:center!important;
+  gap:18px!important;
+  margin-bottom:18px!important;
+  padding:12px 4px 20px!important;
+}
+#profile-panel .profile-hero-name-wrap{
+  text-align:left!important;
+  align-self:center!important;
+  padding-top:0!important;
+}
+#profile-panel .profile-name-edit-row{
+  justify-content:flex-start!important;
+  text-align:left!important;
+}
+#profile-panel .profile-hero-district{
+  text-align:left!important;
+}
+/* Карандаш редактирования аватара: справа снизу, частично на фотографии */
+#profile-panel .profile-avatar-change{
+  left:auto!important;
+  right:-7px!important;
+  bottom:-6px!important;
+  width:30px!important;
+  height:30px!important;
+  margin:0!important;
+  padding:0!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  border:1px solid #d8d8d8!important;
+  border-radius:50%!important;
+  background:#fff!important;
+  color:#111!important;
+  box-shadow:none!important;
+  line-height:0!important;
+}
+#profile-panel .profile-avatar-change svg{
+  width:16px!important;
+  height:16px!important;
+  display:block!important;
+  margin:0!important;
+}
+/* Выход: только прозрачный фон, чёрный текст и обводка */
+#profile-panel #profile-logout-btn{
+  background:transparent!important;
+  color:#111!important;
+  border:1px solid #111!important;
+}
+#profile-panel #profile-logout-btn:hover{
+  background:#f7f7f7!important;
+}
+</style>
 
-    if (error) {
-        console.error("Ошибка при получении данных:", error);
-        return;
-    }
+<style id="topo-profile-mobile-final-v9">
+/* Категории наград: размер на уровне главного заголовка профиля */
+#profile-panel .rewards-category-title{
+  font-size:18px!important;
+  line-height:1.1!important;
+  letter-spacing:.03em!important;
+}
+/* Редактирование имени: карандаш у верхней линии имени */
+#profile-panel .profile-name-edit-row{
+  align-items:flex-start!important;
+}
+#profile-panel .profile-name-edit-row .profile-inline-edit-icon{
+  margin-top:1px!important;
+}
+/* Аватар и имя: немного больше воздуха между фото и текстом */
+#profile-panel .profile-hero{
+  gap:22px!important;
+}
+/* Карандаш фото: справа снизу, крупнее, без обводки и тени */
+#profile-panel .profile-avatar-change{
+  right:-21px!important;
+  bottom:-14px!important;
+  width:34px!important;
+  height:34px!important;
+  border:0!important;
+  box-shadow:none!important;
+  background:#fff!important;
+}
+#profile-panel .profile-avatar-change svg{
+  width:17px!important;
+  height:17px!important;
+  margin:0!important;
+}
+/* На чужом профиле редактор фото полностью скрыт */
+#profile-panel.public-profile-mode .profile-avatar-change{display:none!important;}
 
-    const internalMap = {
-        "admiralteysky": "1", "vasileostrovsky": "2", "vyborgsky": "3", "kalininsky": "4",
-        "kirovsky": "5", "kolpinsky": "6", "krasnogvardeysky": "7", "krasnoselsky": "8",
-        "kronshtadtsky": "9", "kurortny": "10", "moskovsky": "11", "nevsky": "12",
-        "petrogradsky": "13", "petrodvortsovy": "14", "primorsky": "15", "pushkinsky": "16",
-        "frunzensky": "17", "centralny": "18", "lenoblast": "19", "moscow": "20"
-    };
-
-    const districtScores = {};
-    data.forEach(row => {
-        let id = String(row.district_main);
-        if (internalMap[id]) id = internalMap[id];
-        const score = parseInt(row.score) || 0;
-        districtScores[id] = (districtScores[id] || 0) + score;
+/* Мобильный масштаб как отдельная пара кнопок поверх карты */
+@media(max-width:768px){
+  #m-zoom-controls{
+    position:fixed;
+    top:50%;
+    right:0;
+    transform:translateY(-50%);
+    z-index:99998;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    overflow:visible;
+    border-radius:0;
+    box-shadow:none;
+    pointer-events:none;
+  }
+  #m-zoom-controls button{
+    width:63px!important;
+    height:63px!important;
+    margin:0!important;
+    padding:0!important;
+    border:1px solid #d7d7d7!important;
+    border-radius:50%!important;
+    background:#fff!important;
+    color:#111!important;
+    font-size:37px!important;
+    font-weight:400!important;
+    line-height:63px!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    box-shadow:0 2px 10px rgba(0,0,0,.18);
+    pointer-events:auto;
+  }
+  #m-zoom-controls button + button{border-top:1px solid #d7d7d7!important;}
+  #m-settings .zoom-controls,
+  #m-layer-slot .zoom-controls{display:none!important;}
+  #m-settings-trigger{margin-left:8px!important;}
+}
+</style>
+<script>
+(function(){
+  function bindMobileZoom(){
+    const plus=document.getElementById('m-zoom-in');
+    const minus=document.getElementById('m-zoom-out');
+    if(!plus || !minus || plus.dataset.bound) return;
+    plus.dataset.bound='1';
+    plus.addEventListener('click', function(){
+      if(window.panzoomInstance) window.panzoomInstance.zoomIn();
+      else if(window.topoPanzoomInstance) window.topoPanzoomInstance.zoomIn();
     });
+    minus.addEventListener('click', function(){
+      if(window.panzoomInstance) window.panzoomInstance.zoomOut();
+      else if(window.topoPanzoomInstance) window.topoPanzoomInstance.zoomOut();
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',bindMobileZoom,{once:true});
+  else bindMobileZoom();
+})();
+</script>
 
-    const districtsList = [
-        { id: "1", name: "Адмиралтейский" }, { id: "2", name: "Василеостровский" },
-        { id: "3", name: "Выборгский" }, { id: "4", name: "Калининский" },
-        { id: "5", name: "Кировский" }, { id: "6", name: "Колпинский" },
-        { id: "7", name: "Красногвардейский" }, { id: "8", name: "Красносельский" },
-        { id: "9", name: "Кронштадтский" }, { id: "10", name: "Курортный" },
-        { id: "11", name: "Московский" }, { id: "12", name: "Невский" },
-        { id: "13", name: "Петроградский" }, { id: "14", name: "Петродворцовый" },
-        { id: "15", name: "Приморский" }, { id: "16", name: "Пушкинский" },
-        { id: "17", name: "Фрунзенский" }, { id: "18", name: "Центральный" },
-        { id: "19", name: "Мурино (Лен. область)" }, { id: "20", name: "Кудрово (Лен. область)" }, { id: "21", name: "Москва" }
-    ];
 
-    const sortedLeaderboard = districtsList
-        .map(d => ({ name: d.name, score: districtScores[d.id] || 0 }))
-        .sort((a, b) => b.score - a.score);
-
-    const tbody = document.getElementById('leaderboard-body');
-    if (!tbody) return;
-
-    tbody.innerHTML = sortedLeaderboard.map((item, index) => {
-        const place = index + 1;
-        const isTop3 = place <= 3;
-        const isLast3 = place >= 17;
-        const isAfterTop3 = place === 3;
-
-        let rankStyle = isTop3 ? 'padding: 12px 10px;' : 'padding: 7px 10px;';
-        if (place === 1) rankStyle += 'color: #D4AF37; font-weight: 800; font-size: 1.15em;';
-        else if (place === 2) rankStyle += 'color: #919191; font-weight: 700; font-size: 1.1em;';
-        else if (place === 3) rankStyle += 'color: #CD7F32; font-weight: 700; font-size: 1.05em;';
-        else if (isLast3) rankStyle += 'color: #CC0000; font-weight: 400;';
-
-        let nameStyle = isTop3 ? 'padding: 12px 10px; font-weight: 500; font-size: 1.05em;' : 'padding: 7px 10px; font-size: 1em; font-weight: 300;';
-        nameStyle += (isLast3) ? ' color: #CC0000;' : ' color: #333;';
-
-        let scoreStyle = isTop3 ? 'text-align: right; padding: 12px 10px; font-weight: 500; font-size: 1.05em;' : 'text-align: right; padding: 7px 10px; font-weight: 300; font-size: 1em;';
-        scoreStyle += ' color: #333;';
-
-        const cellPaddingBottom = isAfterTop3 ? 'padding-bottom: 17px;' : '';
-        const finalRankStyle = `${rankStyle} ${cellPaddingBottom}`;
-        const finalNameStyle = `${nameStyle} ${cellPaddingBottom}`;
-        const finalScoreStyle = `${scoreStyle} ${cellPaddingBottom}`;
-
-        return `
-            <tr style="border-bottom: ${isAfterTop3 ? '1px solid #ddd' : '1px solid #f0f0f0'};">
-                <td style="${finalRankStyle}">${place}</td>
-                <td style="${finalNameStyle}">${item.name}</td>
-                <td style="${finalScoreStyle}">${item.score}</td>
-            </tr>
-        `;
-    }).join('');
+<style id="topo-mobile-polish-v12">
+/* Профиль: вернуть расположение карандаша к версии v9 и дать ему заметно заходить на аватар */
+#profile-panel .profile-avatar-change{
+  right:-10px!important;
+  bottom:-8px!important;
+  width:34px!important;
+  height:34px!important;
+  border:0!important;
+  box-shadow:none!important;
+  background:#fff!important;
+  border-radius:50%!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding:0!important;
+  margin:0!important;
+}
+#profile-panel .profile-avatar-change svg{
+  width:17px!important;
+  height:17px!important;
+  margin:0!important;
 }
 
-const updateLeaderboard = fetchLeaderboard;
-document.addEventListener('DOMContentLoaded', updateLeaderboard);
+@media (max-width:768px){
+  /* Шапка: район и шестерёнка строго центрированы по вертикали */
+  #mobile-controls{
+    height:79px!important;
+    align-items:center!important;
+    padding-top:0!important;
+    padding-bottom:0!important;
+  }
+  #m-district-slot{
+    height:100%!important;
+    display:flex!important;
+    align-items:center!important;
+    min-height:0!important;
+  }
+  #m-district-slot #district-switcher-wrapper{
+    width:100%!important;
+    height:44px!important;
+    min-height:44px!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:stretch!important;
+    margin:0!important;
+    padding:0!important;
+  }
+  #m-district-slot #header-district-select{
+    height:44px!important;
+    min-height:44px!important;
+    box-sizing:border-box!important;
+    margin:0!important;
+    padding-top:0!important;
+    padding-bottom:0!important;
+    line-height:42px!important;
+  }
+  #mobile-controls #m-settings-trigger{
+    width:44px!important;
+    height:44px!important;
+    min-width:44px!important;
+    min-height:44px!important;
+    margin:0 0 0 10px!important;
+    padding:0!important;
+    align-self:center!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    box-sizing:border-box!important;
+  }
 
-// === КНОПКА РАЗВЕРТЫВАНИЯ ОПИСАНИЯ ===
-document.addEventListener('click', function (e) {
-    if (e.target && (e.target.id === 'toggle-text-btn' || e.target.classList.contains('read-more-btn'))) {
-        const descriptionElem = document.getElementById('info-text');
-        if (!descriptionElem) return;
+  /* Шторка начинается под хедером и имеет тот же чёрный цвет */
+  #m-settings{
+    top:79px!important;
+    background:#000!important;
+    padding-top:16px!important;
+    z-index:99999!important;
+  }
+  #m-settings > div:first-child{
+    margin-top:0!important;
+  }
 
-        const toggleBtn = e.target;
-        const isExpanded = descriptionElem.classList.contains('expanded');
-        
-        if (isExpanded) {
-            descriptionElem.classList.remove('expanded');
-            toggleBtn.textContent = 'Читать полностью';
-            descriptionElem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        } else {
-            descriptionElem.classList.add('expanded');
-            toggleBtn.textContent = 'Свернуть';
-        }
-    }
-});
+  /* + / −: два отдельных квадрата со скруглёнными углами, по центру по высоте */
+  #m-zoom-controls{
+    top:50%!important;
+    right:12px!important;
+    left:auto!important;
+    transform:translateY(-50%)!important;
+    gap:8px!important;
+    align-items:center!important;
+    justify-content:center!important;
+    z-index:99998!important;
+  }
+  #m-zoom-controls button{
+    width:63px!important;
+    height:63px!important;
+    min-width:63px!important;
+    min-height:63px!important;
+    border:1px solid #d7d7d7!important;
+    border-radius:14px!important;
+    background:#fff!important;
+    color:#111!important;
+    box-shadow:0 2px 10px rgba(0,0,0,.18)!important;
+    font-size:37px!important;
+    line-height:1!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+  }
+  #m-zoom-controls button + button{
+    border-top:1px solid #d7d7d7!important;
+  }
 
+  /* Карандаш профиля: на мобильном тоже сидит на правом нижнем краю аватара */
+  #profile-panel .profile-avatar-change{
+    right:-10px!important;
+    bottom:-8px!important;
+  }
+}
+</style>
 
-// Подсветка полигонов при клике
-// document.addEventListener('DOMContentLoaded', function () {
-    // Выбираем все полигоны внутри SVG (можно ограничить #kalininsky polygon)
-   // const polygons = document.querySelectorAll('polygon, path');
-
-   // polygons.forEach(el => {
-      //  el.addEventListener('click', function (e) {
-       //     // Убираем подсветку со всех элементов
-       //     polygons.forEach(p => p.classList.remove('highlight'));
-            // Подсвечиваем текущий
-       //     this.classList.add('highlight');
-       //     // Не останавливаем всплытие, чтобы не сломать открытие информации о районе
-       // });
-   // });
-
-    // Опционально: снять подсветку при клике вне полигонов (на фон SVG)
-   // document.querySelector('.map-container svg').addEventListener('click', function (e) {
-     //   if (e.target === this) {
-     //       polygons.forEach(p => p.classList.remove('highlight'));
-     //   }
-   // });
-// }); 
-
+<script id="topo-mobile-settings-map-close-v12">
+(function(){
+  function initMobileSettingsMapClose(){
+    const settings=document.getElementById('m-settings');
+    const map=document.getElementById('TP_Districts');
+    if(!settings || !map || map.dataset.mobileSettingsCloseBound) return;
+    map.dataset.mobileSettingsCloseBound='1';
+    map.addEventListener('pointerdown', function(){
+      if(window.matchMedia('(max-width: 768px)').matches && settings.classList.contains('open')){
+        settings.classList.remove('open');
+      }
+    }, {passive:true});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initMobileSettingsMapClose,{once:true});
+  else initMobileSettingsMapClose();
+})();
 </script>
+
+<style id="topo-mobile-zoom-desktop-fix-v13">
+@media (min-width:769px){
+  #m-zoom-controls{display:none!important;visibility:hidden!important;pointer-events:none!important;}
+}
+@media (max-width:768px){
+  #m-district-slot #district-switcher-wrapper{
+    position:relative!important;
+    overflow:hidden!important;
+    box-sizing:border-box!important;
+    padding-right:0!important;
+  }
+  #m-district-slot #header-district-select{
+    flex:1 1 auto!important;
+    min-width:0!important;
+    max-width:100%!important;
+    padding-right:32px!important;
+  }
+  #m-district-slot #district-switcher-wrapper .arrow{
+    position:absolute!important;
+    right:14px!important;
+    top:50%!important;
+    transform:translateY(-50%)!important;
+    margin:0!important;
+    z-index:3!important;
+    pointer-events:none!important;
+  }
+  #m-zoom-controls{display:flex!important;visibility:visible!important;}
+}
+</style>
+
 </body>
 </html>
