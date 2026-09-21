@@ -190813,3 +190813,250 @@ setTimeout(orderMobileSheet,100);setTimeout(orderMobileSheet,700);setTimeout(ord
 })();
 </script>
 <!-- ================== END v89 MOBILE-ONLY STABLE CARD/QUIZ/REVIEW TOUCH FIX ================== -->
+
+<!-- ================== TOPO v90 MOBILE/TABLET TARGETED FIX ================== -->
+<style id="topo-v90-mobile-tablet-fix">
+/* Mobile only: exact hit areas for account, Super Quiz and Pro. */
+@media screen and (max-width:768px){
+  #profile-panel #profile-logout-btn,
+  #m-bottom-super,
+  #m-bottom-super #super-quiz-trigger,
+  #super-quiz-trigger,
+  #profile-payment-btn,
+  #topo39-pro-cta,
+  #topo39-final-pro,
+  #topo-fix-pro,
+  #topo-fix-start,
+  #topo39-start,
+  #topo39-next,
+  #topo-fix-next,
+  #topo32-review-submit,
+  #topo32-review-input{
+    pointer-events:auto!important;
+    touch-action:manipulation!important;
+    -webkit-tap-highlight-color:transparent!important;
+    position:relative!important;
+    z-index:2147483000!important;
+  }
+
+  #profile-panel #profile-logout-btn,
+  #m-bottom-super,
+  #m-bottom-super #super-quiz-trigger,
+  #super-quiz-trigger,
+  #profile-payment-btn,
+  #topo39-pro-cta,
+  #topo39-final-pro,
+  #topo-fix-pro,
+  #topo-fix-start,
+  #topo39-start,
+  #topo39-next,
+  #topo-fix-next,
+  #topo32-review-submit{
+    width:100%!important;
+    max-width:100%!important;
+    box-sizing:border-box!important;
+  }
+
+  #profile-panel #profile-logout-btn{min-height:44px!important;}
+  #profile-payment-btn,
+  #topo39-pro-cta,
+  #topo39-final-pro,
+  #topo-fix-pro{min-height:44px!important;}
+
+  #topo32-review-input{
+    width:100%!important;
+    min-width:100%!important;
+    max-width:100%!important;
+    min-height:96px!important;
+    resize:vertical!important;
+    user-select:text!important;
+    -webkit-user-select:text!important;
+    -webkit-touch-callout:default!important;
+    touch-action:auto!important;
+  }
+}
+
+/* Tablets: adaptive header through 1200px, without changing phone or desktop rules. */
+@media screen and (min-width:769px) and (max-width:1200px){
+  .header-controls{
+    position:fixed!important;
+    inset:0 0 auto 0!important;
+    width:100vw!important;
+    min-height:68px!important;
+    height:auto!important;
+    box-sizing:border-box!important;
+    padding:10px 14px!important;
+    gap:7px!important;
+    display:flex!important;
+    align-items:center!important;
+    flex-wrap:nowrap!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    -webkit-overflow-scrolling:touch!important;
+    z-index:1000002!important;
+  }
+  .header-controls > *{position:relative!important;inset:auto!important;margin:0!important;flex:0 0 auto!important;}
+  .header-controls .topo-header-logo{margin-right:auto!important;font-size:19px!important;white-space:nowrap!important;}
+  .header-controls #district-switcher-wrapper{flex:0 0 176px!important;width:176px!important;height:40px!important;}
+  .header-controls #header-district-select{height:38px!important;font-size:12px!important;}
+  .header-controls #donate-btn-element,
+  .header-controls #leaderboard-trigger,
+  .header-controls #admin-trigger{
+    height:40px!important;
+    padding:0 11px!important;
+    font-size:11px!important;
+    white-space:nowrap!important;
+  }
+  .header-controls #super-quiz-trigger{height:40px!important;padding:0 12px!important;font-size:11px!important;white-space:nowrap!important;}
+  .header-controls #notifications-trigger,
+  .header-controls #profile-trigger{width:40px!important;height:40px!important;flex:0 0 40px!important;}
+  .sidebar{top:88px!important;}
+}
+
+/* Portrait tablet range: make the header compact enough for 820–1024px widths. */
+@media screen and (min-width:769px) and (max-width:1024px){
+  .header-controls{padding:9px 10px!important;gap:5px!important;}
+  .header-controls .topo-header-logo{font-size:17px!important;margin-right:4px!important;}
+  .header-controls #district-switcher-wrapper{flex-basis:150px!important;width:150px!important;}
+  .header-controls #donate-btn-element,
+  .header-controls #leaderboard-trigger,
+  .header-controls #admin-trigger,
+  .header-controls #super-quiz-trigger{padding-left:8px!important;padding-right:8px!important;font-size:10px!important;}
+}
+</style>
+<script id="topo-v90-mobile-tablet-runtime">
+(function(){
+  'use strict';
+  const $=id=>document.getElementById(id);
+  const mobile=()=>window.matchMedia('(max-width:768px)').matches;
+
+  /* ------------------------------------------------------------
+     1) MOBILE LOGOUT: bind directly at WINDOW capture level.
+     This runs before old document/profile delegates and cannot
+     be mistaken for a tap on the profile panel background.
+  ------------------------------------------------------------ */
+  let logoutBusy=false, logoutLockUntil=0;
+  async function mobileLogout(e){
+    if(!mobile())return;
+    const btn=e.target?.closest?.('#profile-panel #profile-logout-btn, #auth-logout-btn');
+    if(!btn)return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    const now=Date.now();
+    if(logoutBusy||now<logoutLockUntil)return;
+    logoutBusy=true;
+    logoutLockUntil=now+900;
+    btn.disabled=true;
+    try{
+      if(typeof signOutTopo==='function') await signOutTopo();
+      else if(window.supabaseClient?.auth?.signOut) await window.supabaseClient.auth.signOut();
+    }catch(err){console.error('TOPO mobile logout:',err)}
+    finally{
+      btn.disabled=false;
+      logoutBusy=false;
+      $('profile-panel')?.classList.remove('open');
+      $('profile-panel')?.setAttribute('aria-hidden','true');
+    }
+  }
+  window.addEventListener('pointerup',mobileLogout,{capture:true,passive:false});
+  window.addEventListener('click',mobileLogout,{capture:true,passive:false});
+
+  /* ------------------------------------------------------------
+     2) MOBILE SUPER QUIZ: call the real function directly instead
+     of proxying a click through the desktop button.
+  ------------------------------------------------------------ */
+  let superBusy=false, superLockUntil=0;
+  async function startMobileSuper(e){
+    if(!mobile())return;
+    const btn=e.target?.closest?.('#m-bottom-super, #m-bottom-super #super-quiz-trigger, #super-quiz-trigger');
+    if(!btn)return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    const now=Date.now();
+    if(superBusy||now<superLockUntil)return;
+    superBusy=true;
+    superLockUntil=now+900;
+    try{
+      try{if(window.topoAuthReady)await window.topoAuthReady}catch(_){ }
+      let user=window.topoCurrentUser||null;
+      if(!user&&window.supabaseClient?.auth?.getUser){
+        try{
+          const r=await window.supabaseClient.auth.getUser();
+          user=r?.data?.user||null;
+          if(user)window.topoCurrentUser=user;
+        }catch(_){ }
+      }
+      if(!user){
+        if(typeof openAuthModal==='function')openAuthModal('Супер квиз доступен после входа в аккаунт.','login');
+        return;
+      }
+      if(typeof openSuperQuiz==='function'){
+        await Promise.resolve(openSuperQuiz());
+      }else{
+        $('super-quiz-overlay')?.classList.add('open');
+        $('super-quiz-overlay')?.setAttribute('aria-hidden','false');
+        if(typeof showSuperIntro==='function')showSuperIntro();
+      }
+    }catch(err){console.error('TOPO mobile Super Quiz:',err)}
+    finally{setTimeout(()=>{superBusy=false},120)}
+  }
+  window.addEventListener('pointerup',startMobileSuper,{capture:true,passive:false});
+  window.addEventListener('click',startMobileSuper,{capture:true,passive:false});
+
+  /* ------------------------------------------------------------
+     3) MOBILE PRO: every known Pro CTA goes to the same modal.
+  ------------------------------------------------------------ */
+  function openProMobile(e){
+    if(!mobile())return;
+    const t=e.target?.closest?.(
+      '#profile-payment-btn,'+
+      '#topo39-pro-cta,'+
+      '#topo39-final-pro,'+
+      '#topo-fix-pro,'+
+      '.topo37-pro-cta,'+
+      '.topo39-active-pro button,'+
+      '.topo-pro-cta:not(#topo-pro-buy)'
+    );
+    if(!t)return;
+    if(window.topoPaidAccess && t.id==='profile-payment-btn')return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    try{
+      if(typeof window.openProModal==='function')window.openProModal();
+      else if(typeof window.createPayment==='function' && t.id==='topo-pro-buy')window.createPayment();
+    }catch(err){console.error('TOPO mobile Pro:',err)}
+  }
+  window.addEventListener('pointerup',openProMobile,{capture:true,passive:false});
+  window.addEventListener('click',openProMobile,{capture:true,passive:false});
+
+  /* ------------------------------------------------------------
+     4) MOBILE PROFILE PANEL: prevent the underlying map/header
+     delegates from stealing touches from any profile control.
+  ------------------------------------------------------------ */
+  function shieldProfileControls(e){
+    if(!mobile())return;
+    const t=e.target?.closest?.('#profile-panel');
+    if(!t)return;
+    if(e.target?.closest?.('#profile-panel button,#profile-panel a,#profile-panel input,#profile-panel textarea,#profile-panel select')){
+      e.stopImmediatePropagation();
+    }
+  }
+  window.addEventListener('pointerdown',shieldProfileControls,{capture:true,passive:true});
+
+  /* ------------------------------------------------------------
+     5) Tablet header: keep the existing header, just reflow it.
+  ------------------------------------------------------------ */
+  function tabletHeader(){
+    if(!(window.matchMedia('(min-width:769px) and (max-width:1200px)').matches))return;
+    const h=document.querySelector('.header-controls');
+    if(!h)return;
+    h.style.setProperty('display','flex','important');
+    h.style.setProperty('visibility','visible','important');
+    h.style.setProperty('opacity','1','important');
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',tabletHeader,{once:true});else tabletHeader();
+  window.addEventListener('load',tabletHeader,{once:false});
+  window.addEventListener('resize',tabletHeader);
+})();
+</script>
+<!-- ================== END TOPO v90 MOBILE/TABLET TARGETED FIX ================== -->
