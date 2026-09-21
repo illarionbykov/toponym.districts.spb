@@ -189685,6 +189685,123 @@ setTimeout(boot,150);setTimeout(boot,700);setTimeout(boot,1600);
 })();
 </script>
 
+
+<!-- ================== TOPO v94 MOBILE-ONLY: v64 SUPER + LOGOUT ================== -->
+<style id="topo-v94-mobile-actions">
+@media (max-width:768px){
+  #m-mobile-bottom-nav #m-bottom-super,
+  #super-quiz-start,
+  #profile-panel #profile-logout-btn,
+  #auth-logout-btn{
+    pointer-events:auto!important;
+    touch-action:manipulation!important;
+    -webkit-tap-highlight-color:transparent!important;
+    -webkit-user-select:none!important;
+    user-select:none!important;
+  }
+  #m-mobile-bottom-nav #m-bottom-super{
+    position:relative!important;
+    z-index:1000027!important;
+  }
+  #super-quiz-overlay,
+  #super-quiz-overlay *{
+    touch-action:manipulation;
+  }
+}
+</style>
+<script id="topo-v94-mobile-actions-runtime">
+(function(){
+  'use strict';
+  const isMobile=()=>window.matchMedia('(max-width:768px)').matches;
+  const $=id=>document.getElementById(id);
+  let superBusy=false, logoutBusy=false, suppressClickUntil=0;
+
+  /* v64 mobile Super Quiz mechanics: the mobile lightning launches the
+     already-existing v64/v31 Super Quiz entry point directly. */
+  function openSuperFromV64(e){
+    if(!isMobile()) return;
+    const btn=e.currentTarget || e.target?.closest?.('#m-bottom-super');
+    if(!btn) return;
+    if(Date.now()<suppressClickUntil && e.type==='click'){
+      e.preventDefault(); e.stopImmediatePropagation(); return;
+    }
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    suppressClickUntil=Date.now()+700;
+    if(superBusy) return;
+    superBusy=true;
+    try{
+      if(typeof window.openSuper31==='function'){
+        window.openSuper31();
+      }else if(typeof window.openSuperQuiz==='function'){
+        window.openSuperQuiz();
+      }
+    }catch(err){ console.error('TOPO v94 Super Quiz:',err); }
+    finally{setTimeout(()=>{superBusy=false;},350);}
+  }
+
+  /* v64 start mechanics, attached to the whole real button instead of
+     delegating through another click proxy. */
+  function startSuperFromV64(e){
+    if(!isMobile()) return;
+    const btn=e.currentTarget || e.target?.closest?.('#super-quiz-start');
+    if(!btn || btn.disabled) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    suppressClickUntil=Date.now()+700;
+    try{
+      if(typeof window.prepareSuper31==='function' && typeof window.renderSuper31==='function'){
+        if(window.prepareSuper31()) window.renderSuper31();
+      }else if(typeof window.prepareSuper==='function' && typeof window.renderSuperQuestion==='function'){
+        if(window.prepareSuper()) window.renderSuperQuestion();
+      }
+    }catch(err){ console.error('TOPO v94 Super Quiz start:',err); }
+  }
+
+  /* v64 logout mechanics: call the site's original signOutTopo directly and
+     stop the event before it reaches the older document-level delegate. */
+  async function logoutFromV64(e){
+    if(!isMobile()) return;
+    const btn=e.currentTarget || e.target?.closest?.('#profile-panel #profile-logout-btn,#auth-logout-btn');
+    if(!btn) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    suppressClickUntil=Date.now()+700;
+    if(logoutBusy) return;
+    logoutBusy=true;
+    try{
+      if(typeof window.signOutTopo==='function') await window.signOutTopo();
+      else if(window.supabaseClient?.auth?.signOut) await window.supabaseClient.auth.signOut();
+    }catch(err){ console.error('TOPO v94 logout:',err); }
+    finally{setTimeout(()=>{logoutBusy=false;},350);}
+  }
+
+  function bindButton(id, handler){
+    const b=$(id);
+    if(!b || b.dataset.topoV94Bound==='1') return;
+    b.dataset.topoV94Bound='1';
+    b.addEventListener('touchend',handler,{passive:false});
+    b.addEventListener('pointerup',handler,{passive:false});
+    b.addEventListener('click',handler,{passive:false});
+  }
+
+  function bind(){
+    if(!isMobile()) return;
+    bindButton('m-bottom-super',openSuperFromV64);
+    bindButton('super-quiz-start',startSuperFromV64);
+    bindButton('profile-logout-btn',logoutFromV64);
+    bindButton('auth-logout-btn',logoutFromV64);
+  }
+
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',bind,{once:true});
+  else bind();
+  window.addEventListener('load',bind,{once:false});
+  window.addEventListener('resize',()=>{if(isMobile()) bind();});
+  window.supabaseClient?.auth?.onAuthStateChange?.(()=>requestAnimationFrame(bind));
+})();
+</script>
+<!-- ================== END TOPO v94 MOBILE-ONLY: v64 SUPER + LOGOUT ================== -->
+
 </html>
 
 <!-- ================== TOPO v67 AUTH + MOBILE SHEET FIX ================== -->
@@ -190931,79 +191048,6 @@ setTimeout(orderMobileSheet,100);setTimeout(orderMobileSheet,700);setTimeout(ord
   const mobile=()=>window.matchMedia('(max-width:768px)').matches;
 
   /* ------------------------------------------------------------
-     1) MOBILE LOGOUT: bind directly at WINDOW capture level.
-     This runs before old document/profile delegates and cannot
-     be mistaken for a tap on the profile panel background.
-  ------------------------------------------------------------ */
-  let logoutBusy=false, logoutLockUntil=0;
-  async function mobileLogout(e){
-    if(!mobile())return;
-    const btn=e.target?.closest?.('#profile-panel #profile-logout-btn, #auth-logout-btn');
-    if(!btn)return;
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    const now=Date.now();
-    if(logoutBusy||now<logoutLockUntil)return;
-    logoutBusy=true;
-    logoutLockUntil=now+900;
-    btn.disabled=true;
-    try{
-      if(typeof signOutTopo==='function') await signOutTopo();
-      else if(window.supabaseClient?.auth?.signOut) await window.supabaseClient.auth.signOut();
-    }catch(err){console.error('TOPO mobile logout:',err)}
-    finally{
-      btn.disabled=false;
-      logoutBusy=false;
-      $('profile-panel')?.classList.remove('open');
-      $('profile-panel')?.setAttribute('aria-hidden','true');
-    }
-  }
-  window.addEventListener('pointerup',mobileLogout,{capture:true,passive:false});
-  window.addEventListener('click',mobileLogout,{capture:true,passive:false});
-
-  /* ------------------------------------------------------------
-     2) MOBILE SUPER QUIZ: call the real function directly instead
-     of proxying a click through the desktop button.
-  ------------------------------------------------------------ */
-  let superBusy=false, superLockUntil=0;
-  async function startMobileSuper(e){
-    if(!mobile())return;
-    const btn=e.target?.closest?.('#m-bottom-super, #m-bottom-super #super-quiz-trigger, #super-quiz-trigger');
-    if(!btn)return;
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    const now=Date.now();
-    if(superBusy||now<superLockUntil)return;
-    superBusy=true;
-    superLockUntil=now+900;
-    try{
-      try{if(window.topoAuthReady)await window.topoAuthReady}catch(_){ }
-      let user=window.topoCurrentUser||null;
-      if(!user&&window.supabaseClient?.auth?.getUser){
-        try{
-          const r=await window.supabaseClient.auth.getUser();
-          user=r?.data?.user||null;
-          if(user)window.topoCurrentUser=user;
-        }catch(_){ }
-      }
-      if(!user){
-        if(typeof openAuthModal==='function')openAuthModal('Супер квиз доступен после входа в аккаунт.','login');
-        return;
-      }
-      if(typeof openSuperQuiz==='function'){
-        await Promise.resolve(openSuperQuiz());
-      }else{
-        $('super-quiz-overlay')?.classList.add('open');
-        $('super-quiz-overlay')?.setAttribute('aria-hidden','false');
-        if(typeof showSuperIntro==='function')showSuperIntro();
-      }
-    }catch(err){console.error('TOPO mobile Super Quiz:',err)}
-    finally{setTimeout(()=>{superBusy=false},120)}
-  }
-  window.addEventListener('pointerup',startMobileSuper,{capture:true,passive:false});
-  window.addEventListener('click',startMobileSuper,{capture:true,passive:false});
-
-  /* ------------------------------------------------------------
      3) MOBILE PRO: every known Pro CTA goes to the same modal.
   ------------------------------------------------------------ */
   function openProMobile(e){
@@ -191060,3 +191104,9 @@ setTimeout(orderMobileSheet,100);setTimeout(orderMobileSheet,700);setTimeout(ord
 })();
 </script>
 <!-- ================== END TOPO v90 MOBILE/TABLET TARGETED FIX ================== -->
+
+
+
+
+
+
