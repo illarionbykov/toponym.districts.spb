@@ -1288,6 +1288,33 @@ path.highlight {
 
 
 </style>
+
+<style id="topo-v95-mobile-anti-flash">
+@media screen and (max-width:768px){
+  html body #mobile-controls,
+  html body .header-controls{
+    display:none!important;
+    visibility:hidden!important;
+    opacity:0!important;
+    pointer-events:none!important;
+  }
+  html body > .sidebar{
+    visibility:hidden!important;
+    opacity:0!important;
+    pointer-events:none!important;
+  }
+  html body #m-zoom-controls{
+    visibility:hidden!important;
+    opacity:0!important;
+    pointer-events:none!important;
+  }
+  html body.topo-mobile-ready #m-zoom-controls{
+    visibility:visible!important;
+    opacity:1!important;
+    pointer-events:auto!important;
+  }
+}
+</style>
 </head>
 <body>
 
@@ -183601,27 +183628,7 @@ window.topoStartOnboardingPreview=()=>isAdmin()&&tourStart(true);
 .topo-replay-note{font-size:12px;line-height:1.5;color:#475569}.topo-replay-btn{width:100%;margin-top:10px;padding:12px;border:0;border-radius:10px;background:#111;color:#fff;font-weight:900;cursor:pointer}.topo-replay-btn.disabled{background:#e5e7eb;color:#9ca3af;cursor:not-allowed}
 .super-daily-limit{margin:12px 0 0;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.075);border:1px solid rgba(255,255,255,.10);font-size:11px;line-height:1.5;color:#ffd93d;text-align:center}.super-daily-limit.locked{color:#ffb3c7;background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.18)}
 /* subscription popup */
-.topo-pro-modal{position:fixed;inset:0;z-index:1000100;display:none;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;background:rgba(0,0,0,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}.topo-pro-modal.open{display:flex}.topo-pro-dialog{position:relative;width:min(760px,96vw);max-height:92vh;overflow:auto;background:#fff;border-radius:24px;box-shadow:0 30px 80px rgba(0,0,0,.3);padding:22px}
-.topo-pro-close {
-  position: absolute;
-  top: 16px;
-  right: 16px; /* Жёстко привязываем к правому краю */
-  width: 34px;
-  height: 34px;
-  border: 0;
-  border-radius: 50%;
-  background: #f1f1f1;
-  color: #111;
-  font-size: 20px;
-  line-height: 1;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  z-index: 100; /* Подняли повыше, чтобы ничего не перекрывало */
-  transition: background 0.2s ease;
-}.topo-pro-head{text-align:center;padding:6px 32px 18px}.topo-pro-head h3{font-size:26px;margin:0 0 8px;font-weight:950;color:#111}.topo-pro-head p{margin:0;color:#666;font-size:12px;line-height:1.55}.topo-pro-columns{display:grid;grid-template-columns:1fr 1fr;gap:12px}.topo-pro-plan{border:1px solid #e8e8e8;border-radius:18px;padding:18px;background:#fafafa}.topo-pro-plan.pro{background:linear-gradient(145deg,#111,#242424);color:#fff;border-color:#111;box-shadow:0 12px 32px rgba(0,0,0,.16)}.topo-pro-plan h4{margin:0 0 4px;font-size:16px}.topo-pro-plan .price{font-size:22px;font-weight:950;margin-bottom:12px}.topo-pro-plan ul{padding:0;margin:0;list-style:none}.topo-pro-plan li{font-size:11px;line-height:1.45;padding:8px 0;border-top:1px solid rgba(0,0,0,.07)}.topo-pro-plan.pro li{border-top-color:rgba(255,255,255,.11)}.topo-pro-cta{width:100%;margin-top:14px;border:0;border-radius:12px;padding:13px;background:linear-gradient(135deg,#6d28d9,#ec4899);color:#fff;font-weight:950;cursor:pointer}.topo-pro-note{text-align:center;color:#8a8a8a;font-size:9px;margin-top:10px}
+.topo-pro-modal{position:fixed;inset:0;z-index:1000100;display:none;align-items:center;justify-content:center;padding:16px;box-sizing:border-box;background:rgba(0,0,0,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}.topo-pro-modal.open{display:flex}.topo-pro-dialog{position:relative;width:min(760px,96vw);max-height:92vh;overflow:auto;background:#fff;border-radius:24px;box-shadow:0 30px 80px rgba(0,0,0,.3);padding:22px}.topo-pro-close{position:absolute;right:12px;top:12px;width:34px;height:34px;border:0;border-radius:50%;background:#f1f1f1;color:#111;font-size:18px;cursor:pointer}.topo-pro-head{text-align:center;padding:6px 32px 18px}.topo-pro-head h3{font-size:26px;margin:0 0 8px;font-weight:950;color:#111}.topo-pro-head p{margin:0;color:#666;font-size:12px;line-height:1.55}.topo-pro-columns{display:grid;grid-template-columns:1fr 1fr;gap:12px}.topo-pro-plan{border:1px solid #e8e8e8;border-radius:18px;padding:18px;background:#fafafa}.topo-pro-plan.pro{background:linear-gradient(145deg,#111,#242424);color:#fff;border-color:#111;box-shadow:0 12px 32px rgba(0,0,0,.16)}.topo-pro-plan h4{margin:0 0 4px;font-size:16px}.topo-pro-plan .price{font-size:22px;font-weight:950;margin-bottom:12px}.topo-pro-plan ul{padding:0;margin:0;list-style:none}.topo-pro-plan li{font-size:11px;line-height:1.45;padding:8px 0;border-top:1px solid rgba(0,0,0,.07)}.topo-pro-plan.pro li{border-top-color:rgba(255,255,255,.11)}.topo-pro-cta{width:100%;margin-top:14px;border:0;border-radius:12px;padding:13px;background:linear-gradient(135deg,#6d28d9,#ec4899);color:#fff;font-weight:950;cursor:pointer}.topo-pro-note{text-align:center;color:#8a8a8a;font-size:9px;margin-top:10px}
 @media(max-width:768px){.topo-pro-dialog{padding:16px;border-radius:20px}.topo-pro-columns{grid-template-columns:1fr}.topo-pro-plan.pro{order:-1}.topo-pro-head h3{font-size:23px}.topo-pro-modal{padding:10px}}
 /* onboarding cutout: nothing is layered over the focus rectangle */
 #topo-tour-backdrop{background:transparent!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
@@ -185107,6 +185114,12 @@ function answerSuper31(i,timeout){const s=super31;if(!s||s.answered)return;s.ans
 async function finishSuper31(){const s=super31;if(!s)return;superStop31();superScreen31('super-quiz-result');$('super-quiz-result-score').textContent=String(s.score);$('super-quiz-result-note').textContent=s.score<0?'Раунд злой 😈 Но район защищён: отрицательный результат не отнимает районные очки.':s.score<10?'Неплохо! Ещё раунд — и Петербург начнёт узнавать тебя 🔥':'Машина топонимов! Топо впечатлён 😎';const u=currentUser31();if(u&&window.supabaseClient){try{const p=window.currentProfile||{};const districtKey=String(window.userSelectedDistrict||'');const districtId=Number(p.district_id || (typeof districtMap!=='undefined' ? districtMap[districtKey] : 0) || 0);const districtGain=Math.max(0,Number(s.score)||0);if(districtGain>0){const {error}=await window.supabaseClient.from('user_scores').insert({district_main:String(districtId),district_id:'__super_quiz__',score:districtGain});if(error)throw error}if(isPaid31()){const oldPoints=Number(p.points)||0;const newPoints=Math.max(0,oldPoints+(Number(s.score)||0));const oldGames=Number(p.games_played)||0;const oldCorrect=Number(p.correct_answers)||0;const correctCount=s.questions.reduce((n,q)=>n,0);const answersTotal=Math.max(0,10);const {data,error}=await window.supabaseClient.from('profiles').update({points:newPoints,games_played:oldGames+1}).eq('id',u.id).select().single();if(error)throw error;window.currentProfile=data||{...p,points:newPoints,games_played:oldGames+1}}else{const {data,error}=await window.supabaseClient.from('profiles').update({games_played:Number(p.games_played||0)+1}).eq('id',u.id).select().single();if(!error&&data)window.currentProfile=data}try{await fetchLeaderboard()}catch(_){} }catch(e){console.error('super save',e)}}}
 function wireSuper31(){const ids=['super-quiz-trigger','super-quiz-start','super-quiz-again','super-quiz-close','super-quiz-exit'];for(const id of ids){const old=$(id);if(!old)continue;const b=old.cloneNode(true);old.replaceWith(b)}$('super-quiz-trigger')?.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();openSuper31()});$('super-quiz-start')?.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();if(prepareSuper31())renderSuper31()});$('super-quiz-again')?.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();const st=superLocked31();if(!isPaid31()&&!isAdmin31()&&st.locked){openPro31();return}if(prepareSuper31())renderSuper31()});$('super-quiz-close')?.addEventListener('click',closeSuper31);$('super-quiz-exit')?.addEventListener('click',closeSuper31);$('super-quiz-overlay')?.addEventListener('click',e=>{if(e.target.id==='super-quiz-overlay')closeSuper31()})}
 
+/* v98: mobile-only bridge into the real v31 Super Quiz internals. */
+window.__topoMobileSuperOpen = openSuper31;
+window.__topoMobileSuperStart = function(){
+  if (prepareSuper31()) renderSuper31();
+};
+
 /* ---------- Rewards locked design ---------- */
 function lock32(){return '<svg class="topo32-lock" viewBox="0 0 88 88" aria-hidden="true"><defs><linearGradient id="t32lockBody" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fafafa"/><stop offset=".45" stop-color="#d5d8dc"/><stop offset="1" stop-color="#9da2a8"/></linearGradient><linearGradient id="t32lockShackle" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8f959d"/><stop offset=".5" stop-color="#525860"/><stop offset="1" stop-color="#aeb3b9"/></linearGradient></defs><path d="M26 41V29c0-11.5 7.9-19 18-19s18 7.5 18 19v12" fill="none" stroke="url(#t32lockShackle)" stroke-width="9" stroke-linecap="round"/><rect x="18" y="36" width="52" height="40" rx="10" fill="url(#t32lockBody)" stroke="#777d84" stroke-width="3"/><rect x="24" y="43" width="40" height="26" rx="7" fill="#eef0f2" opacity=".7"/><circle cx="44" cy="55" r="5" fill="#646a72"/><path d="M44 60v8" stroke="#646a72" stroke-width="3.5" stroke-linecap="round"/></svg>'}
 function lockRewards32(){const root=$('rewards-container');if(!root)return;[...root.querySelectorAll('.rewards-category')].forEach((sec,si)=>[...sec.querySelectorAll('.reward-card')].forEach((card,idx)=>{card.classList.remove('topo-pro-locked','topo31-locked');card.querySelectorAll('.topo-pro-reward-cta,.topo31-reward-cta,.topo-lock-svg,.topo31-lock,.topo32-lock,.topo32-reward-cta').forEach(n=>n.remove());const should=!isPaid31()&&((si===0&&idx>=4)||(si===1&&idx>=1)||(si===2&&idx>=2));card.classList.toggle('topo32-locked',should);if(should){card.insertAdjacentHTML('beforeend',lock32());const b=document.createElement('button');b.type='button';b.className='topo32-reward-cta';b.textContent='Открыть специальные награды';b.onclick=e=>{e.preventDefault();e.stopPropagation();openPro31()};card.appendChild(b)}}))}
@@ -186527,7 +186540,7 @@ setInterval(()=>{lockRewards32();ensureAdminSuper31();if($('super-quiz-intro')?.
     const start=document.createElement('button');start.type='button';start.id='topo39-start';start.textContent=attempt>=1&&paid()?'Начать ещё раз':'Начать квиз';start.onclick=e=>{e.preventDefault();e.stopImmediatePropagation();startSession(String(id),attempt)};wrap.append(start);box.append(wrap)
   }
   function completed(id){stopTimer();showQ();hideLegacy();setTitle('<span class="topo36-standard-title">Объект уже пройден</span>');const box=$('side-quiz-options-container');if(!box)return;box.className='side-quiz-options';box.innerHTML='';const n=attempts(id);if(n===1&&paid()){setTitle('<span class="topo36-standard-title">Попробуй ещё раз!</span>');const p=document.createElement('p');p.style.cssText='color:rgba(255,255,255,.70);font-size:11px;line-height:1.45;margin:0 0 11px;';p.textContent='Первое прохождение завершено. Для Pro доступно ещё одно прохождение этого объекта.';const b=document.createElement('button');b.type='button';b.id='topo39-start';b.textContent='Пройти ещё раз';b.onclick=e=>{e.preventDefault();e.stopImmediatePropagation();startSession(String(id),1)};box.append(p,b)}else{const p=document.createElement('p');p.style.cssText='color:rgba(255,255,255,.65);font-size:11px;line-height:1.45;margin:0;';p.textContent='Доступная попытка по этому объекту уже использована.';box.append(p)}}
-  function renderQuestion(){const q=state.questions[state.index];if(!q)return;showQ();hideLegacy();state.answered=false;setTitle(`<span class="topo39-question-block">${esc(q.question||'Вопрос')}</span>`);const box=$('side-quiz-options-container');if(!box)return;box.className='side-quiz-options';box.innerHTML='';const ans=document.createElement('div');ans.id='topo39-answers';(q.answers||[]).forEach((a,i)=>{const b=document.createElement('button');b.type='button';b.className='topo39-answer';b.textContent=String(a?.text??'');b.onclick=e=>{e.preventDefault();e.stopImmediatePropagation();answer(i,false)};ans.appendChild(b)});box.append(ans);if(!paid()&&window.topoCurrentUser){const pro=document.createElement('div');pro.id='topo39-active-pro';pro.innerHTML='<div class="topo39-active-pro-copy"><b>Топорайоны Pro — 199 ₽</b><br>Хочешь улучшить результат? Ещё 1 прохождение каждого объекта + безлимитный Super Quiz.</div><button type="button">Перейти на Pro</button>';pro.querySelector('button')?.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();window.openProModal?.()||$('profile-payment-btn')?.click()});box.append(pro)}startTimer(()=>answer(-1,true))}
+  function renderQuestion(){const q=state.questions[state.index];if(!q)return;showQ();hideLegacy();state.answered=false;setTitle(`<span class="topo39-question-block">${esc(q.question||'Вопрос')}</span>`);const box=$('side-quiz-options-container');if(!box)return;box.className='side-quiz-options';box.innerHTML='';const ans=document.createElement('div');ans.id='topo39-answers';(q.answers||[]).forEach((a,i)=>{const b=document.createElement('button');b.type='button';b.className='topo39-answer';b.textContent=String(a?.text??'');b.onclick=e=>{e.preventDefault();e.stopImmediatePropagation();answer(i,false)};ans.appendChild(b)});box.append(ans);if(!paid()&&window.topoCurrentUser){const pro=document.createElement('div');pro.id='topo39-active-pro';pro.innerHTML='<div class="topo39-active-pro-copy"><b>Топорайоны Pro — 199 ₽</b><br>Хочешь улучшить результат? Ещё 1 прохождение каждого объекта + безлимитный Super Quiz.</div><button type="button">Включить Pro</button>';pro.querySelector('button')?.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();window.openProModal?.()||$('profile-payment-btn')?.click()});box.append(pro)}startTimer(()=>answer(-1,true))}
   function renderIntermediate(q,correct,timedOut){showR();const d=$('result-status-desc');if(d){d.innerHTML=`<div id="topo39-intermediate"><div style="color:${timedOut?'#f4bd54':correct?'#39d998':'#ff6e6e'};font-weight:900;font-size:1.05rem;margin-bottom:7px;">${timedOut?'⏱ Время вышло':correct?'✓ Правильно!':'✕ Неправильно'}</div><div class="topo39-expl">${esc(q.explanation||'')}</div></div>`}const it=$('result-status-icon');if(it){it.textContent=correct?'✓':'×';it.className='result-status-icon '+(correct?'success':'fail')}const ttl=$('result-status-title');if(ttl)ttl.textContent=correct?'Правильно':'Неправильно';const old=document.getElementById('topo39-next');if(old)old.remove();if(state.index>=4){finish()}else{const b=document.createElement('button');b.type='button';b.id='topo39-next';b.textContent='Следующий вопрос';b.onclick=e=>{e.preventDefault();e.stopImmediatePropagation();state.index++;renderQuestion()};d?.appendChild(b)}}
   function answer(index,timedOut){if(state.answered||state.saving)return;state.answered=true;stopTimer();const q=state.questions[state.index];if(!q)return;const ci=q.answers.findIndex(a=>a&&a.isCorrect),correct=!timedOut&&index>=0&&index===ci;const buttons=[...($('topo39-answers')?.querySelectorAll('button')||[])];buttons.forEach((b,i)=>{b.disabled=true;b.style.pointerEvents='none';if(i===ci){b.classList.add('correct');if(!b.textContent.startsWith('✓ '))b.textContent='✓ '+b.textContent}if(!timedOut&&i===index&&i!==ci){b.classList.add('wrong');if(!b.textContent.startsWith('✕ '))b.textContent='✕ '+b.textContent}});if(correct)state.score++;markUsed(q.question);try{const snd=correct?window.successSound:window.failSound;if(snd){snd.currentTime=0;snd.play().catch(()=>{})}}catch(_){}renderIntermediate(q,correct,timedOut)}
   function renderFinal(score,saved,extra){const dist=districtName();showR();const d=$('result-status-desc');if(!d)return;d.innerHTML=`<div id="topo39-final"><div class="score">Твой результат: ${score}/5</div><p class="credit">Заработанные очки зачислены в ${esc(dist.n)}.</p><div class="saved">${esc(extra||'')}</div>${saved&&!paid()?'<div class="pro-box"><b>Хочешь ещё один шанс?</b><span>Топорайоны Pro открывает дополнительное прохождение объектов и больше игровых возможностей.</span><button type="button" id="topo39-final-pro">Перейти к Pro — 199 ₽</button></div>':''}</div>`;const it=$('result-status-icon');if(it){it.textContent=score>=3?'✓':'•';it.className='result-status-icon '+(score>=3?'success':'fail')}const ttl=$('result-status-title');if(ttl)ttl.textContent='Квиз завершён';$('topo39-final-pro')?.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();window.openProModal?.()||$('profile-payment-btn')?.click()});const legacy=$('side-quiz-next-btn');if(legacy){legacy.style.setProperty('display','none','important');legacy.disabled=true}}
@@ -186956,465 +186969,334 @@ setInterval(()=>{lockRewards32();ensureAdminSuper31();if($('super-quiz-intro')?.
 <!-- ================== END TOPO v47 FINAL UI PATCH ================== -->
 
 
-<!-- ================== TOPO v108 FINAL MOBILE / PAYMENT FLOW ================== -->
-<script id="topo-v108-final-mobile-payment">
-(function(){
-  'use strict';
-  if(window.__TOPO_V108_MOBILE_FINAL__) return;
-  window.__TOPO_V108_MOBILE_FINAL__ = true;
-  const $ = id => document.getElementById(id);
-  const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
-
-  function closeMobileLayers(except){
-    if(except!=='settings') $('m-settings')?.classList.remove('open');
-    if(except!=='profile') {$('profile-panel')?.classList.remove('open'); $('profile-panel')?.setAttribute('aria-hidden','true');}
-    if(except!=='notifications') {$('notifications-popover')?.classList.remove('open'); $('notifications-popover')?.setAttribute('aria-hidden','true');}
-    if(except!=='super') $('super-quiz-overlay')?.classList.remove('open');
-  }
-
-  /* 1) Mobile menu: move only elements that actually exist. Moving a DOM node does NOT
-        remove its event listeners; the important part is making the final slots stable. */
-  function runMobileAdaptation108(){
-    if(!isMobile()) return;
-    const pairs = [
-      ['district-switcher-wrapper','m-district-slot'],
-      ['status-filter-wrapper','m-filter-slot'],
-      ['map-style-switcher','m-layer-slot'],
-      ['leaderboard-trigger','m-rating-slot'],
-      ['profile-trigger','m-profile-slot'],
-      ['super-quiz-trigger','m-super-slot'],
-      ['donate-btn-element','m-donate-slot'],
-      ['poster-btn-element','m-poster-slot'],
-      ['sidebar','m-layer-slot']
-    ];
-    pairs.forEach(([sourceId,slotId])=>{
-      const src = sourceId==='sidebar' ? document.querySelector('.sidebar') : $(sourceId);
-      const slot = $(slotId);
-      if(src && slot && !slot.contains(src)) slot.appendChild(src);
-    });
-  }
-
-  /* 2) One canonical Pro flow:
-        every CTA -> existing comparison modal -> real create-invoice -> payment_url -> YooKassa. */
-  async function createYooKassaLink108(){
-    if(typeof window.createPayment === 'function'){
-      return window.createPayment();
-    }
-    const client = window.supabaseClient;
-    const user = window.topoCurrentUser;
-    if(!user) {
-      if(typeof window.openAuthModal==='function') window.openAuthModal('Сначала войди в аккаунт.','login');
-      return;
-    }
-    if(!client) throw new Error('Supabase-клиент недоступен.');
-    const price = Number(window.TOPO_PAYMENT_CONFIG?.price || 199);
-    let result = null;
-    const inv = await client.functions.invoke('create-invoice', {body:{price}});
-    if(!inv.error) result = inv.data;
-    if(!result?.payment_url){
-      const session = await client.auth.getSession();
-      const token = session?.data?.session?.access_token;
-      if(!token) throw new Error('Сессия истекла. Войди в аккаунт ещё раз.');
-      const endpoint = window.TOPO_PAYMENT_CONFIG?.createInvoiceEndpoint || 'https://fcsdnvpmdvguxrwxrrus.supabase.co/functions/v1/create-invoice';
-      const response = await fetch(endpoint, {
-        method:'POST',
-        headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
-        body:JSON.stringify({price})
-      });
-      const raw = await response.text();
-      try { result = JSON.parse(raw); } catch { result = null; }
-      if(!response.ok) throw new Error(result?.error || 'ЮKassa не создала счёт.');
-    }
-    if(!result?.payment_url) throw new Error('Edge Function не вернула payment_url.');
-    window.location.assign(result.payment_url);
-    return result.payment_url;
-  }
-  window.topoCreateYookassaLink108 = createYooKassaLink108;
-
-  function openProModal108(){
-    try {
-      if(typeof window.openProModal === 'function') window.openProModal();
-      else if(typeof window.ensureProModal === 'function') { window.ensureProModal(); $('topo-pro-modal')?.classList.add('open'); }
-      const modal = $('topo-pro-modal');
-      if(!modal) throw new Error('Pro-попап не найден.');
-      modal.classList.add('open');
-      modal.setAttribute('aria-hidden','false');
-      const buy = $('topo-pro-buy');
-      if(buy && !buy.dataset.v108PaymentBound){
-        const fresh = buy.cloneNode(true);
-        fresh.dataset.v108PaymentBound='1';
-        buy.replaceWith(fresh);
-        fresh.addEventListener('click', async e=>{
-          e.preventDefault(); e.stopImmediatePropagation();
-          try{
-            fresh.disabled=true;
-            fresh.textContent='Создаём оплату…';
-            await createYooKassaLink108();
-          }catch(err){
-            console.error('v108 YooKassa:',err);
-            fresh.disabled=false;
-            fresh.textContent='Перейти на Топорайоны Pro — 199 ₽';
-            const note=modal.querySelector('.topo-pro-note');
-            if(note) note.textContent=err?.message || 'Не удалось создать оплату.';
-          }
-        });
-      }
-    }catch(err){ console.error('v108 open Pro:',err); }
-  }
-  window.topoOpenProModal108 = openProModal108;
-
-  function isProCta108(el){
-    if(!el || el.closest?.('#topo-pro-modal')) return false;
-    const known = el.matches?.(
-      '#profile-payment-btn,#topo39-pro-cta,#topo39-final-pro,#topo-fix-pro,'+
-      '.topo37-pro-cta,.topo39-active-pro button,.profile-payment-btn,[data-action="open-pro-modal"]'
-    );
-    if(known) return true;
-    if(el.tagName==='BUTTON' || el.tagName==='A' || el.getAttribute?.('role')==='button'){
-      const txt = String(el.innerText || el.textContent || '').replace(/\s+/g,' ').trim().toLowerCase();
-      return /перейти\s+(на\s+)?(?:топорайоны\s+)?pro|открыть\s+pro|подключить\s+pro|оформить\s+pro/.test(txt);
-    }
-    return false;
-  }
-
-  function bindProCapture108(){
-    const handler = e => {
-      const raw = e.target?.closest?.('button,a,[role="button"]');
-      if(!isMobile() || !raw || !isProCta108(raw)) return;
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      openProModal108();
-    };
-    window.addEventListener('pointerup',handler,{capture:true,passive:false});
-    window.addEventListener('click',handler,{capture:true,passive:false});
-  }
-
-  /* 3) Mobile profile: never proxy through a synthetic click. Call the real profile function. */
-  async function openProfile108(e){
-    if(!isMobile()) return;
-    const t=e.target?.closest?.('#profile-trigger,#m-bottom-profile,.profile-toggle-btn');
-    if(!t) return;
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    closeMobileLayers('profile');
-    try{
-      let user=window.topoCurrentUser || null;
-      if(!user && window.supabaseClient?.auth?.getUser){
-        const r=await window.supabaseClient.auth.getUser();
-        user=r?.data?.user||null;
-        if(user) window.topoCurrentUser=user;
-      }
-      if(user && typeof window.openProfilePanel==='function'){
-        await window.openProfilePanel();
-      }else if(user && typeof window.hardOpenProfile65==='function'){
-        window.hardOpenProfile65();
-      }else if(typeof window.openAuthModal==='function'){
-        window.openAuthModal('Чтобы открыть личный профиль, войди или зарегистрируйся.','login');
-      }
-    }catch(err){ console.error('v108 profile:',err); }
-  }
-
-  /* 4) Reviews: direct submit on mobile avoids recursive synthetic clicks and map hit-testing. */
-  async function submitReviewDirect108(e){
-    if(!isMobile()) return;
-    const t=e.target?.closest?.('#info-box #topo32-review-submit');
-    if(!t) return;
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    const root=$('topo32-reviews-root');
-    const objectId=String(root?.dataset?.objectId || window.currentLocationId || '');
-    try{
-      if(typeof window.submitReview==='function') await window.submitReview(objectId);
-      else if(typeof window.submitReview31==='function') await window.submitReview31(objectId);
-    }catch(err){ console.error('v108 review submit:',err); }
-  }
-
-  function focusReviewInput108(e){
-    if(!isMobile()) return;
-    const t=e.target?.closest?.('#info-box #topo32-review-input');
-    if(!t) return;
-    e.stopPropagation();
-  }
-
-  /* 5) Public profile from a review: same public-profile sheet as leaderboard. */
-  function reviewProfile108(e){
-    const t=e.target?.closest?.('.topo32-review-user,[data-review-user-id],[data-user-id].topo32-review-user');
-    if(!t) return;
-    const userId=String(t.dataset.userId || t.dataset.reviewUserId || '').trim();
-    if(!userId || typeof window.openPublicProfile!=='function') return;
-    e.preventDefault(); e.stopImmediatePropagation();
-    const name=t.dataset.userName || t.querySelector?.('.topo32-review-user-name')?.textContent || 'Пользователь';
-    window.openPublicProfile(userId,name,null,0);
-  }
-
-  /* 6) Keep profile action buttons visible for the owner whenever the personal profile is open. */
-  function restoreProfileActions108(){
-    const p=$('profile-panel');
-    if(!p || !p.classList.contains('open') || window.publicProfileMode) return;
-    const user=window.topoCurrentUser;
-    if(!user) return;
-    const pay=$('profile-payment-btn'),logout=$('profile-logout-btn');
-    if(pay){pay.style.setProperty('display','block','important');pay.disabled=false;}
-    if(logout){logout.style.setProperty('display','block','important');logout.disabled=false;}
-  }
-
-  function boot108(){
-    runMobileAdaptation108();
-    restoreProfileActions108();
-  }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot108,{once:true});
-  else boot108();
-  window.addEventListener('load',boot108);
-  window.addEventListener('resize',()=>setTimeout(runMobileAdaptation108,0));
-  window.supabaseClient?.auth?.onAuthStateChange?.(()=>setTimeout(boot108,150));
-
-  /* v111: legacy Pro capture disabled; one canonical handler is installed at document end. */
-  window.addEventListener('pointerup',openProfile108,{capture:true,passive:false});
-  window.addEventListener('click',openProfile108,{capture:true,passive:false});
-  window.addEventListener('pointerup',submitReviewDirect108,{capture:true,passive:false});
-  window.addEventListener('click',submitReviewDirect108,{capture:true,passive:false});
-  window.addEventListener('pointerdown',focusReviewInput108,{capture:true,passive:true});
-  window.addEventListener('click',reviewProfile108,{capture:true,passive:false});
-  window.addEventListener('load',()=>setTimeout(restoreProfileActions108,250));
-  window.setInterval(restoreProfileActions108,3000);
-})();
-
-</script>
-<!-- ================== END TOPO v108 FINAL MOBILE / PAYMENT FLOW ================== -->
-
-<!-- ================== TOPO v110 QUIZ PRO UNIFIED FLOW ================== -->
-<style id="topo-v110-quiz-pro-flow">
+<!-- ================== TOPO v115: only requested Pro popup integration ================== -->
+<style id="topo-v111-canonical-pro-css">
+  /* One and only one Free/Pro comparison surface. */
   #topo-pro-modal{
-    z-index:2147483647!important;
+    position:fixed!important;
+    inset:0!important;
+    z-index:2147483000!important;
+    display:none!important;
+    align-items:center!important;
+    justify-content:center!important;
+    width:100vw!important;
+    height:100vh!important;
+    padding:12px!important;
+    box-sizing:border-box!important;
     pointer-events:none!important;
   }
   #topo-pro-modal.open{
+    display:flex!important;
     pointer-events:auto!important;
   }
-  #topo-pro-modal .topo-pro-dialog,
+  #topo-pro-modal .topo-pro-dialog{
+    position:relative!important;
+    z-index:2!important;
+    pointer-events:auto!important;
+    width:min(760px,96vw)!important;
+    max-height:92vh!important;
+    overflow:auto!important;
+  }
   #topo-pro-modal .topo-pro-close,
   #topo-pro-modal #topo-pro-buy{
     position:relative!important;
-    z-index:2147483648!important;
+    z-index:4!important;
     pointer-events:auto!important;
-  }
-  #topo-pro-modal .topo-pro-close,
-  #topo-pro-modal #topo-pro-buy{
     touch-action:manipulation!important;
+    cursor:pointer!important;
     -webkit-tap-highlight-color:transparent!important;
   }
-  #topo-pro-modal .topo-pro-note{
-    min-height:18px!important;
+  #topo-pro-modal #topo-pro-buy:disabled{cursor:wait!important;opacity:.72!important;}
+  @media(max-width:768px){
+    #topo-pro-modal{padding:10px!important;}
+    #topo-pro-modal .topo-pro-dialog{width:100%!important;max-width:460px!important;max-height:calc(100dvh - 20px)!important;}
   }
 </style>
-<script id="topo-v110-quiz-pro-flow-runtime">
+
+<style id="topo-v115-pro-close-right">
+#topo-pro-modal .topo-pro-close{
+  position:absolute!important;
+  top:16px!important;
+  right:16px!important;
+  width:34px!important;
+  height:34px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding:0!important;
+  line-height:1!important;
+  z-index:2147483648!important;
+  pointer-events:auto!important;
+  touch-action:manipulation!important;
+}
+</style>
+
+<script id="topo-v111-canonical-pro-runtime">
 (function(){
   'use strict';
-  if(window.__topoV110QuizProFlow)return;
-  window.__topoV110QuizProFlow=true;
+  if(window.__TOPO_V111_CANONICAL_PRO__) return;
+  window.__TOPO_V111_CANONICAL_PRO__=true;
 
   const $=id=>document.getElementById(id);
-  const QUIZ_PRO_SELECTORS='#topo39-pro-cta,#topo39-final-pro,#topo39-active-pro button';
-  const CREATE_INVOICE_ENDPOINT='https://fcsdnvpmdvguxrwxrrus.supabase.co/functions/v1/create-invoice';
-  const PRICE=199;
+  const PRO_SELECTORS='#profile-payment-btn,#topo39-pro-cta,#topo39-final-pro,#topo-fix-pro,.topo37-pro-cta,.topo39-active-pro button,.profile-payment-btn,[data-action="open-pro-modal"]';
+  const QUIZ_PRO_SELECTORS='#topo39-pro-cta,#topo39-final-pro,#topo-fix-pro,.topo37-pro-cta,.topo39-active-pro button';
+  let lastOpenAt=0;
   let paymentBusy=false;
 
-  function hideDuplicateComparisonModals(){
-    document.querySelectorAll('#pro-comparison-modal').forEach(function(el){
-      try{el.remove()}catch(_){el.classList.remove('active','open','show')}
-    });
+  function removeCompetingModal(){
+    document.querySelectorAll('#pro-comparison-modal').forEach(n=>n.remove());
+  }
+
+  function modalMarkup(){
+    const d=document.createElement('div');
+    d.id='topo-pro-modal';
+    d.className='topo-pro-modal';
+    d.setAttribute('aria-hidden','true');
+    d.innerHTML=`
+      <div class="topo-pro-dialog" role="dialog" aria-modal="true" aria-labelledby="topo-pro-title">
+        <button type="button" class="topo-pro-close" id="topo-pro-close" aria-label="Закрыть">✕</button>
+        <div class="topo-pro-head">
+          <h3 id="topo-pro-title">Топорайоны Pro 🚀</h3>
+          <p>Полный доступ к игровым возможностям Топорайонов.</p>
+        </div>
+        <div class="topo-pro-columns">
+          <div class="topo-pro-plan">
+            <h4>Бесплатный план</h4>
+            <div class="price">0 ₽</div>
+            <ul>
+              <li>🗺️ Полная интерактивная карта</li>
+              <li>🎯 Обычные квизы</li>
+              <li>🔁 Базовые попытки</li>
+              <li>🏅 Базовые награды</li>
+            </ul>
+          </div>
+          <div class="topo-pro-plan pro">
+            <h4>Топорайоны Pro</h4>
+            <div class="price">199 ₽</div>
+            <ul>
+              <li>🏆 Личный рейтинг</li>
+              <li>⚡ Супер квиз без дневного лимита</li>
+              <li>🔓 Все награды</li>
+              <li>➕ Дополнительные прохождения</li>
+              <li>📈 Больше игровых возможностей</li>
+            </ul>
+            <button type="button" class="topo-pro-cta" id="topo-pro-buy">Перейти на Топорайоны Pro — 199 ₽</button>
+          </div>
+        </div>
+        <div class="topo-pro-note">Единоразовый платёж. После нажатия откроется безопасная оплата через ЮKassa.</div>
+      </div>`;
+    return d;
+  }
+
+  function canonicalizeModal(){
+    removeCompetingModal();
+    let modal=$('topo-pro-modal');
+    if(!modal){
+      modal=modalMarkup();
+      document.body.appendChild(modal);
+    }else if(modal.dataset.topoV111Canonical!=='1'){
+      /* Clone once to remove every legacy listener from the existing buttons. */
+      const fresh=modal.cloneNode(true);
+      fresh.dataset.topoV111Canonical='1';
+      modal.replaceWith(fresh);
+      modal=fresh;
+    }
+    modal.dataset.topoV111Canonical='1';
+    modal.setAttribute('aria-hidden',modal.classList.contains('open')?'false':'true');
+    modal.style.setProperty('z-index','2147483000','important');
+    modal.style.setProperty('pointer-events',modal.classList.contains('open')?'auto':'none','important');
+    const buy=modal.querySelector('#topo-pro-buy');
+    if(buy){
+      buy.disabled=false;
+      buy.type='button';
+      buy.style.setProperty('pointer-events','auto','important');
+    }
+    const close=modal.querySelector('#topo-pro-close');
+    if(close){
+      close.type='button';
+      close.setAttribute('aria-label','Закрыть');
+      close.style.setProperty('pointer-events','auto','important');
+    }
+    return modal;
+  }
+
+  function openUnifiedPro(){
+    const modal=canonicalizeModal();
+    if(!modal) return false;
+    removeCompetingModal();
+    const now=Date.now();
+    if(now-lastOpenAt<180) return true;
+    lastOpenAt=now;
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden','false');
+    modal.style.setProperty('display','flex','important');
+    modal.style.setProperty('pointer-events','auto','important');
+    document.body.classList.add('topo-pro-modal-open');
+    const buy=modal.querySelector('#topo-pro-buy');
+    if(buy){buy.disabled=false;buy.textContent='Перейти на Топорайоны Pro — 199 ₽';}
+    return true;
   }
 
   function closeUnifiedPro(){
     const modal=$('topo-pro-modal');
     if(!modal)return;
-    modal.classList.remove('open','active','show');
+    modal.classList.remove('open');
     modal.setAttribute('aria-hidden','true');
+    modal.style.setProperty('display','none','important');
     modal.style.setProperty('pointer-events','none','important');
-    const buy=$('topo-pro-buy');
-    if(buy){buy.disabled=false;buy.textContent='Перейти на Топорайоны Pro — 199 ₽';}
-    const note=modal.querySelector('.topo-pro-note');
-    if(note)note.textContent='Единоразовый платёж. После нажатия откроется безопасная оплата через ЮKassa.';
-  }
-  window.topoCloseUnifiedPro=closeUnifiedPro;
-
-  function ensureUnifiedPro(){
-    hideDuplicateComparisonModals();
-    let modal=$('topo-pro-modal');
-    if(!modal && typeof window.ensureProModal==='function'){
-      try{window.ensureProModal()}catch(err){console.warn('v110 ensureProModal',err)}
-      modal=$('topo-pro-modal');
-    }
-    if(!modal){
-      modal=document.createElement('div');
-      modal.id='topo-pro-modal';
-      modal.className='topo-pro-modal';
-      modal.setAttribute('aria-hidden','true');
-      modal.innerHTML='<div class="topo-pro-dialog" role="dialog" aria-modal="true" aria-labelledby="topo-pro-title"><button type="button" class="topo-pro-close" id="topo-pro-close" aria-label="Закрыть">✕</button><div class="topo-pro-head"><h3 id="topo-pro-title">Топорайоны Pro 🚀</h3><p>Полный доступ к игровым возможностям Топорайонов.</p></div><div class="topo-pro-columns"><div class="topo-pro-plan"><h4>Бесплатный план</h4><div class="price">0 ₽</div><ul><li>🗺️ Полная интерактивная карта</li><li>🎯 Обычные квизы</li><li>🔁 Базовые попытки</li></ul></div><div class="topo-pro-plan pro"><h4>Топорайоны Pro</h4><div class="price">199 ₽</div><ul><li>🏆 Личный рейтинг</li><li>⚡ Супер квиз без дневного лимита</li><li>🔓 Все награды</li><li>➕ Дополнительные прохождения</li></ul><button type="button" class="topo-pro-cta" id="topo-pro-buy">Перейти на Топорайоны Pro — 199 ₽</button></div></div><div class="topo-pro-note">Единоразовый платёж. После нажатия откроется безопасная оплата через ЮKassa.</div></div>';
-      document.body.appendChild(modal);
-    }
-
-    modal.style.setProperty('z-index','2147483647','important');
-    modal.style.setProperty('pointer-events','none','important');
-    modal.setAttribute('aria-hidden',modal.classList.contains('open')?'false':'true');
-
-    if(modal.dataset.v110Bound!=='1'){
-      modal.dataset.v110Bound='1';
-      modal.addEventListener('click',function(e){
-        const close=e.target?.closest?.('#topo-pro-close');
-        const buy=e.target?.closest?.('#topo-pro-buy');
-        if(close){
-          e.preventDefault();
-          e.stopImmediatePropagation();
-          closeUnifiedPro();
-          return;
-        }
-        if(buy){
-          e.preventDefault();
-          e.stopImmediatePropagation();
-          startYookassaPayment();
-          return;
-        }
-        if(e.target===modal){
-          e.preventDefault();
-          e.stopImmediatePropagation();
-          closeUnifiedPro();
-        }
-      },true);
-    }
-    return modal;
+    document.body.classList.remove('topo-pro-modal-open');
   }
 
-  async function resolveUser(){
-    let user=window.topoCurrentUser||window.currentUser||null;
-    if(user)return user;
-    try{
-      const r=await window.supabaseClient?.auth?.getUser?.();
-      user=r?.data?.user||null;
-      if(user)window.topoCurrentUser=user;
-    }catch(_){ }
-    return user;
-  }
-
-  async function createInvoiceV110(){
-    const client=window.supabaseClient;
-    const user=await resolveUser();
-    if(!user){
-      window.openAuthModal?.('Сначала войди в аккаунт.','login');
-      return null;
-    }
-    if(!client)throw new Error('Supabase-клиент недоступен.');
-
-    let data=null,error=null;
-    try{
-      ({data,error}=await client.functions.invoke('create-invoice',{body:{price:PRICE}}));
-    }catch(err){
-      error=err;
-    }
-    if(error)console.warn('v110 functions.invoke create-invoice:',error);
-
-    let paymentUrl=data?.payment_url||data?.confirmation_url||data?.url||null;
-    if(!paymentUrl){
-      const session=await client.auth.getSession();
-      const token=session?.data?.session?.access_token;
-      if(!token)throw new Error('Сессия истекла. Войди в аккаунт ещё раз.');
-      const response=await fetch(CREATE_INVOICE_ENDPOINT,{
-        method:'POST',
-        headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
-        body:JSON.stringify({price:PRICE})
-      });
-      const raw=await response.text();
-      let result=null;
-      try{result=JSON.parse(raw)}catch(_){ }
-      if(!response.ok)throw new Error(result?.error||'ЮKassa не создала счёт.');
-      paymentUrl=result?.payment_url||result?.confirmation_url||result?.url||null;
-    }
-    if(!paymentUrl)throw new Error('Edge Function не вернула ссылку на оплату.');
-    return paymentUrl;
-  }
-
-  async function startYookassaPayment(){
+  async function createYookassaFromCanonical(){
     if(paymentBusy)return;
     paymentBusy=true;
-    const modal=ensureUnifiedPro();
-    const buy=$('topo-pro-buy');
+    const modal=canonicalizeModal();
+    const buy=modal?.querySelector('#topo-pro-buy');
     const note=modal?.querySelector('.topo-pro-note');
-    if(buy){buy.disabled=true;buy.textContent='Создаём оплату…';}
-    if(note)note.textContent='Создаём персональный счёт…';
+    const original='Перейти на Топорайоны Pro — 199 ₽';
     try{
-      const paymentUrl=await createInvoiceV110();
-      if(!paymentUrl)return;
-      if(note)note.textContent='Счёт создан. Переходим к оплате…';
-      window.location.assign(paymentUrl);
+      if(buy){buy.disabled=true;buy.textContent='Создаём оплату…';}
+      if(note)note.textContent='Создаём персональный счёт…';
+
+      /* Use the proven account payment function first. It creates the individual
+         YooKassa invoice through the Supabase create-invoice Edge Function and
+         redirects to the returned payment_url. */
+      if(typeof window.createPayment==='function'){
+        await window.createPayment();
+        return;
+      }
+
+      /* Same server path as the account flow, only as a fallback. */
+      const client=window.supabaseClient;
+      let user=window.topoCurrentUser||null;
+      if(!user&&client?.auth?.getUser){
+        const r=await client.auth.getUser();
+        user=r?.data?.user||null;
+        if(user)window.topoCurrentUser=user;
+      }
+      if(!user){
+        window.openAuthModal?.('Сначала войди в аккаунт.','login');
+        return;
+      }
+      if(!client)throw new Error('Supabase-клиент недоступен.');
+      const price=199;
+      let result=null;
+      const inv=await client.functions.invoke('create-invoice',{body:{price}});
+      if(!inv.error)result=inv.data;
+      if(!result?.payment_url){
+        const session=await client.auth.getSession();
+        const token=session?.data?.session?.access_token;
+        if(!token)throw new Error('Сессия истекла. Войди в аккаунт ещё раз.');
+        const response=await fetch('https://fcsdnvpmdvguxrwxrrus.supabase.co/functions/v1/create-invoice',{
+          method:'POST',
+          headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
+          body:JSON.stringify({price})
+        });
+        const raw=await response.text();
+        try{result=JSON.parse(raw);}catch(_){result=null;}
+        if(!response.ok)throw new Error(result?.error||'ЮKassa не создала счёт.');
+      }
+      if(!result?.payment_url)throw new Error('Edge Function не вернула payment_url.');
+      window.location.assign(result.payment_url);
     }catch(err){
-      console.error('v110 YooKassa payment:',err);
-      if(buy){buy.disabled=false;buy.textContent='Перейти на Топорайоны Pro — 199 ₽';}
-      if(note)note.textContent=err?.message||'Не удалось создать оплату.';
+      console.error('TOPO v111 Pro payment:',err);
+      if(buy){buy.disabled=false;buy.textContent=original;}
+      if(note)note.textContent=err?.message||'Не удалось создать оплату. Попробуй ещё раз.';
     }finally{
-      paymentBusy=false;
+      setTimeout(()=>{paymentBusy=false;},500);
     }
   }
-  window.topoStartYookassaPaymentV110=startYookassaPayment;
 
-  function openUnifiedPro(e){
-    if(e){
-      e.preventDefault();
-      e.stopImmediatePropagation();
+  function targetButton(e){
+    return e.target?.closest?.('button,a,[role="button"]')||null;
+  }
+
+  function isQuizOrProfileProButton(el){
+    if(!el||el.closest?.('#topo-pro-modal'))return false;
+    if(el.matches?.(PRO_SELECTORS)){
+      if(window.topoPaidAccess&&el.id==='profile-payment-btn')return false;
+      return true;
     }
-    const modal=ensureUnifiedPro();
-    if(!modal)return;
-    $('profile-panel')?.classList.remove('open');
-    $('leaderboard-panel')?.classList.remove('open');
-    $('auth-modal')?.classList.remove('active');
-    modal.classList.add('open');
-    modal.classList.remove('active','show');
-    modal.setAttribute('aria-hidden','false');
-    modal.style.setProperty('pointer-events','auto','important');
-    const buy=$('topo-pro-buy');
-    if(buy){buy.disabled=false;buy.textContent='Перейти на Топорайоны Pro — 199 ₽';}
-    const note=modal.querySelector('.topo-pro-note');
-    if(note)note.textContent='Единоразовый платёж. После нажатия откроется безопасная оплата через ЮKassa.';
-  }
-  window.openProModal=openUnifiedPro;
-
-  function isQuizProTarget(el){
-    return !!el?.closest?.(QUIZ_PRO_SELECTORS);
+    return false;
   }
 
-  function quizProCapture(e){
-    if(!isQuizProTarget(e.target))return;
-    const el=e.target.closest(QUIZ_PRO_SELECTORS);
-    if(!el)return;
+  function handleOpen(e){
+    const el=targetButton(e);
+    if(!isQuizOrProfileProButton(el))return;
     e.preventDefault();
     e.stopImmediatePropagation();
-    openUnifiedPro(e);
+    openUnifiedPro();
   }
-  window.addEventListener('pointerdown',quizProCapture,{capture:true,passive:false});
-  window.addEventListener('pointerup',quizProCapture,{capture:true,passive:false});
-  window.addEventListener('click',quizProCapture,{capture:true,passive:false});
 
-  function keepModalSingle(){
-    document.querySelectorAll('#pro-comparison-modal').forEach(function(n){
-      try{n.remove()}catch(_){ }
-    });
-  }
-  if(document.body){
-    const observer=new MutationObserver(function(){keepModalSingle()});
-    observer.observe(document.body,{childList:true});
-    window.addEventListener('beforeunload',()=>observer.disconnect(),{once:true});
+  function handleModal(e){
+    const el=targetButton(e);
+    if(!el)return;
+    if(el.closest?.('#topo-pro-modal #topo-pro-close')){
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      closeUnifiedPro();
+      return;
+    }
+    if(el.closest?.('#topo-pro-modal #topo-pro-buy')){
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      createYookassaFromCanonical();
+      return;
+    }
+    if(e.target===$('topo-pro-modal')){
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      closeUnifiedPro();
+    }
   }
 
   function boot(){
-    ensureUnifiedPro();
-    hideDuplicateComparisonModals();
+    canonicalizeModal();
+    /* Keep the canonical modal above all quiz/profile surfaces. */
+    const modal=$('topo-pro-modal');
+    if(modal){
+      modal.style.setProperty('z-index','2147483000','important');
+      modal.style.setProperty('pointer-events',modal.classList.contains('open')?'auto':'none','important');
+    }
   }
+
+  window.openProModal=openUnifiedPro;
+  window.topoOpenProModal111=openUnifiedPro;
+  window.topoCreateYookassaLink111=createYookassaFromCanonical;
+  window.closeProModal=closeUnifiedPro;
+
+  window.addEventListener('pointerup',handleModal,{capture:true,passive:false});
+  window.addEventListener('click',handleModal,{capture:true,passive:false});
+  window.addEventListener('pointerup',handleOpen,{capture:true,passive:false});
+  window.addEventListener('click',handleOpen,{capture:true,passive:false});
+
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});
   else boot();
-  window.addEventListener('load',boot);
+  window.addEventListener('load',boot,{once:true});
 })();
 </script>
-<!-- ================== END TOPO v110 QUIZ PRO UNIFIED FLOW ================== -->
+<script id="topo-v112-micro-patch-runtime">
+(function(){
+  'use strict';
+  if(window.__TOPO_V112_MICRO_PATCH__) return;
+  window.__TOPO_V112_MICRO_PATCH__=true;
 
+  /* 2) Rewards CTA is the fourth entry point to the exact same comparison
+        popup used by profile + quiz question + quiz result. */
+  function openRewardsPro112(e){
+    const el=e.target?.closest?.('.topo32-reward-cta');
+    if(!el) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    const open = window.topoOpenProModal111 || window.openProModal;
+    if(typeof open==='function') open();
+  }
+
+  window.addEventListener('pointerup',openRewardsPro112,{capture:true,passive:false});
+  window.addEventListener('click',openRewardsPro112,{capture:true,passive:false});
+})();
+</script>
+<!-- ================== END TOPO v115 ================== -->
 </body>
 
 <style id="topo-v42-two-final-fixes">
@@ -189003,7 +188885,11 @@ function bindProfile65(){
   document.addEventListener('click',e=>{
     if(!mobile())return;
     if(e.target.closest('#close-profile-panel')){e.preventDefault();e.stopImmediatePropagation();hardCloseProfile65();return;}
-    if(e.target.closest('#profile-trigger') || e.target.closest('#m-bottom-profile'))requestAnimationFrame(hardOpenProfile65);
+    /* A profile tap is an open action. Never let the outside-click branch close it. */
+    if(e.target.closest('#profile-trigger') || e.target.closest('#m-bottom-profile')){
+      requestAnimationFrame(hardOpenProfile65);
+      return;
+    }
     if(e.target.closest('#m-mobile-bottom-nav'))return;
     if(e.target.closest('#profile-panel'))return;
     if(e.target.closest('#topo-tour'))return;
@@ -190166,301 +190052,9 @@ setTimeout(boot,150);setTimeout(boot,700);setTimeout(boot,1600);
 </script>
 
 
+<!-- ================== TOPO v94 MOBILE-ONLY: v64 SUPER + LOGOUT ================== -->
+<!-- ================== END TOPO v94 MOBILE-ONLY: v64 SUPER + LOGOUT ================== -->
 
-<!-- ================== TOPO v111 CANONICAL PRO FLOW ================== -->
-<style id="topo-v111-canonical-pro-css">
-  /* One and only one Free/Pro comparison surface. */
-  #topo-pro-modal{
-    position:fixed!important;
-    inset:0!important;
-    z-index:2147483000!important;
-    display:none!important;
-    align-items:center!important;
-    justify-content:center!important;
-    width:100vw!important;
-    height:100vh!important;
-    padding:12px!important;
-    box-sizing:border-box!important;
-    pointer-events:none!important;
-  }
-  #topo-pro-modal.open{
-    display:flex!important;
-    pointer-events:auto!important;
-  }
-  #topo-pro-modal .topo-pro-dialog{
-    position:relative!important;
-    z-index:2!important;
-    pointer-events:auto!important;
-    width:min(760px,96vw)!important;
-    max-height:92vh!important;
-    overflow:auto!important;
-  }
-  #topo-pro-modal .topo-pro-close,
-  #topo-pro-modal #topo-pro-buy{
-    z-index:4!important;
-    pointer-events:auto!important;
-    touch-action:manipulation!important;
-    cursor:pointer!important;
-    -webkit-tap-highlight-color:transparent!important;
-  }
-  #topo-pro-modal .topo-pro-close{
-    position:absolute!important;
-    top:16px!important;
-    right:16px!important;
-  }
-  #topo-pro-modal #topo-pro-buy:disabled{cursor:wait!important;opacity:.72!important;}
-  @media(max-width:768px){
-    #topo-pro-modal{padding:10px!important;}
-    #topo-pro-modal .topo-pro-dialog{width:100%!important;max-width:460px!important;max-height:calc(100dvh - 20px)!important;}
-  }
-</style>
-<script id="topo-v111-canonical-pro-runtime">
-(function(){
-  'use strict';
-  if(window.__TOPO_V111_CANONICAL_PRO__) return;
-  window.__TOPO_V111_CANONICAL_PRO__=true;
-
-  const $=id=>document.getElementById(id);
-  const PRO_SELECTORS='#profile-payment-btn,#topo39-pro-cta,#topo39-final-pro,#topo-fix-pro,.topo37-pro-cta,.topo39-active-pro button,.profile-payment-btn,[data-action="open-pro-modal"]';
-  const QUIZ_PRO_SELECTORS='#topo39-pro-cta,#topo39-final-pro,#topo-fix-pro,.topo37-pro-cta,.topo39-active-pro button';
-  let lastOpenAt=0;
-  let paymentBusy=false;
-
-  function removeCompetingModal(){
-    document.querySelectorAll('#pro-comparison-modal').forEach(n=>n.remove());
-  }
-
-  function modalMarkup(){
-    const d=document.createElement('div');
-    d.id='topo-pro-modal';
-    d.className='topo-pro-modal';
-    d.setAttribute('aria-hidden','true');
-    d.innerHTML=`
-      <div class="topo-pro-dialog" role="dialog" aria-modal="true" aria-labelledby="topo-pro-title">
-        <button type="button" class="topo-pro-close" id="topo-pro-close" aria-label="Закрыть">✕</button>
-        <div class="topo-pro-head">
-          <h3 id="topo-pro-title">Топорайоны Pro 🚀</h3>
-          <p>Полный доступ к игровым возможностям Топорайонов.</p>
-        </div>
-        <div class="topo-pro-columns">
-          <div class="topo-pro-plan">
-            <h4>Бесплатный план</h4>
-            <div class="price">0 ₽</div>
-            <ul>
-              <li>🗺️ Полная интерактивная карта</li>
-              <li>🎯 Обычные квизы</li>
-              <li>🔁 Базовые попытки</li>
-              <li>🏅 Базовые награды</li>
-            </ul>
-          </div>
-          <div class="topo-pro-plan pro">
-            <h4>Топорайоны Pro</h4>
-            <div class="price">199 ₽</div>
-            <ul>
-              <li>🏆 Личный рейтинг</li>
-              <li>⚡ Супер квиз без дневного лимита</li>
-              <li>🔓 Все награды</li>
-              <li>➕ Дополнительные прохождения</li>
-              <li>📈 Больше игровых возможностей</li>
-            </ul>
-            <button type="button" class="topo-pro-cta" id="topo-pro-buy">Перейти на Топорайоны Pro — 199 ₽</button>
-          </div>
-        </div>
-        <div class="topo-pro-note">Единоразовый платёж. После нажатия откроется безопасная оплата через ЮKassa.</div>
-      </div>`;
-    return d;
-  }
-
-  function canonicalizeModal(){
-    removeCompetingModal();
-    let modal=$('topo-pro-modal');
-    if(!modal){
-      modal=modalMarkup();
-      document.body.appendChild(modal);
-    }else if(modal.dataset.topoV111Canonical!=='1'){
-      /* Clone once to remove every legacy listener from the existing buttons. */
-      const fresh=modal.cloneNode(true);
-      fresh.dataset.topoV111Canonical='1';
-      modal.replaceWith(fresh);
-      modal=fresh;
-    }
-    modal.dataset.topoV111Canonical='1';
-    modal.setAttribute('aria-hidden',modal.classList.contains('open')?'false':'true');
-    modal.style.setProperty('z-index','2147483000','important');
-    modal.style.setProperty('pointer-events',modal.classList.contains('open')?'auto':'none','important');
-    const buy=modal.querySelector('#topo-pro-buy');
-    if(buy){
-      buy.disabled=false;
-      buy.type='button';
-      buy.style.setProperty('pointer-events','auto','important');
-    }
-    const close=modal.querySelector('#topo-pro-close');
-    if(close){
-      close.type='button';
-      close.setAttribute('aria-label','Закрыть');
-      close.style.setProperty('pointer-events','auto','important');
-    }
-    return modal;
-  }
-
-  function openUnifiedPro(){
-    const modal=canonicalizeModal();
-    if(!modal) return false;
-    removeCompetingModal();
-    const now=Date.now();
-    if(now-lastOpenAt<180) return true;
-    lastOpenAt=now;
-    modal.classList.add('open');
-    modal.setAttribute('aria-hidden','false');
-    modal.style.setProperty('display','flex','important');
-    modal.style.setProperty('pointer-events','auto','important');
-    document.body.classList.add('topo-pro-modal-open');
-    const buy=modal.querySelector('#topo-pro-buy');
-    if(buy){buy.disabled=false;buy.textContent='Перейти на Топорайоны Pro — 199 ₽';}
-    return true;
-  }
-
-  function closeUnifiedPro(){
-    const modal=$('topo-pro-modal');
-    if(!modal)return;
-    modal.classList.remove('open');
-    modal.setAttribute('aria-hidden','true');
-    modal.style.setProperty('display','none','important');
-    modal.style.setProperty('pointer-events','none','important');
-    document.body.classList.remove('topo-pro-modal-open');
-  }
-
-  async function createYookassaFromCanonical(){
-    if(paymentBusy)return;
-    paymentBusy=true;
-    const modal=canonicalizeModal();
-    const buy=modal?.querySelector('#topo-pro-buy');
-    const note=modal?.querySelector('.topo-pro-note');
-    const original='Перейти на Топорайоны Pro — 199 ₽';
-    try{
-      if(buy){buy.disabled=true;buy.textContent='Создаём оплату…';}
-      if(note)note.textContent='Создаём персональный счёт…';
-
-      /* Use the proven account payment function first. It creates the individual
-         YooKassa invoice through the Supabase create-invoice Edge Function and
-         redirects to the returned payment_url. */
-      if(typeof window.createPayment==='function'){
-        await window.createPayment();
-        return;
-      }
-
-      /* Same server path as the account flow, only as a fallback. */
-      const client=window.supabaseClient;
-      let user=window.topoCurrentUser||null;
-      if(!user&&client?.auth?.getUser){
-        const r=await client.auth.getUser();
-        user=r?.data?.user||null;
-        if(user)window.topoCurrentUser=user;
-      }
-      if(!user){
-        window.openAuthModal?.('Сначала войди в аккаунт.','login');
-        return;
-      }
-      if(!client)throw new Error('Supabase-клиент недоступен.');
-      const price=199;
-      let result=null;
-      const inv=await client.functions.invoke('create-invoice',{body:{price}});
-      if(!inv.error)result=inv.data;
-      if(!result?.payment_url){
-        const session=await client.auth.getSession();
-        const token=session?.data?.session?.access_token;
-        if(!token)throw new Error('Сессия истекла. Войди в аккаунт ещё раз.');
-        const response=await fetch('https://fcsdnvpmdvguxrwxrrus.supabase.co/functions/v1/create-invoice',{
-          method:'POST',
-          headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
-          body:JSON.stringify({price})
-        });
-        const raw=await response.text();
-        try{result=JSON.parse(raw);}catch(_){result=null;}
-        if(!response.ok)throw new Error(result?.error||'ЮKassa не создала счёт.');
-      }
-      if(!result?.payment_url)throw new Error('Edge Function не вернула payment_url.');
-      window.location.assign(result.payment_url);
-    }catch(err){
-      console.error('TOPO v111 Pro payment:',err);
-      if(buy){buy.disabled=false;buy.textContent=original;}
-      if(note)note.textContent=err?.message||'Не удалось создать оплату. Попробуй ещё раз.';
-    }finally{
-      setTimeout(()=>{paymentBusy=false;},500);
-    }
-  }
-
-  function targetButton(e){
-    return e.target?.closest?.('button,a,[role="button"]')||null;
-  }
-
-  function isQuizOrProfileProButton(el){
-    if(!el||el.closest?.('#topo-pro-modal'))return false;
-    if(el.matches?.(PRO_SELECTORS)){
-      if(window.topoPaidAccess&&el.id==='profile-payment-btn')return false;
-      return true;
-    }
-    return false;
-  }
-
-  function handleOpen(e){
-    const el=targetButton(e);
-    if(!isQuizOrProfileProButton(el))return;
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    openUnifiedPro();
-  }
-
-  function handleModal(e){
-    const el=targetButton(e);
-    if(!el)return;
-    if(el.closest?.('#topo-pro-modal #topo-pro-close')){
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      closeUnifiedPro();
-      return;
-    }
-    if(el.closest?.('#topo-pro-modal #topo-pro-buy')){
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      createYookassaFromCanonical();
-      return;
-    }
-    if(e.target===$('topo-pro-modal')){
-      e.preventDefault();
-      e.stopImmediatePropagation();
-      closeUnifiedPro();
-    }
-  }
-
-  function boot(){
-    canonicalizeModal();
-    /* Keep the canonical modal above all quiz/profile surfaces. */
-    const modal=$('topo-pro-modal');
-    if(modal){
-      modal.style.setProperty('z-index','2147483000','important');
-      modal.style.setProperty('pointer-events',modal.classList.contains('open')?'auto':'none','important');
-    }
-  }
-
-  window.openProModal=openUnifiedPro;
-  window.topoOpenProModal111=openUnifiedPro;
-  window.topoCreateYookassaLink111=createYookassaFromCanonical;
-  window.closeProModal=closeUnifiedPro;
-
-  window.addEventListener('pointerup',handleModal,{capture:true,passive:false});
-  window.addEventListener('click',handleModal,{capture:true,passive:false});
-  window.addEventListener('pointerup',handleOpen,{capture:true,passive:false});
-  window.addEventListener('click',handleOpen,{capture:true,passive:false});
-
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});
-  else boot();
-  window.addEventListener('load',boot,{once:true});
-})();
-</script>
-<!-- ================== END TOPO v111 CANONICAL PRO FLOW ================== -->
-
-</html>
 
 <!-- ================== TOPO v67 AUTH + MOBILE SHEET FIX ================== -->
 <style id="topo-v67-auth-mobile-fix">
@@ -191044,7 +190638,7 @@ setTimeout(orderMobileSheet,100);setTimeout(orderMobileSheet,700);setTimeout(ord
     const start=document.createElement('button');start.type='button';start.id='topo39-start';start.textContent=attempt>=1&&paid()?'Начать ещё раз':'Начать квиз';start.onclick=e=>{e.preventDefault();e.stopImmediatePropagation();startSession(String(id),attempt)};wrap.append(start);box.append(wrap)
   }
   function completed(id){stopTimer();showQ();hideLegacy();setTitle('<span class="topo36-standard-title">Объект уже пройден</span>');const box=$('side-quiz-options-container');if(!box)return;box.className='side-quiz-options';box.innerHTML='';const n=attempts(id);if(n===1&&paid()){setTitle('<span class="topo36-standard-title">Попробуй ещё раз!</span>');const p=document.createElement('p');p.style.cssText='color:rgba(255,255,255,.70);font-size:11px;line-height:1.45;margin:0 0 11px;';p.textContent='Первое прохождение завершено. Для Pro доступно ещё одно прохождение этого объекта.';const b=document.createElement('button');b.type='button';b.id='topo39-start';b.textContent='Пройти ещё раз';b.onclick=e=>{e.preventDefault();e.stopImmediatePropagation();startSession(String(id),1)};box.append(p,b)}else{const p=document.createElement('p');p.style.cssText='color:rgba(255,255,255,.65);font-size:11px;line-height:1.45;margin:0;';p.textContent='Доступная попытка по этому объекту уже использована.';box.append(p)}}
-  function renderQuestion(){const q=state.questions[state.index];if(!q)return;showQ();hideLegacy();state.answered=false;setTitle(`<span class="topo39-question-block">${esc(q.question||'Вопрос')}</span>`);const box=$('side-quiz-options-container');if(!box)return;box.className='side-quiz-options';box.innerHTML='';const ans=document.createElement('div');ans.id='topo39-answers';(q.answers||[]).forEach((a,i)=>{const b=document.createElement('button');b.type='button';b.className='topo39-answer';b.textContent=String(a?.text??'');b.onclick=e=>{e.preventDefault();e.stopImmediatePropagation();answer(i,false)};ans.appendChild(b)});box.append(ans);if(!paid()&&window.topoCurrentUser){const pro=document.createElement('div');pro.id='topo39-active-pro';pro.innerHTML='<div class="topo39-active-pro-copy"><b>Топорайоны Pro — 199 ₽</b><br>Хочешь улучшить результат? Ещё 1 прохождение каждого объекта + безлимитный Super Quiz.</div><button type="button">Перейти на Pro</button>';pro.querySelector('button')?.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();window.openProModal?.()||$('profile-payment-btn')?.click()});box.append(pro)}startTimer(()=>answer(-1,true))}
+  function renderQuestion(){const q=state.questions[state.index];if(!q)return;showQ();hideLegacy();state.answered=false;setTitle(`<span class="topo39-question-block">${esc(q.question||'Вопрос')}</span>`);const box=$('side-quiz-options-container');if(!box)return;box.className='side-quiz-options';box.innerHTML='';const ans=document.createElement('div');ans.id='topo39-answers';(q.answers||[]).forEach((a,i)=>{const b=document.createElement('button');b.type='button';b.className='topo39-answer';b.textContent=String(a?.text??'');b.onclick=e=>{e.preventDefault();e.stopImmediatePropagation();answer(i,false)};ans.appendChild(b)});box.append(ans);if(!paid()&&window.topoCurrentUser){const pro=document.createElement('div');pro.id='topo39-active-pro';pro.innerHTML='<div class="topo39-active-pro-copy"><b>Топорайоны Pro — 199 ₽</b><br>Хочешь улучшить результат? Ещё 1 прохождение каждого объекта + безлимитный Super Quiz.</div><button type="button">Включить Pro</button>';pro.querySelector('button')?.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();window.openProModal?.()||$('profile-payment-btn')?.click()});box.append(pro)}startTimer(()=>answer(-1,true))}
   function renderIntermediate(q,correct,timedOut){showR();const d=$('result-status-desc');if(d){d.innerHTML=`<div id="topo39-intermediate"><div style="color:${timedOut?'#f4bd54':correct?'#39d998':'#ff6e6e'};font-weight:900;font-size:1.05rem;margin-bottom:7px;">${timedOut?'⏱ Время вышло':correct?'✓ Правильно!':'✕ Неправильно'}</div><div class="topo39-expl">${esc(q.explanation||'')}</div></div>`}const it=$('result-status-icon');if(it){it.textContent=correct?'✓':'×';it.className='result-status-icon '+(correct?'success':'fail')}const ttl=$('result-status-title');if(ttl)ttl.textContent=correct?'Правильно':'Неправильно';const old=document.getElementById('topo39-next');if(old)old.remove();if(state.index>=4){finish()}else{const b=document.createElement('button');b.type='button';b.id='topo39-next';b.textContent='Следующий вопрос';b.onclick=e=>{e.preventDefault();e.stopImmediatePropagation();state.index++;renderQuestion()};d?.appendChild(b)}}
   function answer(index,timedOut){if(state.answered||state.saving)return;state.answered=true;stopTimer();const q=state.questions[state.index];if(!q)return;const ci=q.answers.findIndex(a=>a&&a.isCorrect),correct=!timedOut&&index>=0&&index===ci;const buttons=[...($('topo39-answers')?.querySelectorAll('button')||[])];buttons.forEach((b,i)=>{b.disabled=true;b.style.pointerEvents='none';if(i===ci){b.classList.add('correct');if(!b.textContent.startsWith('✓ '))b.textContent='✓ '+b.textContent}if(!timedOut&&i===index&&i!==ci){b.classList.add('wrong');if(!b.textContent.startsWith('✕ '))b.textContent='✕ '+b.textContent}});if(correct)state.score++;markUsed(q.question);try{const snd=correct?window.successSound:window.failSound;if(snd){snd.currentTime=0;snd.play().catch(()=>{})}}catch(_){}renderIntermediate(q,correct,timedOut)}
   function renderFinal(score,saved,extra){const dist=districtName();showR();const d=$('result-status-desc');if(!d)return;d.innerHTML=`<div id="topo39-final"><div class="score">Твой результат: ${score}/5</div><p class="credit">Заработанные очки зачислены в ${esc(dist.n)}.</p><div class="saved">${esc(extra||'')}</div>${saved&&!paid()?'<div class="pro-box"><b>Хочешь ещё один шанс?</b><span>Топорайоны Pro открывает дополнительное прохождение объектов и больше игровых возможностей.</span><button type="button" id="topo39-final-pro">Перейти к Pro — 199 ₽</button></div>':''}</div>`;const it=$('result-status-icon');if(it){it.textContent=score>=3?'✓':'•';it.className='result-status-icon '+(score>=3?'success':'fail')}const ttl=$('result-status-title');if(ttl)ttl.textContent='Квиз завершён';$('topo39-final-pro')?.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();window.openProModal?.()||$('profile-payment-btn')?.click()});const legacy=$('side-quiz-next-btn');if(legacy){legacy.style.setProperty('display','none','important');legacy.disabled=true}}
@@ -191540,10 +191134,6 @@ setTimeout(orderMobileSheet,100);setTimeout(orderMobileSheet,700);setTimeout(ord
     if(!open())return;
     const b=$('info-box');
     if(b.contains(e.target))return; // Native card target: do not interfere.
-    /* IMPORTANT: do not let the map/card touch shield eat touches meant for
-       other mobile UI layers. Android Chrome can suppress the follow-up
-       compatibility click when an earlier pointerdown is cancelled. */
-    if(e.target?.closest?.('#m-mobile-bottom-nav, #super-quiz-overlay, #profile-panel, #m-settings, #notifications-popover, #topo-pro-modal')) return;
     /* If the browser reports the map as the target although the finger is
        physically over the card, stop the leak. For the textarea, focus it. */
     const input=$('topo32-review-input');
@@ -191709,118 +191299,7 @@ setTimeout(orderMobileSheet,100);setTimeout(orderMobileSheet,700);setTimeout(ord
   const $=id=>document.getElementById(id);
   const mobile=()=>window.matchMedia('(max-width:768px)').matches;
 
-  /* ------------------------------------------------------------
-     1) MOBILE LOGOUT: bind directly at WINDOW capture level.
-     This runs before old document/profile delegates and cannot
-     be mistaken for a tap on the profile panel background.
-  ------------------------------------------------------------ */
-  let logoutBusy=false, logoutLockUntil=0;
-  async function mobileLogout(e){
-    if(!mobile())return;
-    const btn=e.target?.closest?.('#profile-panel #profile-logout-btn, #auth-logout-btn');
-    if(!btn)return;
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    const now=Date.now();
-    if(logoutBusy||now<logoutLockUntil)return;
-    logoutBusy=true;
-    logoutLockUntil=now+900;
-    btn.disabled=true;
-    try{
-      if(typeof signOutTopo==='function') await signOutTopo();
-      else if(window.supabaseClient?.auth?.signOut) await window.supabaseClient.auth.signOut();
-    }catch(err){console.error('TOPO mobile logout:',err)}
-    finally{
-      btn.disabled=false;
-      logoutBusy=false;
-      $('profile-panel')?.classList.remove('open');
-      $('profile-panel')?.setAttribute('aria-hidden','true');
-    }
-  }
-  window.addEventListener('pointerup',mobileLogout,{capture:true,passive:false});
-  window.addEventListener('click',mobileLogout,{capture:true,passive:false});
-
-  /* ------------------------------------------------------------
-     2) MOBILE SUPER QUIZ: call the real function directly instead
-     of proxying a click through the desktop button.
-  ------------------------------------------------------------ */
-  let superBusy=false, superLockUntil=0;
-  async function startMobileSuper(e){
-    if(!mobile())return;
-    const btn=e.target?.closest?.('#m-bottom-super, #m-bottom-super #super-quiz-trigger, #super-quiz-trigger');
-    if(!btn)return;
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    const now=Date.now();
-    if(superBusy||now<superLockUntil)return;
-    superBusy=true;
-    superLockUntil=now+900;
-    try{
-      try{if(window.topoAuthReady)await window.topoAuthReady}catch(_){ }
-      let user=window.topoCurrentUser||null;
-      if(!user&&window.supabaseClient?.auth?.getUser){
-        try{
-          const r=await window.supabaseClient.auth.getUser();
-          user=r?.data?.user||null;
-          if(user)window.topoCurrentUser=user;
-        }catch(_){ }
-      }
-      if(!user){
-        if(typeof openAuthModal==='function')openAuthModal('Супер квиз доступен после входа в аккаунт.','login');
-        return;
-      }
-      if(typeof openSuperQuiz==='function'){
-        await Promise.resolve(openSuperQuiz());
-      }else{
-        $('super-quiz-overlay')?.classList.add('open');
-        $('super-quiz-overlay')?.setAttribute('aria-hidden','false');
-        if(typeof showSuperIntro==='function')showSuperIntro();
-      }
-    }catch(err){console.error('TOPO mobile Super Quiz:',err)}
-    finally{setTimeout(()=>{superBusy=false},120)}
-  }
-  window.addEventListener('pointerup',startMobileSuper,{capture:true,passive:false});
-  window.addEventListener('click',startMobileSuper,{capture:true,passive:false});
-
-  /* ------------------------------------------------------------
-     3) MOBILE PRO: every known Pro CTA goes to the same modal.
-  ------------------------------------------------------------ */
-  function openProMobile(e){
-    if(!mobile())return;
-    const t=e.target?.closest?.(
-      '#profile-payment-btn,'+
-      '#topo39-pro-cta,'+
-      '#topo39-final-pro,'+
-      '#topo-fix-pro,'+
-      '.topo37-pro-cta,'+
-      '.topo39-active-pro button,'+
-      '.topo-pro-cta:not(#topo-pro-buy)'
-    );
-    if(!t)return;
-    if(window.topoPaidAccess && t.id==='profile-payment-btn')return;
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    try{
-      if(typeof window.openProModal==='function')window.openProModal();
-      else if(typeof window.createPayment==='function' && t.id==='topo-pro-buy')window.createPayment();
-    }catch(err){console.error('TOPO mobile Pro:',err)}
-  }
-  window.addEventListener('pointerup',openProMobile,{capture:true,passive:false});
-  window.addEventListener('click',openProMobile,{capture:true,passive:false});
-
-  /* ------------------------------------------------------------
-     4) MOBILE PROFILE PANEL: prevent the underlying map/header
-     delegates from stealing touches from any profile control.
-  ------------------------------------------------------------ */
-  function shieldProfileControls(e){
-    if(!mobile())return;
-    const t=e.target?.closest?.('#profile-panel');
-    if(!t)return;
-    if(e.target?.closest?.('#profile-panel button,#profile-panel a,#profile-panel input,#profile-panel textarea,#profile-panel select')){
-      e.stopImmediatePropagation();
-    }
-  }
-  window.addEventListener('pointerdown',shieldProfileControls,{capture:true,passive:true});
+  /* Pro/profile controls use their native handlers. */
 
   /* ------------------------------------------------------------
      5) Tablet header: keep the existing header, just reflow it.
@@ -191841,471 +191320,927 @@ setTimeout(orderMobileSheet,100);setTimeout(orderMobileSheet,700);setTimeout(ord
 <!-- ================== END TOPO v90 MOBILE/TABLET TARGETED FIX ================== -->
 
 
-<!-- ================== TOPO v106 FINAL MOBILE FIXES ================== -->
-<style id="topo-v106-final-mobile-fixes">
-@media(max-width:768px){
-  #m-mobile-bottom-nav{background:#000!important;}
-  #m-mobile-bottom-nav::after{content:"";position:absolute!important;left:0!important;right:0!important;bottom:-8px!important;height:8px!important;background:#000!important;pointer-events:none!important;z-index:0!important;}
-  #m-mobile-bottom-nav .m-bottom-slot,#m-mobile-bottom-nav .m-bottom-btn{position:relative!important;z-index:1!important;}
+<!-- ================== TOPO v95 MOBILE FINAL: DIRECT TOUCH ROUTING ================== -->
+<!-- ================== END TOPO v95 MOBILE FINAL: DIRECT TOUCH ROUTING ================== -->
 
-  /* Stable v90 Pro offer block inside the ordinary quiz. */
-  #info-box #topo39-active-pro{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:10px!important;margin:0!important;padding:8px 9px!important;border:1px solid rgba(255,255,255,.075)!important;border-radius:11px!important;background:rgba(255,255,255,.025)!important;box-sizing:border-box!important;width:100%!important;min-width:100%!important;max-width:100%!important;min-height:44px!important;overflow:visible!important;pointer-events:auto!important;touch-action:manipulation!important;}
-  #info-box #topo39-active-pro .topo39-active-pro-copy{min-width:0!important;flex:1 1 auto!important;color:rgba(255,255,255,.62)!important;font-size:9.5px!important;line-height:1.38!important;white-space:normal!important;overflow-wrap:normal!important;word-break:normal!important;}
-  #info-box #topo39-active-pro .topo39-active-pro-copy b{color:#fff!important;font-size:10px!important;font-weight:900!important;}
-  #info-box #topo39-active-pro button{flex:0 0 auto!important;width:auto!important;min-width:0!important;max-width:none!important;min-height:0!important;height:auto!important;margin:0!important;padding:7px 9px!important;border:1px solid rgba(255,255,255,.15)!important;border-radius:9px!important;background:#f0f0f0!important;color:#111!important;font-size:9.5px!important;line-height:1!important;font-weight:900!important;white-space:nowrap!important;box-sizing:border-box!important;cursor:pointer!important;pointer-events:auto!important;touch-action:manipulation!important;-webkit-tap-highlight-color:transparent!important;}
-  #info-box #topo39-active-pro button:hover,#info-box #topo39-active-pro button:active{background:#fff!important;transform:none!important;}
 
-  /* Every Pro CTA opens the same Free-vs-Pro comparison modal. */
-  #profile-payment-btn,#info-box #topo39-pro-cta,#info-box #topo39-final-pro,#info-box #topo39-active-pro button,#info-box #topo-fix-pro,#info-box .topo37-pro-cta{pointer-events:auto!important;touch-action:manipulation!important;-webkit-tap-highlight-color:transparent!important;}
+<!-- v97 replaces the conflicting v96 mobile action routing. -->
 
-  /* Remove edge/text/card fades; keep the read-more control itself working. */
-  #info-box::before,#info-box::after,#info-box .object-text::after{display:none!important;content:none!important;background:none!important;}
-  #info-box .sidebar-quiz-container{box-shadow:none!important;}
+<!-- v98: mobile Super Quiz session-safe routing replaces v97. -->
 
-  /* Review composer/publish action stays above paint layers. */
-  #info-box #topo32-reviews-root,#info-box #topo32-review-compose,#info-box .topo32-review-form,#info-box .topo32-review-form-bottom,#info-box .topo32-review-auth,#info-box .topo32-review-auth-actions{position:relative!important;z-index:1000025!important;pointer-events:auto!important;}
-  #info-box #topo32-review-submit{position:relative!important;z-index:1000026!important;display:flex!important;align-items:center!important;justify-content:center!important;width:100%!important;min-width:100%!important;min-height:44px!important;box-sizing:border-box!important;pointer-events:auto!important;touch-action:manipulation!important;}
-
-  /* v87/v90-style notification placement above the bottom bar. */
-  #notifications-popover{position:fixed!important;left:10px!important;right:10px!important;top:auto!important;bottom:76px!important;width:auto!important;max-width:none!important;max-height:calc(100dvh - 94px)!important;z-index:2147483001!important;}
-  #notifications-popover.open{display:block!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;}
-  #notifications-popover .notifications-list{max-height:calc(100dvh - 150px)!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;}
+<!-- ================== TOPO v98: MOBILE SUPER QUIZ FILE/TIMING SAFE ================== -->
+<style id="topo-v98-mobile-super">
+@media screen and (max-width:768px){
+  #m-mobile-bottom-nav{z-index:2147483647!important;pointer-events:auto!important;}
+  #m-mobile-bottom-nav #m-bottom-super{pointer-events:auto!important;touch-action:manipulation!important;z-index:2147483647!important;}
+  #super-quiz-overlay{z-index:2147483647!important;touch-action:manipulation!important;}
+  #super-quiz-overlay *{touch-action:manipulation;}
+  #super-quiz-overlay button{pointer-events:auto!important;}
 }
 </style>
-<script id="topo-v106-final-mobile-runtime">
+<script id="topo-v98-mobile-super-runtime">
 (function(){
   'use strict';
-  if(window.__topoV106FinalMobileFixes)return;
-  window.__topoV106FinalMobileFixes=true;
-  const $=id=>document.getElementById(id);
-  const mobile=()=>window.matchMedia('(max-width:768px)').matches;
-
-  function closePanels(except){
-    if(except!=='settings')$('m-settings')?.classList.remove('open');
-    if(except!=='notifications'){$('notifications-popover')?.classList.remove('open');$('notifications-popover')?.setAttribute('aria-hidden','true');}
-    if(except!=='profile'){$('profile-panel')?.classList.remove('open');$('profile-panel')?.setAttribute('aria-hidden','true');}
-    if(except!=='super')$('super-quiz-overlay')?.classList.remove('open');
+  var busy=0;
+  function mobile(){try{return window.matchMedia('(max-width:768px)').matches;}catch(_){return false;}}
+  function id(x){return document.getElementById(x);}
+  function userNow(){return window.topoCurrentUser||null;}
+  async function hydrateSession(){
+    var u=userNow();
+    if(u) return u;
+    try{
+      if(window.supabaseClient && window.supabaseClient.auth && window.supabaseClient.auth.getSession){
+        var r=await window.supabaseClient.auth.getSession();
+        var su=r && r.data && r.data.session && r.data.session.user;
+        if(su){window.topoCurrentUser=su;u=su;}
+      }
+    }catch(err){console.warn('v98 auth session hydrate',err);}
+    return u||userNow();
   }
-  function replaceProxy(id){
-    const old=$(id);if(!old||old.dataset.v106FinalProxy==='1')return old;
-    const fresh=old.cloneNode(true);fresh.dataset.v106FinalProxy='1';fresh.dataset.proxyBound='1';old.replaceWith(fresh);return fresh;
+  async function openSuper(){
+    if(!mobile()||busy)return;
+    busy=1;
+    try{
+      var u=await hydrateSession();
+      if(window.__topoMobileSuperOpen){
+        window.__topoMobileSuperOpen();
+      }else if(u && id('super-quiz-trigger')){
+        id('super-quiz-trigger').click();
+      }else{
+        try{window.openAuthModal&&window.openAuthModal('Супер квиз доступен после входа в аккаунт.','login');}catch(_){ }
+      }
+    }finally{setTimeout(function(){busy=0;},500);}
   }
-  function bindBottom(){
+  async function startSuper(e){
     if(!mobile())return;
-    const n=replaceProxy('m-bottom-notifications');
-    if(n&&!n.dataset.v106FinalNotify){
-      n.dataset.v106FinalNotify='1';
-      n.addEventListener('click',e=>{
-        e.preventDefault();e.stopImmediatePropagation();
-        closePanels('notifications');
-        const real=$('notifications-trigger');
-        if(real){real.click();}
-        else{$('notifications-popover')?.classList.add('open');$('notifications-popover')?.setAttribute('aria-hidden','false');}
-      });
-    }
-    const p=replaceProxy('m-bottom-profile');
-    if(p&&!p.dataset.v106FinalProfile){
-      p.dataset.v106FinalProfile='1';
-      p.addEventListener('click',e=>{
-        e.preventDefault();e.stopImmediatePropagation();
-        closePanels('profile');
-        if(typeof hardOpenProfile65==='function')hardOpenProfile65();
-        else{$('profile-panel')?.classList.add('open');$('profile-panel')?.setAttribute('aria-hidden','false');}
-      });
-    }
-  }
-  function directRating(e){
-    if(!mobile())return;
-    const t=e.target?.closest?.('#m-rating-slot #leaderboard-trigger, #leaderboard-trigger');
-    if(!t)return;
+    var t=e.target;
+    if(!t||!t.closest||!t.closest('#super-quiz-start'))return;
+    var b=t.closest('#super-quiz-start');
+    if(b.disabled)return;
     e.preventDefault();e.stopImmediatePropagation();
-    closePanels('none');
-    try{if(typeof switchRanking==='function')switchRanking('districts')}catch(_){ }
-    $('leaderboard-panel')?.classList.add('open');$('leaderboard-panel')?.setAttribute('aria-hidden','false');
-    try{if(typeof fetchLeaderboard==='function')fetchLeaderboard()}catch(_){ }
+    if(b.dataset.v98Busy==='1')return;
+    b.dataset.v98Busy='1';
+    try{
+      var u=await hydrateSession();
+      if(window.__topoMobileSuperStart && u){
+        window.__topoMobileSuperStart();
+      }else if(!u){
+        try{window.openAuthModal&&window.openAuthModal('Супер квиз доступен после входа в аккаунт.','login');}catch(_){ }
+      }
+    }finally{setTimeout(function(){b.dataset.v98Busy='0';},500);}
   }
-  window.addEventListener('click',directRating,{capture:true,passive:false});
-  function sync(){bindBottom();const bar=$('m-mobile-bottom-nav');if(bar&&mobile())bar.style.setProperty('background','#000','important');}
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sync,{once:true});else sync();
-  window.addEventListener('load',sync);window.addEventListener('resize',()=>setTimeout(sync,20));
-  new MutationObserver(()=>{if(mobile())bindBottom()}).observe(document.body,{childList:true,subtree:true});
+  function onTouchStart(e){
+    if(!mobile())return;
+    var t=e.target;
+    if(t&&t.closest&&t.closest('#m-bottom-super')){e.stopImmediatePropagation();}
+  }
+  function onPointerUp(e){
+    if(!mobile())return;
+    var t=e.target;
+    if(t&&t.closest&&t.closest('#m-bottom-super')){
+      e.preventDefault();e.stopImmediatePropagation();openSuper();
+    }
+  }
+  function onTouchEnd(e){
+    if(!mobile())return;
+    var t=e.target;
+    if(t&&t.closest&&t.closest('#m-bottom-super')){
+      e.preventDefault();e.stopImmediatePropagation();openSuper();
+      return;
+    }
+    startSuper(e);
+  }
+  function onClick(e){
+    if(!mobile())return;
+    var t=e.target;
+    if(t&&t.closest&&t.closest('#m-bottom-super')){e.preventDefault();e.stopImmediatePropagation();openSuper();return;}
+    if(t&&t.closest&&t.closest('#super-quiz-start'))startSuper(e);
+  }
+  document.addEventListener('touchstart',onTouchStart,{capture:true,passive:false});
+  document.addEventListener('pointerup',onPointerUp,{capture:true,passive:false});
+  document.addEventListener('touchend',onTouchEnd,{capture:true,passive:false});
+  document.addEventListener('click',onClick,{capture:true,passive:false});
 })();
 </script>
-<!-- ================== END TOPO v106 FINAL MOBILE FIXES ================== -->
+<!-- ================== END TOPO v98 ================== -->
 
 
-
-<!-- ================== TOPO v109 STABLE MOBILE / PRO FLOW FIX ================== -->
-<style id="topo-v109-stable-fix-css">
-  /* One canonical Pro comparison window. It must always sit above quizzes/profile. */
-  #topo-pro-modal{
-    position:fixed!important;
-    inset:0!important;
-    z-index:2147483000!important;
-    pointer-events:none!important;
-    display:none!important;
-    align-items:center!important;
-    justify-content:center!important;
-  }
-  #topo-pro-modal.open{
-    display:flex!important;
+<!-- ================== TOPO v99: MOBILE TOUCH SURFACE / PRO / AUTH FIX ================== -->
+<style id="topo-v99-mobile-final-touch-css">
+@media screen and (max-width:768px){
+  /* The object sheet itself owns the whole touch surface. */
+  #info-box{
     pointer-events:auto!important;
+    touch-action:pan-y!important;
+    -webkit-overflow-scrolling:touch!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+    overscroll-behavior:contain!important;
   }
-  #topo-pro-modal .topo-pro-dialog,
-  #topo-pro-modal .topo-pro-close,
-  #topo-pro-modal #topo-pro-buy{
+  #info-box .sidebar-quiz-container,
+  #info-box #topo32-reviews-root,
+  #info-box #quiz-container,
+  #info-box #side-quiz-q-screen,
+  #info-box #side-quiz-res-screen,
+  #info-box #side-quiz-options-container,
+  #info-box #topo39-answers{
+    pointer-events:auto!important;
+    touch-action:pan-y!important;
+  }
+
+  /* Controls: their complete painted rectangles are tappable. */
+  #info-box #topo39-start,
+  #info-box #topo39-next,
+  #info-box #side-quiz-next-btn,
+  #info-box #topo32-review-submit,
+  #info-box .topo32-review-auth-actions button,
+  #info-box #toggle-text-btn{
     pointer-events:auto!important;
     touch-action:manipulation!important;
+    position:relative!important;
+    z-index:1000030!important;
+    width:100%!important;
+    min-width:100%!important;
+    box-sizing:border-box!important;
   }
-  #topo-pro-modal .topo-pro-dialog{position:relative!important;z-index:2!important;}
-  #topo-pro-modal .topo-pro-close{z-index:3!important;cursor:pointer!important;}
-  #topo-pro-modal #topo-pro-buy{z-index:3!important;cursor:pointer!important;}
+  #info-box .topo39-answer{
+    pointer-events:auto!important;
+    touch-action:manipulation!important;
+    position:relative!important;
+    z-index:1000030!important;
+    width:100%!important;
+  }
+  #info-box #topo32-review-input{
+    pointer-events:auto!important;
+    touch-action:auto!important;
+    user-select:text!important;
+    -webkit-user-select:text!important;
+    position:relative!important;
+    z-index:1000030!important;
+  }
 
-  /* Stable personal-profile sheet on mobile after repeated open/close cycles. */
-  @media(max-width:768px){
-    #profile-panel{
-      z-index:2147482000!important;
-      pointer-events:none!important;
-      visibility:hidden!important;
-      opacity:0!important;
-    }
-    #profile-panel.open{
-      pointer-events:auto!important;
-      visibility:visible!important;
-      opacity:1!important;
-    }
-    #profile-panel button,
-    #profile-panel a,
-    #profile-panel input,
-    #profile-panel textarea,
-    #profile-panel select{
-      pointer-events:auto!important;
-      touch-action:manipulation!important;
-    }
+  /* A closed/hidden utility layer must never sit over the card. */
+  body.topo-mobile-card-is-open #m-zoom-controls{
+    display:none!important;
+    pointer-events:none!important;
   }
+
+  /* The bottom bar remains visible, but while a card is open it is transparent
+     to hit-testing so touches can reach the sheet underneath it. */
+  body.topo-mobile-card-is-open #m-mobile-bottom-nav{
+    pointer-events:none!important;
+  }
+
+  /* Remove the black visual halos that can look like invisible overlays. */
+  #m-mobile-bottom-nav,
+  #profile-panel,
+  #notifications-popover,
+  #m-settings,
+  #m-zoom-controls{
+    box-shadow:none!important;
+  }
+
+  /* Profile controls must sit above all ordinary mobile layers. */
+  #profile-panel{
+    z-index:1000028!important;
+    pointer-events:auto!important;
+  }
+  #profile-panel.open,
+  #profile-panel.open *{
+    pointer-events:auto!important;
+  }
+  #profile-panel #profile-logout-btn,
+  #profile-panel #profile-payment-btn{
+    pointer-events:auto!important;
+    touch-action:manipulation!important;
+    position:relative!important;
+    z-index:1000031!important;
+    width:100%!important;
+    min-height:44px!important;
+    box-sizing:border-box!important;
+  }
+
+  /* Subscription comparison modal must own mobile touches. */
+  .topo-pro-modal.open{
+    z-index:1000040!important;
+    pointer-events:auto!important;
+  }
+  .topo-pro-modal.open *{pointer-events:auto;}
+  .topo-pro-dialog{touch-action:pan-y!important;-webkit-overflow-scrolling:touch!important;}
+}
 </style>
-<script id="topo-v109-stable-fix-runtime">
+<script id="topo-v99-mobile-final-touch-runtime">
 (function(){
   'use strict';
-  if(window.__TOPO_V109_STABLE_FIX__) return;
-  window.__TOPO_V109_STABLE_FIX__ = true;
-
-  const $ = id => document.getElementById(id);
-  const mobile = () => window.matchMedia('(max-width:768px)').matches;
-
-  /* ------------------------------------------------------------
-     1) STABLE MOBILE DOM ARRANGEMENT
-     Moving a DOM node is safe; make it idempotent so later renders
-     never duplicate or orphan the controls.
-  ------------------------------------------------------------ */
-  function runMobileAdaptation109(){
-    if(!mobile()) return;
-    const pairs = [
-      ['district-switcher-wrapper','m-district-slot'],
-      ['status-filter-wrapper','m-filter-slot'],
-      ['map-style-switcher','m-layer-slot'],
-      ['leaderboard-trigger','m-rating-slot'],
-      ['profile-trigger','m-profile-slot'],
-      ['super-quiz-trigger','m-super-slot'],
-      ['donate-btn-element','m-donate-slot'],
-      ['poster-btn-element','m-poster-slot']
-    ];
-    pairs.forEach(([sourceId,slotId])=>{
-      const source=$(sourceId), slot=$(slotId);
-      if(source && slot && !slot.contains(source)) slot.appendChild(source);
-    });
+  const mobile=()=>{try{return window.matchMedia('(max-width:768px)').matches}catch(_){return false}};
+  const $=id=>document.getElementById(id);
+  const info=()=>$('info-box');
+  let lastAction=0;
+  function isOpen(){
+    const b=info();
+    return !!(mobile()&&b&&getComputedStyle(b).display!=='none'&&b.getAttribute('aria-hidden')!=='true');
   }
 
-  /* ------------------------------------------------------------
-     2) PERSONAL PROFILE: stable open/close/toggle on unlimited taps
-  ------------------------------------------------------------ */
-  const legacyOpenProfile = window.openProfilePanel;
-  const legacyCloseProfile = window.closeProfilePanel;
-
-  function closeProfile109(){
-    const p=$('profile-panel');
-    if(!p) return;
-    p.classList.remove('open','public-profile-mode');
-    p.style.setProperty('right','-110vw','important');
-    p.style.setProperty('left','auto','important');
-    p.style.setProperty('transform','translate3d(110%,0,0)','important');
-    p.style.setProperty('opacity','0','important');
-    p.style.setProperty('visibility','hidden','important');
-    p.style.setProperty('pointer-events','none','important');
-    p.setAttribute('aria-hidden','true');
-    $('m-settings')?.classList.remove('open');
+  /* Keep the visual bottom bar, but let the card receive all touch points beneath it. */
+  function syncCardTouchState(){
+    if(!mobile()){
+      document.body.classList.remove('topo-mobile-card-is-open');
+      return;
+    }
+    document.body.classList.toggle('topo-mobile-card-is-open',isOpen());
+  }
+  function observeCard(){
+    const b=info();
+    if(!b||b.dataset.topoV99Observed==='1')return;
+    b.dataset.topoV99Observed='1';
+    new MutationObserver(syncCardTouchState).observe(b,{attributes:true,attributeFilter:['style','class','aria-hidden']});
+    syncCardTouchState();
   }
 
-  async function openProfile109(forceOpen=false){
-    const p=$('profile-panel');
-    if(!p) return;
-    if(!forceOpen && p.classList.contains('open')){
-      closeProfile109();
-      return;
+  /* Resolve an element under the finger by geometry as a fallback for Android browsers
+     that report a sibling overlay as event.target. */
+  function pointOf(e){
+    const p=e.touches?.[0]||e.changedTouches?.[0]||e;
+    return {x:Number(p?.clientX),y:Number(p?.clientY)};
+  }
+  function hit(e,el){
+    if(!el)return false;
+    const {x,y}=pointOf(e),r=el.getBoundingClientRect();
+    return Number.isFinite(x)&&Number.isFinite(y)&&x>=r.left&&x<=r.right&&y>=r.top&&y<=r.bottom;
+  }
+  function hitTarget(e, selectors){
+    const t=e.target?.closest?.(selectors);
+    if(t)return t;
+    for(const sel of selectors.split(',')){
+      const el=$(sel.trim().replace(/^#/,'') ) || document.querySelector(sel.trim());
+      if(el&&hit(e,el))return el;
     }
-    $('m-settings')?.classList.remove('open');
-    $('notifications-popover')?.classList.remove('open');
-    $('notifications-popover')?.setAttribute('aria-hidden','true');
-    $('super-quiz-overlay')?.classList.remove('open');
-    $('leaderboard-panel')?.classList.remove('open');
+    return null;
+  }
+  function recent(){
+    const now=Date.now();
+    if(now-lastAction<550)return true;
+    lastAction=now;return false;
+  }
 
-    let user=window.topoCurrentUser||window.currentUser||null;
-    if(!user && window.supabaseClient?.auth?.getUser){
-      try{
-        const r=await window.supabaseClient.auth.getUser();
-        user=r?.data?.user||null;
-        if(user) window.topoCurrentUser=user;
-      }catch(_){ }
-    }
-    if(!user){
-      if(typeof window.openAuthModal==='function') window.openAuthModal('Чтобы открыть личный профиль, войди или зарегистрируйся.','login');
-      return;
-    }
-
+  function logout(e){
+    if(!mobile())return false;
+    const el=hitTarget(e,'#profile-panel #profile-logout-btn,#auth-logout-btn');
+    if(!el)return false;
+    e.preventDefault();e.stopImmediatePropagation();
+    if(recent())return true;
     try{
-      if(typeof legacyOpenProfile==='function') await legacyOpenProfile.call(window);
-    }catch(err){
-      console.warn('v109 legacy profile open:',err);
-    }
-
-    /* Legacy code can leave v65 inline-hidden styles behind. Always clear them. */
-    p.classList.add('open');
-    p.classList.remove('public-profile-mode');
-    p.style.setProperty('right', mobile() ? '0' : '0','important');
-    p.style.setProperty('left', mobile() ? '0' : 'auto','important');
-    p.style.setProperty('transform','translate3d(0,0,0)','important');
-    p.style.setProperty('opacity','1','important');
-    p.style.setProperty('visibility','visible','important');
-    p.style.setProperty('pointer-events','auto','important');
-    p.setAttribute('aria-hidden','false');
+      if(typeof window.signOutTopo==='function')window.signOutTopo();
+      else window.supabaseClient?.auth?.signOut?.();
+    }catch(err){console.error('v99 logout mobile',err)}
+    return true;
   }
 
-  window.openProfilePanel = openProfile109;
-  window.closeProfilePanel = closeProfile109;
-  window.hardOpenProfile65 = ()=>openProfile109(true);
-  window.hardCloseProfile65 = closeProfile109;
+  /* Touch/pointer first; click is only the compatibility fallback. */
+  /* Only logout remains mobile-routed here. Pro/review/profile use native handlers. */
+  function route(e){
+    if(!mobile())return;
+    if(logout(e))return;
+  }
+  ['touchend','pointerup','click'].forEach(type=>document.addEventListener(type,route,{capture:true,passive:false}));
 
-  /* Capture close/open profile controls before old document delegates. */
-  function profileControl109(e){
-    const close=e.target?.closest?.('#close-profile-panel');
-    if(close){
+  function boot(){observeCard();syncCardTouchState();}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
+  window.addEventListener('load',boot,{once:false});
+  window.addEventListener('resize',syncCardTouchState);
+})();
+</script>
+<!-- ================== END TOPO v99 ================== -->
+
+
+<!-- ================== TOPO v100: MOBILE TOUCH / PRO / PROFILE / REVIEW / LEADERBOARD ================== -->
+<style id="topo-v100-mobile-fix">
+@media screen and (max-width:768px){
+  /* 1) Object card: +40px height, full touch surface, always above map layers. */
+  #info-box{
+    position:fixed!important;
+    height:calc(45vh + 110px)!important;
+    max-height:calc(100dvh - 28px)!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+    -webkit-overflow-scrolling:touch!important;
+    touch-action:pan-y!important;
+    pointer-events:auto!important;
+    z-index:2147483000!important;
+    isolation:isolate!important;
+  }
+  #info-box *{max-width:100%;}
+  #info-box .sidebar-quiz-container,
+  #info-box #topo32-reviews-root,
+  #info-box #quiz-container,
+  #info-box #side-quiz-q-screen,
+  #info-box #side-quiz-res-screen,
+  #info-box #side-quiz-options-container,
+  #info-box #topo39-answers,
+  #info-box #topo32-review-compose{
+    pointer-events:auto!important;
+    touch-action:pan-y!important;
+  }
+  #info-box button,#info-box a{touch-action:manipulation!important;}
+  #info-box textarea{touch-action:auto!important;user-select:text!important;-webkit-user-select:text!important;}
+
+  /* Card controls get their entire rectangle as the hit area. */
+  #info-box #topo39-start,
+  #info-box #topo39-next,
+  #info-box #side-quiz-next-btn,
+  #info-box #topo32-review-submit,
+  #info-box #toggle-text-btn,
+  #info-box .topo32-review-auth-actions button,
+  #info-box .topo39-answer{
+    width:100%!important;
+    min-width:100%!important;
+    box-sizing:border-box!important;
+    pointer-events:auto!important;
+    touch-action:manipulation!important;
+    position:relative!important;
+    z-index:10!important;
+  }
+  #info-box #topo32-review-input{
+    width:100%!important;
+    min-width:100%!important;
+    max-width:100%!important;
+    min-height:96px!important;
+    box-sizing:border-box!important;
+    pointer-events:auto!important;
+    position:relative!important;
+    z-index:10!important;
+  }
+
+  /* Transparent visual layers are disabled; no black gradient/halo over the work area. */
+  #m-mobile-bottom-nav,
+  #m-mobile-bottom-nav::before,
+  #m-mobile-bottom-nav::after,
+  #m-zoom-controls,
+  #m-zoom-controls::before,
+  #m-zoom-controls::after,
+  #map-canvas::before,
+  #map-canvas::after,
+  #info-box::before,
+  #info-box::after{
+    box-shadow:none!important;
+  }
+  #m-mobile-bottom-nav::before,#m-mobile-bottom-nav::after,
+  #m-zoom-controls::before,#m-zoom-controls::after,
+  #map-canvas::before,#map-canvas::after,
+  #info-box::before,#info-box::after{background-image:none!important;}
+  #m-mobile-bottom-nav{bottom:4px!important;}
+
+  /* When the object sheet is open, the bottom bar is visual only so the lower card
+     remains scrollable under the same finger. */
+  body.topo-mobile-object-open #m-mobile-bottom-nav{pointer-events:none!important;}
+
+  /* Full mobile leaderboard scroll: the 21st+ rows are reachable and not clipped. */
+  #leaderboard-panel{
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+    -webkit-overflow-scrolling:touch!important;
+    touch-action:pan-y!important;
+    max-height:100dvh!important;
+  }
+  #district-leaderboard-container,#player-leaderboard-container{
+    overflow:visible!important;
+    max-height:none!important;
+  }
+  #leaderboard-panel{padding-bottom:90px!important;box-sizing:border-box!important;}
+  #player-leaderboard-body,#leaderboard-body{overflow:visible!important;}
+
+  /* Profile and comparison modal own their complete mobile hit surfaces. */
+  #profile-panel{pointer-events:auto!important;z-index:2147482500!important;}
+  #profile-panel.open{pointer-events:auto!important;}
+  #profile-panel button,#profile-panel a,#profile-panel input,#profile-panel textarea{pointer-events:auto!important;touch-action:manipulation!important;}
+  #profile-panel #profile-payment-btn,#profile-panel #profile-logout-btn{width:100%!important;min-height:44px!important;}
+  #topo-pro-modal{z-index:2147483600!important;}
+  #topo-pro-modal.open{pointer-events:auto!important;touch-action:pan-y!important;}
+  #topo-pro-modal .topo-pro-dialog{pointer-events:auto!important;touch-action:pan-y!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch!important;}
+  #topo-pro-modal button{pointer-events:auto!important;touch-action:manipulation!important;}
+}
+</style>
+
+<script id="topo-v100-mobile-fix-runtime">
+(function(){
+  'use strict';
+  const mobile=()=>{try{return window.matchMedia('(max-width:768px)').matches}catch(_){return false}};
+  const $=id=>document.getElementById(id);
+  let shield=null, observed=false, lastAction=0;
+
+  function infoOpen(){
+    const b=$('info-box');
+    return !!(mobile()&&b&&getComputedStyle(b).display!=='none'&&b.getAttribute('aria-hidden')!=='true');
+  }
+  function rectHit(e,el){
+    if(!el)return false;
+    const p=e.touches?.[0]||e.changedTouches?.[0]||e;
+    const x=Number(p?.clientX),y=Number(p?.clientY),r=el.getBoundingClientRect();
+    return Number.isFinite(x)&&Number.isFinite(y)&&x>=r.left&&x<=r.right&&y>=r.top&&y<=r.bottom;
+  }
+  function targetHit(e,selectors){
+    const direct=e.target?.closest?.(selectors); if(direct)return direct;
+    for(const sel of selectors.split(',')){
+      let el=null; try{el=document.querySelector(sel.trim())}catch(_){ }
+      if(el&&rectHit(e,el))return el;
+    }
+    return null;
+  }
+  function throttleAction(){
+    const n=Date.now();
+    if(n-lastAction<500)return true;
+    lastAction=n;return false;
+  }
+
+  /* ----------------------------------------------------------
+     CARD SHIELD
+     Transparent layer is UNDER #info-box and ABOVE the map.
+     It eats outside taps while the card is open, but never blocks
+     the card's own touch/scroll surface.
+  ---------------------------------------------------------- */
+  function ensureShield(){
+    if(!mobile())return null;
+    if(shield&&shield.isConnected)return shield;
+    shield=document.createElement('div');
+    shield.id='topo-mobile-card-shield-v100';
+    shield.setAttribute('aria-hidden','true');
+    shield.style.cssText='position:fixed;inset:0;background:transparent;pointer-events:none;touch-action:none;z-index:2147482000;';
+    document.body.appendChild(shield);
+    return shield;
+  }
+  function syncShield(){
+    if(!mobile()){
+      if(shield)shield.style.pointerEvents='none';
+      document.body.classList.remove('topo-mobile-object-open');
+      return;
+    }
+    const on=infoOpen();
+    const s=ensureShield();
+    if(s)s.style.pointerEvents=on?'auto':'none';
+    document.body.classList.toggle('topo-mobile-object-open',on);
+  }
+  function watchInfo(){
+    const b=$('info-box');
+    if(!b||observed)return;
+    observed=true;
+    new MutationObserver(syncShield).observe(b,{attributes:true,attributeFilter:['style','class','aria-hidden']});
+    syncShield();
+  }
+
+  /* ----------------------------------------------------------
+     HARD RULE: while card is open, map can never close/switch it.
+     Only the dedicated X is allowed to continue to legacy close code.
+  ---------------------------------------------------------- */
+  function blockMapWhileCardOpen(e){
+    if(!infoOpen())return;
+    const b=$('info-box');
+    const x=b?.querySelector('.topo-mobile-info-close');
+    if(x && targetHit(e,'.topo-mobile-info-close')) return; // X is allowed.
+    if(b?.contains(e.target)) return; // Card owns the event.
+    if(rectHit(e,b)){
       e.preventDefault();
       e.stopImmediatePropagation();
-      closeProfile109();
       return;
     }
-    const trigger=e.target?.closest?.('#profile-trigger,.profile-toggle-btn,#m-bottom-profile');
-    if(!trigger) return;
     e.preventDefault();
     e.stopImmediatePropagation();
-    openProfile109(false);
-  }
-  window.addEventListener('pointerup',profileControl109,{capture:true,passive:false});
-  window.addEventListener('click',profileControl109,{capture:true,passive:false});
-
-  /* ------------------------------------------------------------
-     3) ONE PRO COMPARISON MODAL FOR EVERY CTA
-  ------------------------------------------------------------ */
-  function removeDuplicateProModal109(){
-    document.querySelectorAll('#pro-comparison-modal').forEach(n=>n.remove());
   }
 
-  async function createYookassaLink109(){
-    if(typeof window.createPayment==='function'){
-      return window.createPayment();
-    }
-    const client=window.supabaseClient;
-    const user=window.topoCurrentUser;
-    if(!user){
-      window.openAuthModal?.('Сначала войди в аккаунт.','login');
-      return;
-    }
-    if(!client) throw new Error('Supabase-клиент недоступен.');
-    const price=Number(window.TOPO_PAYMENT_CONFIG?.price||199);
-    let result=null;
-    const inv=await client.functions.invoke('create-invoice',{body:{price}});
-    if(!inv.error) result=inv.data;
-    if(!result?.payment_url){
-      const session=await client.auth.getSession();
-      const token=session?.data?.session?.access_token;
-      if(!token) throw new Error('Сессия истекла. Войди в аккаунт ещё раз.');
-      const endpoint=window.TOPO_PAYMENT_CONFIG?.createInvoiceEndpoint||'https://fcsdnvpmdvguxrwxrrus.supabase.co/functions/v1/create-invoice';
-      const response=await fetch(endpoint,{
-        method:'POST',
-        headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
-        body:JSON.stringify({price})
-      });
-      const raw=await response.text();
-      try{result=JSON.parse(raw)}catch(_){result=null}
-      if(!response.ok) throw new Error(result?.error||'ЮKassa не создала счёт.');
-    }
-    if(!result?.payment_url) throw new Error('Edge Function не вернула payment_url.');
-    window.location.assign(result.payment_url);
-    return result.payment_url;
+  /* ----------------------------------------------------------
+     REVIEW SUBMIT / INPUT
+     Use non-bubbling synthetic click so old document capture
+     handlers cannot cancel the real button's own listener.
+  ---------------------------------------------------------- */
+  function directButtonClick(btn){
+    if(!btn)return;
+    try{btn.dispatchEvent(new MouseEvent('click',{bubbles:false,cancelable:true,view:window}))}
+    catch(_){try{btn.click()}catch(__){}}
   }
-  window.topoCreateYookassaLink109=createYookassaLink109;
-
-  function ensureUnifiedProModal109(){
-    removeDuplicateProModal109();
-    let modal=$('topo-pro-modal');
-    if(!modal && typeof window.ensureProModal==='function'){
-      try{window.ensureProModal()}catch(err){console.warn('v109 ensureProModal:',err)}
-      modal=$('topo-pro-modal');
-    }
-    if(!modal){
-      modal=document.createElement('div');
-      modal.id='topo-pro-modal';
-      modal.className='topo-pro-modal';
-      modal.innerHTML=`
-        <div class="topo-pro-dialog" role="dialog" aria-modal="true" aria-labelledby="topo-pro-title">
-          <button type="button" class="topo-pro-close" id="topo-pro-close" aria-label="Закрыть">✕</button>
-          <div class="topo-pro-head">
-            <h3 id="topo-pro-title">Топорайоны Pro 🚀</h3>
-            <p>Полный доступ к игровым возможностям Топорайонов.</p>
-          </div>
-          <div class="topo-pro-columns">
-            <div class="topo-pro-plan"><h4>Бесплатный план</h4><div class="price">0 ₽</div><ul><li>🗺️ Полная интерактивная карта</li><li>🎯 Обычные квизы</li><li>🔁 Базовые попытки</li></ul></div>
-            <div class="topo-pro-plan pro"><h4>Топорайоны Pro</h4><div class="price">199 ₽</div><ul><li>🏆 Личный рейтинг</li><li>⚡ Супер квиз без дневного лимита</li><li>🔓 Все награды</li><li>➕ Дополнительные прохождения</li></ul><button type="button" class="topo-pro-cta" id="topo-pro-buy">Перейти на Топорайоны Pro — 199 ₽</button></div>
-          </div>
-          <div class="topo-pro-note">Единоразовый платёж. После нажатия откроется безопасная оплата через ЮKassa.</div>
-        </div>`;
-      document.body.appendChild(modal);
-    }
-
-    modal.style.setProperty('z-index','2147483000','important');
-    modal.setAttribute('aria-hidden','true');
-
-    const oldClose=modal.querySelector('#topo-pro-close');
-    if(oldClose){
-      const close=oldClose.cloneNode(true);
-      close.id='topo-pro-close';
-      oldClose.replaceWith(close);
-      close.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();modal.classList.remove('open');modal.setAttribute('aria-hidden','true')});
-    }
-
-    const oldBuy=modal.querySelector('#topo-pro-buy');
-    if(oldBuy){
-      const buy=oldBuy.cloneNode(true);
-      buy.id='topo-pro-buy';
-      buy.disabled=false;
-      oldBuy.replaceWith(buy);
-      buy.addEventListener('click',async e=>{
-        e.preventDefault();
-        e.stopPropagation();
-        e.stopImmediatePropagation();
-        buy.disabled=true;
-        const original=buy.textContent||'Перейти на Топорайоны Pro — 199 ₽';
-        buy.textContent='Создаём оплату…';
-        const note=modal.querySelector('.topo-pro-note');
-        try{
-          if(note) note.textContent='Создаём персональный счёт…';
-          await createYookassaLink109();
-        }catch(err){
-          console.error('v109 YooKassa:',err);
-          buy.disabled=false;
-          buy.textContent=original;
-          if(note) note.textContent=err?.message||'Не удалось создать оплату.';
-        }
-      });
-    }
-
-    if(!modal.dataset.v109Backdrop){
-      modal.dataset.v109Backdrop='1';
-      modal.addEventListener('click',e=>{
-        if(e.target===modal){
-          e.preventDefault();
-          e.stopPropagation();
-          modal.classList.remove('open');
-          modal.setAttribute('aria-hidden','true');
-        }
-      });
-    }
-    return modal;
+  function reviewInput(e){
+    if(!infoOpen())return false;
+    const el=targetHit(e,'#info-box #topo32-review-input');
+    if(!el)return false;
+    e.preventDefault();e.stopImmediatePropagation();
+    requestAnimationFrame(()=>{try{el.focus({preventScroll:true})}catch(_){try{el.focus()}catch(__){}}});
+    return true;
+  }
+  function reviewSubmit(e){
+    if(!infoOpen())return false;
+    const el=targetHit(e,'#info-box #topo32-review-submit');
+    if(!el)return false;
+    e.preventDefault();e.stopImmediatePropagation();
+    if(!throttleAction())directButtonClick(el);
+    return true;
   }
 
-  function openProModal109(){
-    const modal=ensureUnifiedProModal109();
-    if(!modal) return;
-    /* Close competing overlays so only one payment surface is active. */
-    $('auth-modal')?.classList.remove('active');
-    $('profile-panel')?.classList.remove('open');
-    $('profile-panel')?.setAttribute('aria-hidden','true');
-    $('leaderboard-panel')?.classList.remove('open');
-    modal.classList.add('open');
-    modal.setAttribute('aria-hidden','false');
+  /* ----------------------------------------------------------
+     PRO: every mobile CTA opens the existing comparison modal.
+     The actual "buy" button inside the modal remains payment.
+  ---------------------------------------------------------- */
+  function openProComparison(){
+    try{
+      if(typeof window.ensureProModal==='function')window.ensureProModal();
+    }catch(_){ }
+    const m=$('topo-pro-modal');
+    if(m){
+      m.classList.add('open');
+      m.setAttribute('aria-hidden','false');
+      return true;
+    }
+    try{if(typeof window.openProModal==='function'){window.openProModal();return true}}catch(_){ }
+    return false;
   }
-  window.openProModal=openProModal109;
-  window.topoOpenProModal109=openProModal109;
-
-  function isProTrigger109(el){
-    if(!el || el.closest?.('#topo-pro-modal')) return false;
-    if(window.topoPaidAccess && el.id==='profile-payment-btn') return false;
-    if(el.matches?.('#profile-payment-btn,#topo39-pro-cta,#topo39-final-pro,#topo-fix-pro,#topo-pro-buy,.topo37-pro-cta,.topo39-active-pro button,.profile-payment-btn,[data-action="open-pro-modal"]')) return true;
-    if(!(el.tagName==='BUTTON'||el.tagName==='A'||el.getAttribute?.('role')==='button')) return false;
-    const txt=String(el.innerText||el.textContent||'').replace(/\s+/g,' ').trim().toLowerCase();
-    return /(перейти\s+(на\s+)?(?:топорайоны\s+)?pro|открыть\s+pro|получить\s+pro|подключить\s+pro|оформить\s+pro)/i.test(txt);
+  function proTarget(e){
+    if(!mobile())return null;
+    const direct=e.target?.closest?.('button,a,[role="button"]');
+    if(direct && direct.closest('#topo-pro-modal')) return null;
+    if(direct){
+      const txt=String(direct.textContent||'').trim();
+      if(/топорайоны\s*pro|перейти\s*(к|на)?\s*pro|открыть\s*pro/i.test(txt))return direct;
+    }
+    const sels=['#profile-payment-btn','#topo39-pro-cta','#topo39-final-pro','#topo-fix-pro','.topo37-pro-cta','#topo39-active-pro button'];
+    return targetHit(e,sels);
   }
-
-  function proCapture109(e){
-    const el=e.target?.closest?.('button,a,[role="button"]');
-    if(!el || !isProTrigger109(el)) return;
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    openProModal109();
-  }
-  /* v111: legacy Pro capture disabled; one canonical handler is installed at document end. */
-
-  /* Remove any legacy duplicate comparison modal if a later legacy render creates it. */
-  function cleanDuplicatePro(){removeDuplicateProModal109()}
-  if(document.body){
-    const mo=new MutationObserver(cleanDuplicatePro);
-    mo.observe(document.body,{childList:true});
-    window.addEventListener('beforeunload',()=>mo.disconnect(),{once:true});
+  function routePro(e){
+    const el=proTarget(e); if(!el)return false;
+    e.preventDefault();e.stopImmediatePropagation();
+    if(throttleAction())return true;
+    openProComparison();
+    return true;
   }
 
-  /* ------------------------------------------------------------
-     4) BOOT + AUTH REFRESH + RESIZE
-  ------------------------------------------------------------ */
-  function boot109(){
-    runMobileAdaptation109();
+  /* ----------------------------------------------------------
+     PROFILE: second and subsequent taps must work just like the
+     first one. Use the actual global profile opener, not a proxy.
+  ---------------------------------------------------------- */
+  async function openProfileMobile(){
+    $('m-settings')?.classList.remove('open');
+    $('notifications-popover')?.classList.remove('open');
     const p=$('profile-panel');
-    if(p && !p.classList.contains('open')){
-      p.style.setProperty('pointer-events','none','important');
-      p.setAttribute('aria-hidden','true');
+    if(window.topoCurrentUser){
+      try{
+        if(typeof window.openProfilePanel==='function')await window.openProfilePanel();
+        else $('profile-trigger')?.dispatchEvent(new MouseEvent('click',{bubbles:false,cancelable:true,view:window}));
+      }catch(err){console.error('v100 profile open',err)}
+    }else{
+      try{window.openAuthModal?.('Чтобы открыть личный профиль, войди или зарегистрируйся.','login')}catch(_){ }
     }
-    ensureUnifiedProModal109();
+    if(window.topoCurrentUser && p)p.classList.add('open');
   }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot109,{once:true});
-  else boot109();
-  window.addEventListener('load',boot109);
-  window.addEventListener('resize',()=>setTimeout(runMobileAdaptation109,20));
-  window.supabaseClient?.auth?.onAuthStateChange?.(()=>setTimeout(boot109,150));
+  function profileTap(e){
+    if(!mobile())return false;
+    const el=targetHit(e,'#m-bottom-profile');
+    if(!el)return false;
+    e.preventDefault();e.stopImmediatePropagation();
+    if(throttleAction())return true;
+    openProfileMobile();
+    return true;
+  }
+
+  /* ----------------------------------------------------------
+     LEADERBOARD / ADMIN from burger: close settings first.
+  ---------------------------------------------------------- */
+  async function openRatingMobile(){
+    $('m-settings')?.classList.remove('open');
+    $('notifications-popover')?.classList.remove('open');
+    $('profile-panel')?.classList.remove('open');
+    const p=$('leaderboard-panel');
+    if(p){p.classList.add('open');p.setAttribute('aria-hidden','false');}
+    try{if(typeof window.switchRanking==='function')window.switchRanking('districts')}catch(_){ }
+    try{if(typeof window.fetchLeaderboard==='function')await window.fetchLeaderboard()}catch(_){ }
+  }
+  function ratingTap(e){
+    if(!mobile())return false;
+    const el=targetHit(e,'#m-settings #leaderboard-trigger');
+    if(!el)return false;
+    e.preventDefault();e.stopImmediatePropagation();
+    if(throttleAction())return true;
+    openRatingMobile();return true;
+  }
+  async function adminTap(e){
+    if(!mobile())return false;
+    const el=targetHit(e,'#m-settings #admin-trigger,#m-admin-slot #admin-trigger');
+    if(!el)return false;
+    e.preventDefault();e.stopImmediatePropagation();
+    if(throttleAction())return true;
+    $('m-settings')?.classList.remove('open');
+    $('notifications-popover')?.classList.remove('open');
+    try{
+      if(typeof window.openAdminMobile==='function')await window.openAdminMobile();
+      else{$('admin-panel')?.classList.add('open');$('admin-panel')?.setAttribute('aria-hidden','false');}
+    }catch(err){console.error('v100 admin mobile',err)}
+    return true;
+  }
+
+  /* ----------------------------------------------------------
+     PUBLIC PROFILE from player ranking and object reviews.
+  ---------------------------------------------------------- */
+  async function openPublic(uid,name){
+    if(!uid||typeof window.openPublicProfile!=='function')return;
+    $('m-settings')?.classList.remove('open');
+    $('leaderboard-panel')?.classList.remove('open');
+    $('info-box')?.style.setProperty('display','none','important');
+    $('info-box')?.setAttribute('aria-hidden','true');
+    document.querySelectorAll('svg .dimmed,svg .highlight').forEach(el=>el.classList.remove('dimmed','highlight'));
+    try{await window.openPublicProfile(uid,name||'Пользователь',null,0)}catch(err){console.error('v100 public profile',err)}
+  }
+  function publicProfileTap(e){
+    if(!mobile())return false;
+    let row=targetHit(e,'#player-leaderboard-body .player-profile-row[data-player-id]');
+    let review=targetHit(e,'#topo32-reviews-root .topo32-review-user[data-user-id]');
+    const el=row||review;
+    if(!el)return false;
+    const uid=el.getAttribute('data-player-id')||el.getAttribute('data-user-id')||'';
+    const name=el.getAttribute('data-user-name')||el.querySelector('.player-name-copy span')?.textContent||el.textContent||'Пользователь';
+    e.preventDefault();e.stopImmediatePropagation();
+    if(throttleAction())return true;
+    openPublic(uid,String(name).trim());
+    return true;
+  }
+
+  /* Native handlers for profile / reviews / Pro must receive their events. */
+  function route(e){
+    if(!mobile())return;
+    if(ratingTap(e))return;
+    if(adminTap(e))return;
+    if(publicProfileTap(e))return;
+    blockMapWhileCardOpen(e);
+  }
+
+  ['pointerdown','touchstart','pointerup','touchend','click'].forEach(type=>{
+    window.addEventListener(type,route,{capture:true,passive:false});
+  });
+
+  function boot(){ensureShield();watchInfo();syncShield();}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
+  window.addEventListener('load',boot,{once:false});
+  window.addEventListener('resize',syncShield);
+  setInterval(syncShield,700);
 })();
 </script>
-<!-- ================== END TOPO v109 STABLE MOBILE / PRO FLOW FIX ================== -->
+<!-- ================== END TOPO v100 ================== -->
 
 
-
+<!-- ================== TOPO v101: MOBILE NATIVE CONTROL ROUTING ================== -->
+<style id="topo-v101-mobile-native-controls">
+@media screen and (max-width:768px){
+  #m-bottom-profile,
+  #profile-trigger,
+  #profile-panel #profile-payment-btn,
+  #profile-panel #profile-logout-btn,
+  #info-box #topo32-review-submit,
+  #info-box #topo32-review-input,
+  #info-box .topo37-pro-cta,
+  #info-box #topo39-pro-cta,
+  #info-box #topo39-final-pro,
+  #info-box #topo-fix-pro,
+  #info-box #topo39-active-pro button,
+  #topo-pro-modal,
+  #topo-pro-modal button{
+    pointer-events:auto!important;
+  }
+  #m-bottom-profile,
+  #profile-trigger,
+  #profile-panel button,
+  #profile-panel a,
+  #topo32-review-submit,
+  #info-box .topo37-pro-cta,
+  #info-box #topo39-pro-cta,
+  #info-box #topo39-final-pro,
+  #info-box #topo-fix-pro,
+  #info-box #topo39-active-pro button,
+  #topo-pro-modal button{
+    touch-action:manipulation!important;
+  }
+  #topo32-review-input{
+    touch-action:auto!important;
+    user-select:text!important;
+    -webkit-user-select:text!important;
+  }
+}
 </style>
-<script id="topo-v112-micro-patch-runtime">
+<!-- ================== END TOPO v101 ================== -->
+
+<style id="topo-v102-mobile-final-controls">
+@media screen and (max-width:768px){
+  /* Full mobile hit surfaces for the controls fixed in this patch. */
+  #m-bottom-profile,
+  #m-bottom-notifications,
+  #info-box #topo32-review-submit,
+  #info-box #topo32-review-input,
+  #info-box .topo39-pro-cta,
+  #info-box #topo39-final-pro,
+  #info-box #topo-fix-pro,
+  #info-box #topo39-active-pro button,
+  #profile-panel #profile-payment-btn,
+  #profile-panel #profile-logout-btn{
+    pointer-events:auto!important;
+    position:relative!important;
+    box-sizing:border-box!important;
+    z-index:2147483601!important;
+  }
+  #m-bottom-profile,
+  #m-bottom-notifications,
+  #info-box #topo32-review-submit,
+  #info-box .topo39-pro-cta,
+  #info-box #topo39-final-pro,
+  #info-box #topo-fix-pro,
+  #info-box #topo39-active-pro button,
+  #profile-panel #profile-payment-btn,
+  #profile-panel #profile-logout-btn{
+    width:100%!important;
+    min-width:100%!important;
+    min-height:44px!important;
+    touch-action:manipulation!important;
+  }
+  #info-box #topo32-review-input{
+    width:100%!important;
+    min-width:100%!important;
+    min-height:96px!important;
+    touch-action:auto!important;
+    user-select:text!important;
+    -webkit-user-select:text!important;
+  }
+}
+</style>
+
+<style id="topo-v105-mobile-bottom-fill">
+@media screen and (max-width:768px){
+  /* Keep the panel content exactly where it is, but extend its black background
+     into the 4px space below. This does not change button positions. */
+  #m-mobile-bottom-nav{
+    background:#141414!important;
+    bottom:4px!important;
+  }
+  #m-mobile-bottom-nav::after{
+    content:""!important;
+    position:absolute!important;
+    left:0!important;
+    right:0!important;
+    bottom:-4px!important;
+    height:4px!important;
+    display:block!important;
+    background:#141414!important;
+    pointer-events:none!important;
+  }
+}
+</style>
+
+<script id="topo-v102-mobile-final-controls-runtime">
 (function(){
   'use strict';
-  if(window.__TOPO_V112_MICRO_PATCH__) return;
-  window.__TOPO_V112_MICRO_PATCH__=true;
+  const mobile=()=>{try{return window.matchMedia('(max-width:768px)').matches}catch(_){return false}};
+  const $=id=>document.getElementById(id);
+  let lastKey='',lastTs=0;
 
-  /* 2) Rewards CTA is the fourth entry point to the exact same comparison
-        popup used by profile + quiz question + quiz result. */
-  function openRewardsPro112(e){
-    const el=e.target?.closest?.('.topo32-reward-cta');
-    if(!el) return;
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    const open = window.topoOpenProModal111 || window.openProModal;
-    if(typeof open==='function') open();
+  function point(e){
+    const t=e.touches?.[0]||e.changedTouches?.[0]||e;
+    return {x:Number(t?.clientX),y:Number(t?.clientY)};
+  }
+  function inRect(e,el){
+    if(!el)return false;
+    if(el.contains?.(e.target))return true;
+    const {x,y}=point(e),r=el.getBoundingClientRect();
+    return Number.isFinite(x)&&Number.isFinite(y)&&x>=r.left&&x<=r.right&&y>=r.top&&y<=r.bottom;
+  }
+  function hit(e,selectors){
+    const direct=e.target?.closest?.(selectors);
+    if(direct)return direct;
+    for(const sel of selectors.split(',')){
+      const el=document.querySelector(sel.trim());
+      if(el&&inRect(e,el))return el;
+    }
+    return null;
+  }
+  function once(key){
+    const now=Date.now();
+    if(key===lastKey&&now-lastTs<500)return false;
+    lastKey=key;lastTs=now;return true;
+  }
+  function stop(e){e.preventDefault();e.stopImmediatePropagation();}
+
+  /* ---------------------------------------------------------
+     PRO: use the same global comparison modal as desktop.
+     No text/coordinate guessing beyond the actual CTA rectangles.
+  --------------------------------------------------------- */
+  function openPro(){
+    try{
+      if(typeof window.ensureProModal==='function')window.ensureProModal();
+      if(typeof window.openProModal==='function'){
+        window.openProModal();
+        return true;
+      }
+    }catch(err){console.error('v102 mobile Pro',err)}
+    const m=$('topo-pro-modal');
+    if(m){m.classList.add('open');m.setAttribute('aria-hidden','false');return true}
+    return false;
+  }
+  function proAction(e){
+    if(!mobile())return false;
+    const el=hit(e,'#profile-panel #profile-payment-btn,#info-box .topo37-pro-cta,#info-box #topo39-pro-cta,#info-box #topo39-final-pro,#info-box #topo-fix-pro,#info-box #topo39-active-pro button');
+    if(!el)return false;
+    stop(e);
+    if(once('pro:'+el.id+(el.className||'')))openPro();
+    return true;
   }
 
-  window.addEventListener('pointerup',openRewardsPro112,{capture:true,passive:false});
-  window.addEventListener('click',openRewardsPro112,{capture:true,passive:false});
+  /* ---------------------------------------------------------
+     REVIEWS: invoke the actual existing desktop submit function.
+     This bypasses event delegation/capture conflicts but uses the
+     exact same Supabase implementation as desktop.
+  --------------------------------------------------------- */
+  function reviewAction(e){
+    if(!mobile())return false;
+    const input=hit(e,'#info-box #topo32-review-input');
+    if(input){
+      stop(e);
+      requestAnimationFrame(()=>{try{input.focus({preventScroll:true})}catch(_){try{input.focus()}catch(__){}}});
+      return true;
+    }
+    const btn=hit(e,'#info-box #topo32-review-submit');
+    if(!btn)return false;
+    stop(e);
+    if(once('review:'+String(btn.id))){
+      const root=$('topo32-reviews-root');
+      const objectId=root?.dataset?.objectId||window.currentLocationId||'';
+      try{
+        if(typeof window.submitReview31==='function')window.submitReview31(objectId);
+        else btn.click();
+      }catch(err){console.error('v102 mobile review',err)}
+    }
+    return true;
+  }
+
+  /* ---------------------------------------------------------
+     PROFILE: always invoke the actual desktop profile opener.
+     This makes every subsequent tap work; no proxy toggling.
+  --------------------------------------------------------- */
+  async function profileAction(e){
+    if(!mobile())return false;
+    const el=hit(e,'#m-bottom-profile');
+    if(!el)return false;
+    stop(e);
+    if(!once('profile'))return true;
+    $('m-settings')?.classList.remove('open');
+    $('notifications-popover')?.classList.remove('open');
+    $('leaderboard-panel')?.classList.remove('open');
+    try{
+      if(typeof window.openProfilePanel==='function'){
+        await window.openProfilePanel();
+      }else{
+        const p=$('profile-panel');
+        if(p){p.classList.add('open');p.setAttribute('aria-hidden','false');}
+      }
+    }catch(err){console.error('v102 mobile profile',err)}
+    return true;
+  }
+
+  /* ---------------------------------------------------------
+     NOTIFICATIONS: invoke the real notification popover directly.
+     There is no dependency on the old proxy click.
+  --------------------------------------------------------- */
+  async function notificationsAction(e){
+    if(!mobile())return false;
+    const el=hit(e,'#m-bottom-notifications');
+    if(!el)return false;
+    stop(e);
+    if(!once('notifications'))return true;
+
+    /* Match the proven v90/v63 path: the mobile icon only invokes the
+       real notification button. Its existing handler opens notifications,
+       renders them, and does not involve the leaderboard. */
+    $('m-settings')?.classList.remove('open');
+    $('profile-panel')?.classList.remove('open');
+    $('leaderboard-panel')?.classList.remove('open');
+    $('admin-panel')?.classList.remove('open');
+
+    const real=$('notifications-trigger');
+    if(real){
+      try{ real.click(); }
+      catch(err){ console.error('v105 mobile notifications click',err); }
+    }else{
+      const pop=$('notifications-popover');
+      if(pop){
+        pop.classList.add('open');
+        pop.setAttribute('aria-hidden','false');
+        try{await window.renderNotifications?.()}catch(err){console.error('v105 mobile notifications fallback',err)}
+      }
+    }
+    return true;
+  }
+
+  function route(e){
+    if(!mobile())return;
+    if(profileAction(e))return;
+    if(notificationsAction(e))return;
+    if(proAction(e))return;
+    if(reviewAction(e))return;
+  }
+
+  /* touchend first for Android/Mi Browser; pointerup/click are compatibility fallbacks. */
+  window.addEventListener('touchend',route,{capture:true,passive:false});
+  window.addEventListener('pointerup',route,{capture:true,passive:false});
+  window.addEventListener('click',route,{capture:true,passive:false});
 })();
 </script>
-<!-- ================== END TOPO v112 MICRO PATCH ================== -->
+</html>
