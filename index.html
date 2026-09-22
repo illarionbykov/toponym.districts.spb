@@ -191540,6 +191540,10 @@ setTimeout(orderMobileSheet,100);setTimeout(orderMobileSheet,700);setTimeout(ord
     if(!open())return;
     const b=$('info-box');
     if(b.contains(e.target))return; // Native card target: do not interfere.
+    /* IMPORTANT: do not let the map/card touch shield eat touches meant for
+       other mobile UI layers. Android Chrome can suppress the follow-up
+       compatibility click when an earlier pointerdown is cancelled. */
+    if(e.target?.closest?.('#m-mobile-bottom-nav, #super-quiz-overlay, #profile-panel, #m-settings, #notifications-popover, #topo-pro-modal')) return;
     /* If the browser reports the map as the target although the finger is
        physically over the card, stop the leak. For the textarea, focus it. */
     const input=$('topo32-review-input');
